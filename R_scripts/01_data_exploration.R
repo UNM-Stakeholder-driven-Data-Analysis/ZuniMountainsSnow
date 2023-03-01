@@ -17,16 +17,27 @@ library(raster)
 library(rgdal)
 library(sf)
 library(terra)
+
 #### load data ####
 
 p034r035_TC_2015 <- rast("./data/GFCC30TC_2015/GFCC30TC_p034r035_TC_2015/p034r035_TC_2015.tif")
+p034r036_TC_2015 <- rast("./data/GFCC30TC_2015/GFCC30TC_p034r036_TC_2015/p034r036_TC_2015.tif")
+#TODO: once can download again try to find western edge of zunis
+#this one appears to be way far away
 p035r035_TC_2015 <- rast("./data/GFCC30TC_2015/GFCC30TC_p035r035_TC_2015/p035r035_TC_2015.tif")
-#p034r035_TC_2015
+#also appears to be way far away
+p035r036_TC_2015 <- rast("./data/GFCC30TC_2015/GFCC30TC_p035r036_TC_2015/p035r036_TC_2015.tif")
+
+p036r035_TC_2015 <- rast("./data/GFCC30TC_2015/GFCC30TC_p036r035_TC_2015/p036r035_TC_2015.tif")
+
+new <- merge(p035r035_TC_2015, p035r036_TC_2015)
+plot(new)
 
 
-plot(p034r035_TC_2015)
-plot(p035r035_TC_2015)
 
 # Load Puerco Project area shp file
-puerco_area <- st_read(dsn="./data/Puerco Project Area/puerco_Project-polygon.shp")
-plot(st_geometry(puerco_area))
+#puerco_area <- st_read(dsn="./data/Puerco Project Area/puerco_Project-polygon.shp")
+puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
+puerco_area_spat <- terra::project(puerco_area_spat, "EPSG:32612")
+
+puerco_area_raster = terra::rasterize(puerco_area_spat, new)
