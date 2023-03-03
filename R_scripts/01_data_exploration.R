@@ -19,6 +19,9 @@ library(raster)
 library(rgdal)
 library(sf)
 library(terra)
+library(rasterVis)
+library(sp)
+library(gridExtra)
 
 
 #### functions ####
@@ -40,11 +43,16 @@ MergedRaster <- function(year){
   return(merge(p035r035, p035r036))
 }
 
-PlotStudy <- function(treeCover, projectArea, year){
-
-  plot(treeCover)
-  plot(projectArea, add=TRUE, alpha=0.35)
-  title("Project Area and Tree Cover", toString(year))
+PlotStudy <- function(treeCover, year, maxPercent){
+  
+  p <- levelplot(treeCover, 
+            at=seq(0, maxPercent),
+            main=toString(year),
+            xlab='UTM meters',
+            ylab='UTM meters',
+            margin=FALSE,
+            colorKey=list(title="Percent Tree Cover"))
+  return(p)
   
 }
 
@@ -70,13 +78,12 @@ ProcessData <- function(treeCoverRaw, projectArea){
   # remove non tree cover pixels
   zm_cover <- OnlyTreeCover(zm_cover)
   
+  # remove tree cover pixels outside the project area
+  zm_cover <- terra::mask(zm_cover, projectArea)
+  
   return(zm_cover)
   
 }
-
-
-
-
 
 #### load data ####
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
@@ -108,10 +115,21 @@ zm_c_2005 <- ProcessData(tc2005, puerco_area_raster)
 zm_c_2000 <- ProcessData(tc2000, puerco_area_raster)
 #TODO: verifiy only contains 0-100 value now
 
+# get max percent value for all
+all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+minMaxAll <- minmax(all)
+maxPercent <- max(minMaxAll[2,])
+
 
 #### Visualize ####
+#plot options: default r (plot), ggplot, rasterVis
 #TODO: make color scale bars consistent for comparison
-PlotStudy(zm_c_2015, puerco_area_raster, 2015)
-PlotStudy(zm_c_2010, puerco_area_raster, 2010)
-PlotStudy(zm_c_2005, puerco_area_raster, 2005)
-PlotStudy(zm_c_2000, puerco_area_raster, 2000)
+p1 <- PlotStudy(zm_c_2015, 2015, maxPercent)
+p2 <- PlotStudy(zm_c_2010, 2010, maxPercent)
+p3 <- PlotStudy(zm_c_2005, 2005, maxPercent)
+p4 <- PlotStudy(zm_c_2000, 2000, maxPercent)
+
+grid.arrange(p1, p2, p3, p4, 
+             ncol=2,
+             top="Percent Tree Cover for the Puerco Project Area")
+
