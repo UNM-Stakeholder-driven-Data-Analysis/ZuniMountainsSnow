@@ -22,6 +22,11 @@ library(terra)
 library(rasterVis)
 library(sp)
 library(gridExtra)
+library(grid)
+library(ggplot2)
+library(comprehenr)
+#load the diver0 function which sets colors to divergin from 0
+devtools::source_gist('306e4b7e69c87b1826db')
 
 
 #### functions ####
@@ -86,7 +91,10 @@ ProcessData <- function(treeCoverRaw, projectArea){
 }
 
 #### load data ####
+#TODO: get .gdb file loaded of SW USFS Activities
+
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
+
 
 tc2015 <- MergedRaster(2015)
 tc2010 <- MergedRaster(2010)
@@ -129,7 +137,80 @@ p2 <- PlotStudy(zm_c_2010, 2010, maxPercent)
 p3 <- PlotStudy(zm_c_2005, 2005, maxPercent)
 p4 <- PlotStudy(zm_c_2000, 2000, maxPercent)
 
+
+jpeg("percentTreeCover.jpeg", height = 1024 * 0.707, width = 1024)  #0.707 is a convenient aspect.ratio
+grid.arrange(p1, p2, p3, p4, 
+                         ncol=2,
+                         top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+dev.off()
+
+
+# Histograms
+RelFreq <- function(rasterData){
+  h <- as.data.frame(terra::freq(rasterData))
+  numPix = sum(h$count)
+  return(mutate(h, relFreq=count/numPix))
+  
+  
+}
+
+
+freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
+freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
+freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
+freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
+freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
+
+
+
+p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(year))) + geom_col( position=position_dodge2(10))
+p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Precent Cover Values, 2000-2015")
+print(p1)
+
+HistYear <- function(freqAll, yr){
+  p1 <- ggplot(data=filter(freqAll, year==yr), aes(factor(value), relFreq)) + geom_col( position=position_dodge2(10))
+  p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title =toString(yr))
+  return(p1)
+}
+
+
+p1 <- HistYear(freqAll, 2015)
+p2 <- HistYear(freqAll, 2010)
+p3 <- HistYear(freqAll, 2005)
+p4 <- HistYear(freqAll, 2000)
+
 grid.arrange(p1, p2, p3, p4, 
              ncol=2,
-             top="Percent Tree Cover for the Puerco Project Area")
+             top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+
+##### Autocorrelation test #####
+#TODO: figure out how to iterate over layered spatRaster
+#zm_c_yrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+#autoCor <- to_list(for(yr in zm_c_yrs) terra::autocor(yr, global=FALSE))
+#AutoCor <- function(zm_yrs){
+#}
+
+autocor_2015 <- terra::autocor(zm_c_2015, global=FALSE)
+autocor_2010 <- terra::autocor(zm_c_2010, global=FALSE)
+autocor_2005 <- terra::autocor(zm_c_2005, global=FALSE)
+autocor_2000 <- terra::autocor(zm_c_2000, global=FALSE)
+
+DivergePlot <- function(rasterData, year){
+  p <- levelplot(rasterData,
+                 margin=FALSE,
+                 main=toString(year))
+  p <- diverge0(p, 'RdBu')
+  return(p)
+  
+  
+}
+
+p1 <- DivergePlot(autocor_2000, 2000)
+p2 <- DivergePlot(autocor_2005, 2005)
+p3 <- DivergePlot(autocor_2010, 2010)
+p4 <- DivergePlot(autocor_2015, 2015)
+
+grid.arrange(p1, p2, p3, p4, 
+             ncol=2,
+             top=textGrob("Local AutoCorrelation For Percent Tree Cover", gp=gpar(fontsize=25)))
 
