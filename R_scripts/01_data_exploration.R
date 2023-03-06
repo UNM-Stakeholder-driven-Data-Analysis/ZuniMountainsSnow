@@ -18,6 +18,7 @@ library(raster)
 # https://github.com/r-spatial/evolution
 library(rgdal)
 library(sf)
+library(raster)
 library(terra)
 library(rasterVis)
 library(sp)
@@ -144,6 +145,25 @@ grid.arrange(p1, p2, p3, p4,
                          top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
 dev.off()
 
+# Density plots
+#TODO: would be better to extract percent cover as 1d list and use ggplot's
+#geom_density() function to have greater control over aesthetics
+allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
+allYrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+rasterVis::densityplot(allYrsRaster,
+                       xlab='Percent Cover', 
+                       ylab='Density', 
+                       main='Kernel Density Plot for Percent Cover in the Puerco Project Area, 2000-2015',
+                       draw.labels = FALSE,
+                       lwd = 2)
+                       #auto.key = list(space = c("right", "left", "left")))
+
+#another way to show a kernel density plot:
+density(allYrs)
+density(zm_c_2010)
+density(zm_c_2005)
+density(zm_c_2000)
+
 
 # Histograms
 RelFreq <- function(rasterData){
@@ -154,14 +174,11 @@ RelFreq <- function(rasterData){
   
 }
 
-
 freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
 freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
 freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
 freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
 freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
-
-
 
 p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(year))) + geom_col( position=position_dodge2(10))
 p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Precent Cover Values, 2000-2015")
@@ -205,12 +222,12 @@ DivergePlot <- function(rasterData, year){
   
 }
 
-p1 <- DivergePlot(autocor_2000, 2000)
-p2 <- DivergePlot(autocor_2005, 2005)
-p3 <- DivergePlot(autocor_2010, 2010)
-p4 <- DivergePlot(autocor_2015, 2015)
+p4 <- DivergePlot(autocor_2000, 2000)
+p3 <- DivergePlot(autocor_2005, 2005)
+p2 <- DivergePlot(autocor_2010, 2010)
+p1 <- DivergePlot(autocor_2015, 2015)
 
 grid.arrange(p1, p2, p3, p4, 
              ncol=2,
-             top=textGrob("Local AutoCorrelation For Percent Tree Cover", gp=gpar(fontsize=25)))
+             top=textGrob("Local Autocorrelation For Percent Tree Cover", gp=gpar(fontsize=25)))
 
