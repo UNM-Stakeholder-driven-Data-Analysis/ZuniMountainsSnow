@@ -46,7 +46,10 @@ MergedRaster <- function(year){
   p035r035 <- rast(YearFile(year, "035", "035"))
   p035r036 <- rast(YearFile(year, "035", "036"))
   
-  return(merge(p035r035, p035r036))
+  final <- merge(p035r035, p035r036)
+  time(final) <- year
+  #set.names(final, year)
+  return(final)
 }
 
 PlotStudy <- function(treeCover, year, maxPercent){
@@ -149,7 +152,6 @@ dev.off()
 #TODO: would be better to extract percent cover as 1d list and use ggplot's
 #geom_density() function to have greater control over aesthetics
 allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
-allYrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 rasterVis::densityplot(allYrsRaster,
                        xlab='Percent Cover', 
                        ylab='Density', 
@@ -159,10 +161,11 @@ rasterVis::densityplot(allYrsRaster,
                        #auto.key = list(space = c("right", "left", "left")))
 
 #another way to show a kernel density plot:
-density(allYrs)
-density(zm_c_2010)
-density(zm_c_2005)
-density(zm_c_2000)
+#allYrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+#density(allYrs)
+#density(zm_c_2010)
+#density(zm_c_2005)
+#density(zm_c_2000)
 
 
 # Histograms
@@ -206,6 +209,23 @@ grid.arrange(p1, p2, p3, p4,
 #autoCor <- to_list(for(yr in zm_c_yrs) terra::autocor(yr, global=FALSE))
 #AutoCor <- function(zm_yrs){
 #}
+
+##Trying to applyt to all at once
+all_zm <- terra::sds(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+
+autocor_all <- terra::sapp(all, terra::terrain)
+aa <- lapply(all, terra::autocor, global=FALSE)
+aa <- c(aa[[1]], aa[[2]], aa[[3]], aa[[4]])
+
+DivergePlot2 <- function(tc){
+  p <- levelplot(tc,
+                 margin=FALSE,)
+  p <- diverge0(p, 'RdBu')
+  return(p)
+  
+}
+DivergePlot2(aa)
+## 
 
 autocor_2015 <- terra::autocor(zm_c_2015, global=FALSE)
 autocor_2010 <- terra::autocor(zm_c_2010, global=FALSE)
