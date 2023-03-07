@@ -48,7 +48,7 @@ MergedRaster <- function(year){
   
   final <- merge(p035r035, p035r036)
   time(final) <- year
-  #set.names(final, year)
+  set.names(final, paste("yr", toString(year), sep=""))
   return(final)
 }
 
