@@ -29,6 +29,12 @@ library(comprehenr)
 #load the diver0 function which sets colors to divergin from 0
 devtools::source_gist('306e4b7e69c87b1826db')
 
+#### constants ####
+im.width = 1024
+aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
+queens = matrix(c(1,1,1,1,0,1,1,1,1),3)
+rooks = matrix(c(0,1,0,1,0,1,0,1,0),3)
+bishops = matrix(c(1,0,1,0,0,0,1,0,1),3)
 
 #### functions ####
 YearFile <- function(year, path, row){
@@ -142,7 +148,7 @@ p3 <- PlotStudy(zm_c_2005, 2005, maxPercent)
 p4 <- PlotStudy(zm_c_2000, 2000, maxPercent)
 
 
-jpeg("percentTreeCover.jpeg", height = 1024 * 0.707, width = 1024)  #0.707 is a convenient aspect.ratio
+jpeg("percentTreeCover.jpeg", height = 1024 * aspect.r, width = 1024)  
 grid.arrange(p1, p2, p3, p4, 
                          ncol=2,
                          top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
@@ -210,44 +216,43 @@ grid.arrange(p1, p2, p3, p4,
 #AutoCor <- function(zm_yrs){
 #}
 
-##Trying to applyt to all at once
-all_zm <- terra::sds(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
+q.ac.loc <- lapply(all, terra::autocor, w=queens, global=FALSE)
+#I know this is uggly but can't seem to get sapp to work
+q.ac.loc <- c(q.ac.loc[[1]], q.ac.loc[[2]], q.ac.loc[[3]], q.ac.loc[[4]])
+queens.ac.glob <- unlist(lapply(all, terra::autocor, w=queens, global=TRUE))
 
-autocor_all <- terra::sapp(all, terra::terrain)
-aa <- lapply(all, terra::autocor, global=FALSE)
-aa <- c(aa[[1]], aa[[2]], aa[[3]], aa[[4]])
+rooksAc <- lapply(all, terra::autocor, w=rooks, global=FALSE)
+rooksAc <- c(rooksAc[[1]], rooksAc[[2]], rooksAc[[3]], rooksAc[[4]])
+rooks.ac.glob <- unlist(lapply(all, terra::autocor, w=rooks, global=TRUE))
 
-DivergePlot2 <- function(tc){
+
+bishopsAc <- lapply(all, terra::autocor, w=bishops, global=FALSE)
+bishopsAc <- c(bishopsAc[[1]], bishopsAc[[2]], bishopsAc[[3]], bishopsAc[[4]])
+bishops.ac.glob <- unlist(lapply(all, terra::autocor, w=bishops, global=TRUE))
+
+comp.i.glob <- data.frame(bishops.ac.glob, queens.ac.glob, rooks.ac.glob)
+comp.i.glob
+
+
+DivergePlot <- function(tc, caseType){
   p <- levelplot(tc,
-                 margin=FALSE,)
-  p <- diverge0(p, 'RdBu')
-  return(p)
-  
-}
-DivergePlot2(aa)
-## 
-
-autocor_2015 <- terra::autocor(zm_c_2015, global=FALSE)
-autocor_2010 <- terra::autocor(zm_c_2010, global=FALSE)
-autocor_2005 <- terra::autocor(zm_c_2005, global=FALSE)
-autocor_2000 <- terra::autocor(zm_c_2000, global=FALSE)
-
-DivergePlot <- function(rasterData, year){
-  p <- levelplot(rasterData,
                  margin=FALSE,
-                 main=toString(year))
+                 main = paste("Local Spatial Autocorrelation", caseType))
   p <- diverge0(p, 'RdBu')
   return(p)
-  
-  
 }
 
-p4 <- DivergePlot(autocor_2000, 2000)
-p3 <- DivergePlot(autocor_2005, 2005)
-p2 <- DivergePlot(autocor_2010, 2010)
-p1 <- DivergePlot(autocor_2015, 2015)
 
-grid.arrange(p1, p2, p3, p4, 
-             ncol=2,
-             top=textGrob("Local Autocorrelation For Percent Tree Cover", gp=gpar(fontsize=25)))
+jpeg("./GeneratedPlots/autocor_queens.jpeg", height = im.width * aspect.r, width = im.width)
+DivergePlot(q.ac.loc, "Queen's Case")
+dev.off()
+
+jpeg("./GeneratedPlots/autocor_rooks.jpeg", height = im.width * aspect.r, width = im.width)
+DivergePlot(rooksAc, "Rook's Case")
+dev.off()
+
+jpeg("./GeneratedPlots/autocor_bishops.jpeg", height = im.width * aspect.r, width = im.width)
+DivergePlot(rooksAc, "Bishop's Case")
+dev.off()
+
 
