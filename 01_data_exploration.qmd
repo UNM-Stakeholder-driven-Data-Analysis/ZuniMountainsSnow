@@ -139,8 +139,16 @@ ProcessData <- function(treeCoverRaw, projectArea){
 }
 
 HistYear <- function(freqAll, yr){
-  p1 <- ggplot(data=filter(freqAll, year==yr), 
-               aes(factor(value), relFreq)) + geom_col( position=position_dodge2(10))
+  p1 <- ggplot(data=filter(freqAll, year==yr), aes(value, relFreq))
+  
+  p1 <- p1 + geom_col(width = 1.0)
+  p1 <- p1 + geom_point(mapping=aes(value,freq0), size=.75)
+  
+  p1 <- p1 + ylim(0,max(freqAll$relFreq))
+  #p1 <- p1 + xlim(0,max(freqAll$value))
+  p1 <- p1 + scale_x_continuous(breaks=seq(0,55,by=5),
+                                minor_breaks=0:53,
+                                limits=c(-1,max(freqAll$value)+1)) #limits seem to be not inclusive
   p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title =toString(yr))
   return(p1)
 }
@@ -229,13 +237,14 @@ plot(p)
 
 ```{r echo=FALSE}
 #| label: fig-hist
-#| fig-cap: "Relative Frequency of Percent Cover separated by year"
+#| fig-cap: "Relative Frequency of Percent Cover separated by year. Dots indicate that one pixel had that percent cover value"
 
 freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
 freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
 freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
 freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
 freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
+freqAll$freq0 <- ifelse(freqAll$count==1, 0, NA) #for plotting near 0 relFreq.
 
 p1 <- HistYear(freqAll, 2015)
 p2 <- HistYear(freqAll, 2010)
