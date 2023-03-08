@@ -62,19 +62,6 @@ MergedRaster <- function(year){
   return(final)
 }
 
-PlotStudy <- function(treeCover, year, maxPercent){
-  
-  p <- levelplot(treeCover, 
-            at=seq(0, maxPercent),
-            main=toString(year),
-            xlab='UTM meters',
-            ylab='UTM meters',
-            margin=FALSE,
-            colorKey=list(title="Percent Tree Cover"))
-  return(p)
-  
-}
-
 OnlyTreeCover <- function(treeCover){
   #From https://lpdaac.usgs.gov/documents/1371/GFCC_User_Guide_V1.pdf
   # 0-100: percent tree cover
@@ -148,18 +135,14 @@ maxPercent <- max(minMaxAll[2,])
 
 
 #### Visualize ####
-#plot options: default r (plot), ggplot, rasterVis
-#TODO: make color scale bars consistent for comparison
-p1 <- PlotStudy(zm_c_2015, 2015, maxPercent)
-p2 <- PlotStudy(zm_c_2010, 2010, maxPercent)
-p3 <- PlotStudy(zm_c_2005, 2005, maxPercent)
-p4 <- PlotStudy(zm_c_2000, 2000, maxPercent)
 
-
-jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)  
-grid.arrange(p1, p2, p3, p4, 
-                         ncol=2,
-                         top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
+levelplot(all, 
+               at=seq(0, maxPercent),
+               main="Percent Tree cover for the Puerco Project Area",
+               xlab='UTM meters',
+               ylab='UTM meters',
+               margin=FALSE)
 dev.off()
 
 # Density plots
@@ -217,7 +200,7 @@ jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspec
 grid.arrange(p1, p2, p3, p4, 
              ncol=2,
              top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
-
+dev.off()
 
 ##### Autocorrelation test #####
 #TODO: figure out how to iterate over layered spatRaster
