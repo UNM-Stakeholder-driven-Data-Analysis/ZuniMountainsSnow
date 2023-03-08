@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE GranuleMetaDataFile SYSTEM "http://ecsinfo.gsfc.nasa.gov/ECSInfo/ecsmetadata/dtds/DPL/ECS/ScienceGranuleMetadata.dtd">
+<GranuleMetaDataFile>
+    <DTDVersion>1.0</DTDVersion>
+    <DataCenterId>EDC</DataCenterId>
+    <GranuleURMetaData>
+        <GranuleUR>SC:GFCC30TC.003:2262276719</GranuleUR>
+        <DbID>2262276719</DbID>
+        <InsertTime>2017-06-20 11:04:15.090</InsertTime>
+        <LastUpdate>2017-06-20 11:04:15.090</LastUpdate>
+        <CollectionMetaData>
+            <ShortName>GFCC30TC</ShortName>
+            <VersionID>3</VersionID>
+        </CollectionMetaData>
+        <DataFiles>
+            <DataFileContainer>
+                <DistributedFileName>GFCC30TC_p035r036_TC_2000.zip</DistributedFileName>
+                <FileSize>44794908</FileSize>
+                <ChecksumType>CKSUM</ChecksumType>
+                <Checksum>2460220892</Checksum>
+                <ChecksumOrigin>DPLIngst</ChecksumOrigin>
+            </DataFileContainer>
+        </DataFiles>
+        <ECSDataGranule>
+            <SizeMBECSDataGranule>42.7198</SizeMBECSDataGranule>
+            <ReprocessingActual>reprocessed</ReprocessingActual>
+            <LocalGranuleID>GFCC30TC_p035r036_TC_2000.zip</LocalGranuleID>
+            <ProductionDateTime>2014-09-08 05:00:00</ProductionDateTime>
+            <LocalVersionID>3</LocalVersionID>
+        </ECSDataGranule>
+        <PGEVersionClass>
+            <PGEVersion>3.0</PGEVersion>
+        </PGEVersionClass>
+        <RangeDateTime>
+            <RangeEndingTime>23:59:59.000000</RangeEndingTime>
+            <RangeEndingDate>2000-12-31</RangeEndingDate>
+            <RangeBeginningTime>00:00:00.000000</RangeBeginningTime>
+            <RangeBeginningDate>2000-01-01</RangeBeginningDate>
+        </RangeDateTime>
+        <SpatialDomainContainer>
+            <HorizontalSpatialDomainContainer>
+                <GPolygon>
+                    <Boundary>
+                        <Point>
+                            <PointLongitude>-110.2747263</PointLongitude>
+                            <PointLatitude>35.5648260</PointLatitude>
+                        </Point>
+                        <Point>
+                            <PointLongitude>-107.8564297</PointLongitude>
+                            <PointLatitude>35.5260128</PointLatitude>
+                        </Point>
+                        <Point>
+                            <PointLongitude>-107.9263559</PointLongitude>
+                            <PointLatitude>33.6504148</PointLatitude>
+                        </Point>
+                        <Point>
+                            <PointLongitude>-110.2908891</PointLongitude>
+                            <PointLatitude>33.6866155</PointLatitude>
+                        </Point>
+                    </Boundary>
+                </GPolygon>
+            </HorizontalSpatialDomainContainer>
+        </SpatialDomainContainer>
+        <PSAs>
+            <PSA>
+                <PSAName>identifier_product_doi_authority</PSAName>
+                <PSAValue>http://dx.doi.org</PSAValue>
+            </PSA>
+            <PSA>
+                <PSAName>identifier_product_doi</PSAName>
+                <PSAValue>10.5067/MEaSUREs/GFCC/GFCC30TC.003</PSAValue>
+            </PSA>
+        </PSAs>
+        <BrowseProduct>
+            <BrowseGranuleId>UR:10:DsShESDTUR:UR:15:DsShSciServerUR:13:[EDC:DSSDSRV]:24:BR:Browse.001:2262276819</BrowseGranuleId>
+        </BrowseProduct>
+    </GranuleURMetaData>
+</GranuleMetaDataFile>
+
+
