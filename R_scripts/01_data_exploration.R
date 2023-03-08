@@ -18,6 +18,7 @@ library(raster)
 # https://github.com/r-spatial/evolution
 library(rgdal)
 library(sf)
+library(spdep)
 library(raster)
 library(terra)
 library(rasterVis)
@@ -163,7 +164,8 @@ p <- levelplot(diffs,
           xlab='UTM meters',
           ylab='UTM meters',
           margin=FALSE,
-          par.settings=list(panel.background=list(col="lightgrey")))
+          par.settings=list(panel.background=list(col="lightgrey"), 
+                            strip.background=list(col="white")))
 diverge0(p, 'PiYG')
 dev.off()
 
@@ -173,6 +175,7 @@ dev.off()
 #TODO: would be better to extract percent cover as 1d list and use ggplot's
 #geom_density() function to have greater control over aesthetics
 allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
+jpeg(file.path(imgFolder, "percentTreeCover_kernelDensity.jpeg"), height=im.width * aspect.r, width=im.width)
 rasterVis::densityplot(allYrsRaster,
                        xlab='Percent Cover', 
                        ylab='Density', 
@@ -180,6 +183,7 @@ rasterVis::densityplot(allYrsRaster,
                        draw.labels = FALSE,
                        lwd = 2)
                        #auto.key = list(space = c("right", "left", "left")))
+def.off()
 
 #another way to show a kernel density plot:
 #allYrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
@@ -242,6 +246,7 @@ rooksAc <- c(rooksAc[[1]], rooksAc[[2]], rooksAc[[3]], rooksAc[[4]])
 rooks.ac.glob <- unlist(lapply(all, terra::autocor, w=rooks, global=TRUE))
 
 
+
 bishopsAc <- lapply(all, terra::autocor, w=bishops, global=FALSE)
 bishopsAc <- c(bishopsAc[[1]], bishopsAc[[2]], bishopsAc[[3]], bishopsAc[[4]])
 bishops.ac.glob <- unlist(lapply(all, terra::autocor, w=bishops, global=TRUE))
@@ -255,7 +260,9 @@ write.csv(comp.i.glob, file.path(imgFolder, "moransIglobal_compare.csv"), row.na
 DivergePlot <- function(tc, caseType){
   p <- levelplot(tc,
                  margin=FALSE,
-                 main = paste("Local Spatial Autocorrelation", caseType))
+                 main = paste("Local Spatial Autocorrelation", caseType),
+                 par.settings=list(panel.background=list(col="lightgrey"),
+                                   strip.background=list(col="white")))
   p <- diverge0(p, 'RdBu')
   return(p)
 }
