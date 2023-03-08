@@ -31,6 +31,7 @@ devtools::source_gist('306e4b7e69c87b1826db')
 
 
 #### constants ####
+options(digits=2)
 im.width = 1024
 aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
 queens = matrix(c(1,1,1,1,0,1,1,1,1),3)
@@ -105,7 +106,7 @@ tc2000 <- MergedRaster(2000)
 
 
 
-#### Crop Data ####
+#### Get Puerco Project Area ####
 puerco_area_spat <- terra::project(puerco_area_spat, tc2015)
 puerco_area_raster <- terra::rasterize(puerco_area_spat, tc2015)
 #manual extent is clunky but it allows trim operation to be wayyy faster
@@ -116,6 +117,7 @@ plot(puerco_area_raster)
 #remove border of NaN values
 puerco_area_raster <- terra::trim(puerco_area_raster) 
 plot(puerco_area_raster)
+
 
 
 
@@ -203,14 +205,13 @@ grid.arrange(p1, p2, p3, p4,
 dev.off()
 
 ##### Autocorrelation test #####
-#TODO: figure out how to iterate over layered spatRaster
-#zm_c_yrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
-#autoCor <- to_list(for(yr in zm_c_yrs) terra::autocor(yr, global=FALSE))
-#AutoCor <- function(zm_yrs){
-#}
+
+#TODO: terra::autocor does not give p-values, which are needed to asses significance 
+#of computed Moran's I. shoot.
+#global moran's range from -1 (dispersed) to 1 (clustered)
 
 q.ac.loc <- lapply(all, terra::autocor, w=queens, global=FALSE)
-#I know this is uggly but can't seem to get sapp to work
+#I know this is ugly but can't seem to get terra::sapp to work
 q.ac.loc <- c(q.ac.loc[[1]], q.ac.loc[[2]], q.ac.loc[[3]], q.ac.loc[[4]])
 queens.ac.glob <- unlist(lapply(all, terra::autocor, w=queens, global=TRUE))
 
@@ -223,8 +224,10 @@ bishopsAc <- lapply(all, terra::autocor, w=bishops, global=FALSE)
 bishopsAc <- c(bishopsAc[[1]], bishopsAc[[2]], bishopsAc[[3]], bishopsAc[[4]])
 bishops.ac.glob <- unlist(lapply(all, terra::autocor, w=bishops, global=TRUE))
 
+#comparison of Moran's I, Global
 comp.i.glob <- data.frame(bishops.ac.glob, queens.ac.glob, rooks.ac.glob)
 comp.i.glob
+write.csv(comp.i.glob, file.path(imgFolder, "moransIglobal_compare.csv"), row.name=TRUE)
 
 
 DivergePlot <- function(tc, caseType){
