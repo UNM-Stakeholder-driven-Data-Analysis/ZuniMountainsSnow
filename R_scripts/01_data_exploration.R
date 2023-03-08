@@ -29,12 +29,16 @@ library(comprehenr)
 #load the diver0 function which sets colors to divergin from 0
 devtools::source_gist('306e4b7e69c87b1826db')
 
+
 #### constants ####
 im.width = 1024
 aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
 queens = matrix(c(1,1,1,1,0,1,1,1,1),3)
 rooks = matrix(c(0,1,0,1,0,1,0,1,0),3)
 bishops = matrix(c(1,0,1,0,0,0,1,0,1),3)
+
+imgFolder = "./GeneratedPlots"
+
 
 #### functions ####
 YearFile <- function(year, path, row){
@@ -100,6 +104,7 @@ ProcessData <- function(treeCoverRaw, projectArea){
   
 }
 
+
 #### load data ####
 #TODO: get .gdb file loaded of SW USFS Activities
 
@@ -110,6 +115,7 @@ tc2015 <- MergedRaster(2015)
 tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
+
 
 
 #### Crop Data ####
@@ -123,6 +129,7 @@ plot(puerco_area_raster)
 #remove border of NaN values
 puerco_area_raster <- terra::trim(puerco_area_raster) 
 plot(puerco_area_raster)
+
 
 
 #### process Data ####
@@ -139,6 +146,7 @@ minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 
+
 #### Visualize ####
 #plot options: default r (plot), ggplot, rasterVis
 #TODO: make color scale bars consistent for comparison
@@ -148,7 +156,7 @@ p3 <- PlotStudy(zm_c_2005, 2005, maxPercent)
 p4 <- PlotStudy(zm_c_2000, 2000, maxPercent)
 
 
-jpeg("percentTreeCover.jpeg", height = 1024 * aspect.r, width = 1024)  
+jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)  
 grid.arrange(p1, p2, p3, p4, 
                          ncol=2,
                          top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
@@ -190,7 +198,7 @@ freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
 freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
 
 p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(year))) + geom_col( position=position_dodge2(10))
-p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Precent Cover Values, 2000-2015")
+p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Percent Cover Values, 2000-2015")
 print(p1)
 
 HistYear <- function(freqAll, yr){
@@ -205,9 +213,11 @@ p2 <- HistYear(freqAll, 2010)
 p3 <- HistYear(freqAll, 2005)
 p4 <- HistYear(freqAll, 2000)
 
+jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspect.r, width=im.width) 
 grid.arrange(p1, p2, p3, p4, 
              ncol=2,
              top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+
 
 ##### Autocorrelation test #####
 #TODO: figure out how to iterate over layered spatRaster
@@ -252,7 +262,7 @@ DivergePlot(rooksAc, "Rook's Case")
 dev.off()
 
 jpeg("./GeneratedPlots/autocor_bishops.jpeg", height = im.width * aspect.r, width = im.width)
-DivergePlot(rooksAc, "Bishop's Case")
+DivergePlot(bishopsAc, "Bishop's Case")
 dev.off()
 
 
