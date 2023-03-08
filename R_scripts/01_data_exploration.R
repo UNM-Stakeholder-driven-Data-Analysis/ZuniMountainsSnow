@@ -104,6 +104,10 @@ tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
 
+#For some reason tc2010 has a different coord. ref designation that omits
+# the datum, although the UTM zone is the same.
+tc2010 <- terra::project(tc2010, tc2015)
+
 
 
 #### Get Puerco Project Area ####
@@ -138,6 +142,7 @@ maxPercent <- max(minMaxAll[2,])
 
 #### Visualize ####
 
+# PERCENT COVER PLOTS
 jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
 levelplot(all, 
                at=seq(0, maxPercent),
@@ -147,7 +152,24 @@ levelplot(all,
                margin=FALSE)
 dev.off()
 
-# Density plots
+# DIFFERENCE PLOTS
+diffs <- c(all$yr2015 - all$yr2010, all$yr2010-all$yr2005, all$yr2005-all$yr2000)
+names(diffs) <- c("yr2015vs2010", "yr2010vs2005", "yr2005vs2000")
+
+jpeg(file.path(imgFolder, "diffPercentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
+p <- levelplot(diffs, 
+          #at=seq(0, maxPercent),
+          main="Difference in Percent Tree cover for the Puerco Project Area",
+          xlab='UTM meters',
+          ylab='UTM meters',
+          margin=FALSE,
+          par.settings=list(panel.background=list(col="lightgrey")))
+diverge0(p, 'PiYG')
+dev.off()
+
+
+
+### KERNEL DENSITY PLOTS ###
 #TODO: would be better to extract percent cover as 1d list and use ggplot's
 #geom_density() function to have greater control over aesthetics
 allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
@@ -167,7 +189,7 @@ rasterVis::densityplot(allYrsRaster,
 #density(zm_c_2000)
 
 
-# Histograms
+# HISTOGRAMS
 RelFreq <- function(rasterData){
   h <- as.data.frame(terra::freq(rasterData))
   numPix = sum(h$count)
