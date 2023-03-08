@@ -138,6 +138,19 @@ ProcessData <- function(treeCoverRaw, projectArea){
   
 }
 
+HistYear <- function(freqAll, yr){
+  p1 <- ggplot(data=filter(freqAll, year==yr), 
+               aes(factor(value), relFreq)) + geom_col( position=position_dodge2(10))
+  p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title =toString(yr))
+  return(p1)
+}
+
+RelFreq <- function(rasterData){
+  h <- as.data.frame(terra::freq(rasterData))
+  numPix = sum(h$count)
+  return(mutate(h, relFreq=count/numPix))
+}
+
 #### load data ####
 #TODO: get .gdb file loaded of SW USFS Activities
 
@@ -212,13 +225,39 @@ p <- diverge0(p, 'PiYG')
 plot(p)
 ```
 
+@fig-hist shows a histogram of percent tree cover values for the tree cover data within the Puerco Project area, for all four years. Evidence of an overall trend in reduced tree cover over time is shown by higher density regions moving towards lower percent cover between 2005 and 2015. This may be a result of USFS vegetation treatments which include prescribed burns, tree thinning, and mechanical mastication. This data is not normal. It does exhibit a pattern where higher densities occur at lower percent tree-cover values. A different view is included in @fig-hist, where relative frequencies for each percent class (0-53, integer values) are shown.
+
 ```{r echo=FALSE}
-#| label: fig-plot
-#| fig-cap: "Plot"
-par(mfrow=c(2,2))
-plot(1:10, col=2)
-plot(density(runif(100, 0.0, 1.0)))
-plot(runif(100, 0.0, 1.0),type="l")
+#| label: fig-hist
+#| fig-cap: "Relative Frequency of Percent Cover separated by year"
+
+freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
+freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
+freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
+freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
+freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
+
+p1 <- HistYear(freqAll, 2015)
+p2 <- HistYear(freqAll, 2010)
+p3 <- HistYear(freqAll, 2005)
+p4 <- HistYear(freqAll, 2000)
+
+
+grid.arrange(p1, p2, p3, p4, 
+             ncol=2,
+             top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
 ```
 
-in @fig-plot we see examples of plotting in R.
+```{r echo=FALSE}
+#| label: fig-kernel
+#| fig-cap: "Kernel Density plots of percent cover values found in the Puerco Project Area for the years 2000, 2005, 2010 and 2015. Ticks along the horizontal axis show where actual values lie"
+allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
+p <- rasterVis::densityplot(allYrsRaster,
+                       xlab='Percent Cover', 
+                       ylab='Density', 
+                       main='Kernel Density Plot for Percent Cover in the Puerco Project Area, 2000-2015',
+                       draw.labels = FALSE,
+                       lwd = 2)
+plot(p)
+```
+
