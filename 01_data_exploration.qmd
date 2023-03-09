@@ -233,7 +233,9 @@ p <- diverge0(p, 'PiYG')
 plot(p)
 ```
 
-@fig-hist shows a histogram of percent tree cover values for the tree cover data within the Puerco Project area, for all four years. Evidence of an overall trend in reduced tree cover over time is shown by higher density regions moving towards lower percent cover between 2005 and 2015. This may be a result of USFS vegetation treatments which include prescribed burns, tree thinning, and mechanical mastication. This data is not normal. It does exhibit a pattern where higher densities occur at lower percent tree-cover values. A different view is included in @fig-hist, where relative frequencies for each percent class (0-53, integer values) are shown.
+@fig-hist shows a histogram of percent tree cover values for the tree cover data within the Puerco Project area, for all four years. Evidence of an overall trend in reduced tree cover over time is shown by higher density regions moving towards lower percent cover between consecutive years. For example, there is a high frequency of 45-48 cover cells in 2010, but in 2015 the frequency of this range is approximately zero. This may be a result of USFS vegetation treatments which include prescribed burns, tree thinning, and mechanical mastication. Conversely, there is a high relative frequency of zero cover cells in 2000 (greater than 0.06), whereas in 2005 that relative frequency drops to below 0.03. This may be indicative of tree growth converting 0% cover cells to 1% or higher.
+
+This data is not normal. It does exhibit a pattern where higher densities occur at lower percent tree-cover values.This is expected to look significantly different for actual thinning projects, because the project is likely drawn around an area that contains many trees, whereas these plots are for a much larger region that appears to contain large areas without trees (see @fig-perc). A different view of data distributions is included in @fig-kernel, which shows a kernel density plot of the same data in @fig-hist.
 
 ```{r echo=FALSE}
 #| label: fig-hist
@@ -254,7 +256,7 @@ p4 <- HistYear(freqAll, 2000)
 
 grid.arrange(p1, p2, p3, p4, 
              ncol=2,
-             top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+             top=textGrob("Percent Tree Cover for the Puerco Project Area"))
 ```
 
 ```{r echo=FALSE}
@@ -270,3 +272,149 @@ p <- rasterVis::densityplot(allYrsRaster,
 plot(p)
 ```
 
+### Data Structures and Relationships
+
+Spatial autocorrelation shown in @fig-queen, @fig-rook, and @fig-bishop. These show Local Moran's I values that consider all 8 neighbors (Queen's Case), the four neighbors that share an edge (Rook's Case), and the four neighbors that share a corner only (Bishop's Case), respectively. Overall, for all three neighbor configurations, the majority of cells have 0 or greater local autocorrelation values, indicating that for the most cells are randomly distributed (0) or clusterd among similar valued cells (\>0). It also appears that highest autocorrelation occurs where tree densities are highest, judging by a visual comparison between @fig-perc and @fig-queen. I hypothesize that tree thinning will reduce autocorrelation both locally and globally within the treatment area, because it tends to randomly reduce percent cover at a 30m scale. This is just an assumption; I have not researched tree-thinning procedures yet or discussed this with Livia.
+
+```{r echo=FALSE, include=FALSE}
+##### Autocorrelation test #####
+
+#TODO: terra::autocor does not give p-values, which are needed to asses significance 
+#of computed Moran's I. shoot.
+#global moran's range from -1 (dispersed) to 1 (clustered)
+
+q.ac.loc <- lapply(all, terra::autocor, w=queens, global=FALSE)
+#I know this is ugly but can't seem to get terra::sapp to work
+queensAc <- c(q.ac.loc[[1]], q.ac.loc[[2]], q.ac.loc[[3]], q.ac.loc[[4]])
+queens.ac.glob <- unlist(lapply(all, terra::autocor, w=queens, global=TRUE))
+
+rooksAc <- lapply(all, terra::autocor, w=rooks, global=FALSE)
+rooksAc <- c(rooksAc[[1]], rooksAc[[2]], rooksAc[[3]], rooksAc[[4]])
+rooks.ac.glob <- unlist(lapply(all, terra::autocor, w=rooks, global=TRUE))
+
+
+
+bishopsAc <- lapply(all, terra::autocor, w=bishops, global=FALSE)
+bishopsAc <- c(bishopsAc[[1]], bishopsAc[[2]], bishopsAc[[3]], bishopsAc[[4]])
+bishops.ac.glob <- unlist(lapply(all, terra::autocor, w=bishops, global=TRUE))
+
+#comparison of Moran's I, Global
+comp.i.glob <- data.frame(bishops.ac.glob, queens.ac.glob, rooks.ac.glob)
+comp.i.glob
+write.csv(comp.i.glob, file.path(imgFolder, "moransIglobal_compare.csv"), row.name=TRUE)
+
+
+DivergePlot <- function(tc, caseType){
+  p <- levelplot(tc,
+                 margin=FALSE,
+                 main = paste("Local Spatial Autocorrelation", caseType),
+                 par.settings=list(panel.background=list(col="lightgrey"),
+                                   strip.background=list(col="white")))
+  p <- diverge0(p, 'RdBu')
+  return(p)
+}
+```
+
+```{r include=FALSE}
+#| label: fig-queen
+#| fig-cap: "Local Moran's Index of Autocorrelation, Queen's case. Blue values indicate high autocorrelation. Red values indicate inverse of autocorrelation, where cells are dissimilar to their neighbors"
+DivergePlot(queensAc, "Queen's Case")
+```
+
+```{r include=FALSE}
+#| label: fig-rook
+#| fig-cap: "Local Moran's Index of Autocorrelation, Rook's case. Blue values indicate high autocorrelation. Red values indicate inverse of autocorrelation, where cells are dissimilar to their neighbors"
+DivergePlot(rooksAc, "Rook's Case")
+```
+
+```{r include=FALSE}
+#| label: fig-bishop
+#| fig-cap: "Local Moran's Index of Autocorrelation, Bishop's case. Blue values indicate high autocorrelation. Red values indicate inverse of autocorrelation, where cells are dissimilar to their neighbors"
+DivergePlot(bishopsAc, "Bishop's Case")
+```
+
+Global Measure of autocorrelation allow comparisons between Queen's, Rook's and Bishop's case. The probability-based method proposed below is impacted by Bishop's case neighborhood autocorrelations. For this reason the three methods are compared in @fig-moranComp. This table shows that Bishop's global autocorrelation is consistently less than Queen's which is consistently less than Rooks. This pattern indicates, as expected, that cells which only share a corner are less autocorrelated than cells which share an edge. Also, all values, except those in the year 2000, are above 0.80, indicating an overall high level of spatial autocorrelation.
+
+```{r include=FALSE}
+#| label fig-moranComp
+#| fig-cap: "Global Moran's Index of Autocorrelation for Bishop's, Queen's and Rook's. Bishops is consistently less than Queens which is consistently less than Rook's. However, all values are relatively close to 1, except for the year 2000. Overall this indicates high autocorrelation for the study area."
+comp.i.glob <- data.frame(bishops.ac.glob, queens.ac.glob, rooks.ac.glob)
+colnames(comp.i.glob) = c("Bishop's", "Queen's", "Rook's")
+comp.i.glob
+```
+
+## Data Approach
+
+Are the USFS thinning treatments affecting the snowpack accumulation potential in the Zuñi mountains? We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more large, \>30m gaps between tree cover.
+
+A previous study conducted using high resolution data (1m cell size) of snowpack in the Jemez Mountains found that the optimal condition for snowpack accumulation was, on average, clear ground within 15 meters of tree cover (Broxton et al., 2015). This value does not take into consideration the observed pattern that snowpack accumulated less on south-facing sides of trees in the Jemez Mountains (Broxton et al., 2015), suggesting that in that region solar irradiation has large impact on snowpack. The 15m distance threshold will be used to assess snowpack accumulation potential instead of directly measuring snowpack. Snowpack data is unavailable at high enough resolutions to be meaningful. Solar irradiation may also be considered. Hereafter the word "optimal" will refer to clear, treeless ground that is within 15m of tree cover.
+
+The Data Approach involves three general steps:
+
+1.  Find thinning treatments between 2000 and 2015 within the study area.
+2.  Calculate a metric that captures the notion of "amount of optimal area" before and after the thinning treatment.
+3.  Evaluate direction of change, magnitudes of change and significance levels.
+
+### 1. Find Thinning Treatments between 2000 and 2015
+
+The Project Area Vector Data will be used to locate thinning treatments within the Zuñi Mountains that were completed sometime between the years 2000 and 2015. The following operations will be performed:
+
+-   Import .gdb of USFS Cibola Activities
+
+-   Select activities that occurred within the Zuñi Mountains. (The data set includes all of Cibola National Forest activities)
+
+-   From that selection select activities that occurred between 2000 and 2015 and consisted of tree-thinning
+
+-   Depending on the number, verify that thinning occurred by visual inspection of google earth imagery, or other image databases.
+
+-   Verify chosen sites with stakeholder.
+
+Future Work, time permitting:
+
+-   Find burned area data
+
+-   Answer the following: Do burned areas that occurred before or after thinning alter snowpack accumulation?
+
+### 2. Calculate Snowpack Accumulation Potential
+
+The tree cover dataset is at 30m resolution. This makes addressing the question difficult, because the characteristic distance for optimal snowpack accumulation, 15m or less, is smaller than 30m. For this reason, the approach will follow a prioritized list, with simplest analysis first, and then more complex analysis if the previous were found to be insufficient or inconclusive:
+
+1.  Sum the area of all low tree-cover cells surrounded by high tree-cover cells.
+i.  Count cells that are surrounded
+ii. Count cells that are bordered on the south side and enough additional sides to ensure full optimality.
+2.  Assign a probability of a given low tree-cover cell being entirely optimal, based on its neighbors.
+i.  Equal weight to neighbors (rook's case)
+ii. Larger weight for south-facing neighbors (modified rook's case) 
+
+#### Approach 1: Sum the area of low cover cells that are surrounded by high cover cells. 
+
+This method requires defining a threshold for "low cover" and "high cover." The following steps result in an upper limit for "low cover" at either 10% or 20%: A manual inspection of google earth imagery in three locations of the study area showed typical crown diameters to be between 3 and 6 meters. Choosing the lower limit at 3m, we can say that a 3x3m sub-cell that contains a tree is likely to be 100% covered by canopy. This allows us to assume any 3x3m with cover is 100% covered. Next, assuming shade is the most important factor for protecting snowpack, we can say that if the southern edge of a cell is completely covered by 3x3m sub-cells (10 cells), roughly half of the 30x30m cell will be optimal area within 15m of tree cover. Therefore, the first time there is a *chance* of getting 50% optimal cover within a cell (irrespective of neighbors) is at 10% cover. A similar argument may be made for focusing on the first time ~100% optimal cover may be achieved, which is at 20 cells or 20% cover, when two rows of trees line up. Such a distinction will be easier to make when looking at the distribution for a particular thinning project. For high cover, I need more time to see if a similar line of reasoning is possible. As a last resort the lower limit for high cover could by 90% of the full range in values for the area. In this case that would be 53% \* 0.10 = 5% cover.
+
+A)  **Completely Surrounded Empty Cells:** 
+Cells will be identified that 1) are low cover and 2) are surrounded by high cover. These cells can be assumed to be effectively 100% optimal area because every point in the 30m x 30m cell is within 15 m of high tree cover. The area of those cells can then be summed. Then the total optimal area can be compared before and after thinning. If this method of counting results in an area too small to be considered significant, B will be used. Considering that cells with similar values tend to be randomly distributed or clustered together (see data distribution section), it is likely that the total area will be low.
+B) **Bordered on the Southern Edge and Sufficient Additional Edges:**
+Cells will be identified that 1) are low cover and 3) are bordered by high cover on the southern edge and 3) by high cover on enough additional edge to ensure the central cell is entirely optimal. This incorporates the assumption that shading by trees is one of the primary drivers of protecting snowpack. Including other edges incorporates the more general statement that any area within 15 meters of tree cover is optimal. This method will likely result in a greater number of cells being counted. 
+
+Pros: 
+• Simple calculation 
+• Units are in m\^2 which is easy to interpret 
+Cons: 
+• The upper limit observed is \~50% cover. Fifty percent cover could mean that half of the cell is 100% covered by trees. Or it could mean any number of more complex distributions of cover. So a neighbor cell could easily have trees further from the central cell in question. This would invalidate the assumption that the entire cell is optimal. 
+• A cell with "high" cover according to the above definition (\>32%) may have substantial area within itself that is optimal. This is being ignored completely. 
+• There may be so few cells that meet the criterion that comparisons are not meaningful. If this is the case move to the next approach 
+
+#### Approach 2: Assign a probability of a given low-tree cover cell being entirely optimal, based on its neighbors 
+
+In this approach the condition for being optimal is relaxed, in the attempt to count more cells. The same method as in Approach 1 will be used for choosing an upper limit for low-tree cover. Neighboring cells, in contrast, are assigned a probability of having tree cover that is at the edge of the cell in question. Because the sampled cells have a max cover value of \~50% this probability will never be 1. To assign a probability that tree cover exists at one edge of the neighboring cell the following method will be used:
+
+
+1.  Assume that the probability linearly increases from 0 to a maximum value at the maximal observed tree cover. This is effectively stating "As tree cover increases, it is more likely that one edge of the cell is completely bordered by tree cover." This relationship may not be linear, but it is certainly monotonically increasing. A linear relation simplifies the following steps, and for the purpose of implementation is the simplest monotonically increasing function.
+2.  Find the probability that, within a cell, one particular edge is bordered by tree cover, for the maximum observed cover value (see appendix)
+3.  Create a linear relationship that maps cell cover to probability of edge being bordered. In other words, linearly interpolate from 0 to the result of (2).
+4.  Calculate the probability that the cell is surrounded by tree cover based on the four neighbors that share an edge. Let the probability that the northern neighbor adjacent edge is covered be denoted as P(n). Then the probability that all 4 edges are covered is P(n AND s AND e AND w), where n, s, e, w correspond to the four cardinal directions. If these probabilities are independent this is equal to a simple multiplication: P(n)*P(s)*P(e)\*P(w). It is likely that close neighbors are not independent. However, because the Rook's case neighbors are being compared to each other, each neighbor only shares a corner. Applying the general principle that "everything is related to everything else, but near things are more related than distant things" (Tobler, 1970), it is safe to say that most of the edge of a neighbor is less influenced by the other since they do not share that edge. This is the best argument for assuming independence and greatly simplifies the calculation. TODO: can compare queens case to rooks case to prove this point!
+
+
+A.  Equal weight to neighbors (rook's case): This will be the simple multiplication proposed above: P(n AND s AND e AND w) = P(n)*P(s)*P(e)\*P(w).
+B.  Larger importance for south-facing neighbors (modified rook's case): This will be the probability that: 1) the southern neighbor has tree cover at the shared edge, and 2) either a) the east and west neighbors have edge cover only or b) the north neighbor has edge cover only or c) east, west and north neighbors have edge cover. This probability can be calculate but is too long to place here. See appendix.
+
+Pros: • Allows more cells to be included in the comparison Cons: • Requires an additional step of calculating a probability • Assumes linear relationship between percent cover and probability of tree cover at one edge • Metric assigns a probability to cells. Therefore, a comparison of probability frequency distributions before and after thinning will be required. The resulting comparison does not result in an area value. We may be able to find if thinning impacted optimal snowpack, but not by how much. • Assumes low autocorrelation¬¬ between for Bishop's case neighbors. 3. Evaluate Change Direction, Magnitudes, and Significance Levels 3-1: Significance for a Difference in Optimal Measured Area This metric would be the total area of 30x30m spaces that are within 15m of tree cover. It is possible that other clear areas are optimal and smaller than 30x30m or happened to lie on a cell boundary, but they will be ignored by the analysis. Still, this number will give an indication of the change caused by thinning. The hypothesis is that after-thinning will result in less optimal land. We should see a smaller total optimal area after thinning, and of a significant magnitude, as judged by Livia. Because Livia has experience with forest measurements I believe she will be able to evaluate significance. 3-2 Significance for a Difference in Probability Frequency Distributions The statistical test for checking for significant differences between frequency distributions of "probability of optimal cell" will depend on the nature of those distributions. I expect those distributions to be right skewed, with the majority of empty cells having a low probability of being optimal. The hypothesis is that thinning is reducing the amount of optimal area by creating larger gaps between tree cover. For this reason a Mann-Whitney U test would be used to test the hypothesis that after-thinning values tend to be smaller than before thinning values.
