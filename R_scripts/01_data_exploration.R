@@ -27,6 +27,7 @@ library(gridExtra)
 library(grid)
 library(ggplot2)
 library(comprehenr)
+library(dplyr)
 #load the diver0 function which sets colors to divergin from 0
 devtools::source_gist('306e4b7e69c87b1826db')
 
@@ -124,6 +125,23 @@ puerco_area_raster <- terra::trim(puerco_area_raster)
 plot(puerco_area_raster)
 
 
+##### Get Activities GDB ####
+CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
+#https://usfs.maps.arcgis.com/apps/mapviewer/index.html?layers=eb8f23442f374ea2adae683e6eb0f16a
+START_DATE = as.POSIXct("01/01/2000", format="%m/%d/%Y", tz="MST")
+END_DATE = as.POSIXct("12/30/2015", format="%m/%d/%Y", tz="MST")
+
+activities <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
+activities <- filter(activities, AU_FOREST_CODE==CIBOLA_FOREST)
+activities <- filter(activities, grepl("thin", ACTIVITY, ignore.case=TRUE))
+#remove TSI Need Created- Precommercial Thin and SI Need (precommercial thinning) Eliminated
+# I don't think those are actuall thinning activities
+activities <- filter(activities, !grepl("Need", ACTIVITY)) 
+activities <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
+plot(activities)
+
+#TODO: filter based on location: only activities within zuni mountains
+#maybe puerco project area? or maybe bigger bounding box?)
 
 
 #### process Data ####
