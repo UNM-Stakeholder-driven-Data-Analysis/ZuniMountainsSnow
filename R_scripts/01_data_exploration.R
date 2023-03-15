@@ -101,6 +101,7 @@ ProcessData <- function(treeCoverRaw, projectArea){
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
 
 
+
 tc2015 <- MergedRaster(2015)
 tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
@@ -125,24 +126,37 @@ puerco_area_raster <- terra::trim(puerco_area_raster)
 plot(puerco_area_raster)
 
 
-##### Get Activities GDB ####
+##### Thinning in Zuni Mountains ####
 CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
 #https://usfs.maps.arcgis.com/apps/mapviewer/index.html?layers=eb8f23442f374ea2adae683e6eb0f16a
 START_DATE = as.POSIXct("01/01/2000", format="%m/%d/%Y", tz="MST")
 END_DATE = as.POSIXct("12/30/2015", format="%m/%d/%Y", tz="MST")
 
+puerco_area <- sf::st_as_sf(puerco_area_spat)
+
+forests <- sf::st_read("./data/ProclaimedForest.kml")
+zuni_forest <- forests[forests$Name=="Zuni Mountains", 1]
+zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(puerco_area))
+
 activities <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
+activities <- sf::st_transform(activities, crs=st_crs(puerco_area))
 activities <- filter(activities, AU_FOREST_CODE==CIBOLA_FOREST)
 activities <- filter(activities, grepl("thin", ACTIVITY, ignore.case=TRUE))
 #remove TSI Need Created- Precommercial Thin and SI Need (precommercial thinning) Eliminated
 # I don't think those are actuall thinning activities
 activities <- filter(activities, !grepl("Need", ACTIVITY)) 
-activities <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
-plot(activities)
+act_range <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
 
-#TODO: filter based on location: only activities within zuni mountains
-#maybe puerco project area? or maybe bigger bounding box?)
 
+containment <- st_contains(zuni_forest, activities)[[1]]
+activities <- activities[containment, ]
+
+plot(zuni_forest["Name"], reset=FALSE, border=1, col=NA)
+plot(activities["DATE_COMPLETED"], add = TRUE, border=NA, col="grey")
+plot(act_range["DATE_COMPLETED"], add=TRUE, border=NA)
+
+#number of unique thinning events (not necessarily one polygon) that occured:
+length(unique(act_range$DATE_COMPLETED))
 
 #### process Data ####
 
