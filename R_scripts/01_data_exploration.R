@@ -138,25 +138,32 @@ forests <- sf::st_read("./data/ProclaimedForest.kml")
 zuni_forest <- forests[forests$Name=="Zuni Mountains", 1]
 zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(puerco_area))
 
+#sf can get the .gdb without issue, but maybe we want to convert everything to terra (spatVectors)
+# so that we can do the other operations more easily
 activities <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
-activities <- sf::st_transform(activities, crs=st_crs(puerco_area))
-activities <- filter(activities, AU_FOREST_CODE==CIBOLA_FOREST)
+activities <- filter(activities, AU_FOREST_CODE==CIBOLA_FOREST) #filter immediately to increase processing speed
 activities <- filter(activities, grepl("thin", ACTIVITY, ignore.case=TRUE))
+activities <- sf::st_transform(activities, crs=st_crs(puerco_area))
 #remove TSI Need Created- Precommercial Thin and SI Need (precommercial thinning) Eliminated
 # I don't think those are actuall thinning activities
 activities <- filter(activities, !grepl("Need", ACTIVITY)) 
-act_range <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
-
-
 containment <- st_contains(zuni_forest, activities)[[1]]
 activities <- activities[containment, ]
 
+act_range <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
+#TODO: switch to ggplot as it seems to have reasonable suport fot this mapping stuff.
+# or convert to spatVector and plot from their? Too many options!!
 plot(zuni_forest["Name"], reset=FALSE, border=1, col=NA)
 plot(activities["DATE_COMPLETED"], add = TRUE, border=NA, col="grey")
 plot(act_range["DATE_COMPLETED"], add=TRUE, border=NA)
 
 #number of unique thinning events (not necessarily one polygon) that occured:
 length(unique(act_range$DATE_COMPLETED))
+
+#arbitrarily choose a date_completed and show all polygons associated with it
+date_chosen <- unique(act_range$DATE_COMPLETED)[8]
+sub_df <- filter(act_range, DATE_COMPLETED==date_chosen)
+plot(sub_df, add=TRUE, border=NA, col="magenta")
 
 #### process Data ####
 
