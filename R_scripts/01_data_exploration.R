@@ -132,6 +132,7 @@ CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
 START_DATE = as.POSIXct("01/01/2000", format="%m/%d/%Y", tz="MST")
 END_DATE = as.POSIXct("12/30/2015", format="%m/%d/%Y", tz="MST")
 
+#TODO: this should not rely on puerco_area but instead the tc data
 puerco_area <- sf::st_as_sf(puerco_area_spat)
 
 forests <- sf::st_read("./data/ProclaimedForest.kml")
@@ -165,6 +166,18 @@ date_chosen <- unique(act_range$DATE_COMPLETED)[8]
 sub_df <- filter(act_range, DATE_COMPLETED==date_chosen)
 plot(sub_df, add=TRUE, border=NA, col="magenta")
 
+# This polygon was identified using arc map
+# it is a "thinning for haz fuel reduction" and occurs between 2010 and 2015
+# and doesn't overlap with other treatments
+poly_id <- "{AF6C2148-55FF-485C-93C1-7CA862749E18}"
+one_poly <- activities[activities$REPLICATION_ID==poly_id,]
+
+
+one_poly <- terra::vect(one_poly)
+poly_ext <- ext(one_poly)
+one_poly <- terra::rasterize(one_poly, tc2015)
+one_poly <- terra::crop(one_poly, poly_ext)
+plot(one_poly)
 #### process Data ####
 
 zm_c_2015 <- ProcessData(tc2015, puerco_area_raster)
@@ -181,6 +194,7 @@ maxPercent <- max(minMaxAll[2,])
 
 
 #### Visualize ####
+
 
 # PERCENT COVER PLOTS
 jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
@@ -222,7 +236,7 @@ rasterVis::densityplot(allYrsRaster,
                        draw.labels = FALSE,
                        lwd = 2)
                        #auto.key = list(space = c("right", "left", "left")))
-def.off()
+dev.off()
 
 #another way to show a kernel density plot:
 #allYrs <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
