@@ -28,6 +28,8 @@ library(grid)
 library(ggplot2)
 library(comprehenr)
 library(dplyr)
+library(xml2)
+library(XML)
 #load the diver0 function which sets colors to divergin from 0
 devtools::source_gist('306e4b7e69c87b1826db')
 
@@ -96,13 +98,19 @@ ProcessData <- function(treeCoverRaw, projectArea){
 
 
 #### load data ####
-#TODO: get .gdb file loaded of SW USFS Activities
 
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
 
 
 
 tc2015 <- MergedRaster(2015)
+#***********WORKING HERE ********************************************************
+#TODO make a function to extract the date range for a given year:
+xml2015 <- xmlParse(read_xml("./data/GFCC30TC_2015/GFCC30TC_p035r036_TC_2015.zip.xml"))
+dtimeRangeA <- xmlToDataFrame(nodes=getNodeSet(xml2015, "//RangeDateTime"))
+xml2015 <- xmlParse(read_xml("./data/GFCC30TC_2015/GFCC30TC_p035r035_TC_2015.zip.xml"))
+dtimeRangeB <- xmlToDataFrame(nodes=getNodeSet(xml2015, "//RangeDateTime"))
+
 tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
@@ -170,20 +178,20 @@ plot(sub_df, add=TRUE, border=NA, col="magenta")
 # it is a "thinning for haz fuel reduction" and occurs between 2010 and 2015
 # and doesn't overlap with other treatments
 poly_id <- "{AF6C2148-55FF-485C-93C1-7CA862749E18}"
-one_poly <- activities[activities$REPLICATION_ID==poly_id,]
+one_poly_sf <- activities[activities$REPLICATION_ID==poly_id,]
 
 
-one_poly <- terra::vect(one_poly)
+one_poly <- terra::vect(one_poly_sf)
 poly_ext <- ext(one_poly)
 one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
 #### process Data ####
 
-zm_c_2015 <- ProcessData(tc2015, puerco_area_raster)
-zm_c_2010 <- ProcessData(tc2010, puerco_area_raster)
-zm_c_2005 <- ProcessData(tc2005, puerco_area_raster)
-zm_c_2000 <- ProcessData(tc2000, puerco_area_raster)
+zm_c_2015 <- ProcessData(tc2015, one_poly)
+zm_c_2010 <- ProcessData(tc2010, one_poly)
+zm_c_2005 <- ProcessData(tc2005, one_poly)
+zm_c_2000 <- ProcessData(tc2000, one_poly)
 #TODO: verifiy only contains 0-100 value now
 
 # get max percent value for all
