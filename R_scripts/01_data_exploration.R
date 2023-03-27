@@ -11,6 +11,7 @@
 # - checking for correlation between variables <?
 
 #### Libraries ####
+library(assertthat)
 library(tidyverse)
 library(raster)
 #NOTE rgdal is going to be retired by end of 2023. work for now so leaving it
@@ -45,14 +46,26 @@ bishops = matrix(c(1,0,1,0,0,0,1,0,1),3)
 imgFolder = "./GeneratedPlots"
 
 
+
 #### functions ####
-YearFile <- function(year, path, row){
-  identifier = paste("p", path, "r", row, "_TC_", toString(year), sep="")
+Identifier <- function(year, path, row){
+  return(paste("p", path, "r", row, "_TC_", toString(year), sep=""))
+}
+
+YearFileIntermediate <- function(year, path, row, suffix){
+  #useful because have file with same name as folder
+  identifier <- Identifier(year, path, row)
   file_path <- file.path(".",
                          "data", 
                          paste("GFCC30TC_", toString(year), sep=""),
-                         paste("GFCC30TC_", identifier, sep=""),
-                         paste(identifier, ".tif", sep=""))
+                         paste("GFCC30TC_", identifier, suffix, sep=""))
+  return(file_path)
+}
+
+YearFile <- function(year, path, row, suffix=".tif"){
+  identifier <- Identifier(year, path, row)
+  file_path <- file.path(YearFileIntermediate(year, path, row, suffix=""),
+                         paste(identifier, suffix, sep=""))
   return(file_path)
 }
 
@@ -65,6 +78,26 @@ MergedRaster <- function(year){
   time(final) <- year
   set.names(final, paste("yr", toString(year), sep=""))
   return(final)
+}
+
+GetRangeDateTime <- function(yr){
+  # wrapper to make sure both images composing the zuni mountains have the same
+  # datetime range
+  rangeA <- RangeDateTime(YearFileIntermediate(yr, "035", "036", suffix=".zip.xml"))
+  rangeB <- RangeDateTime(YearFileIntermediate(yr, "035", "035", suffix=".zip.xml"))
+  assert_that(all(rangeA == rangeB))
+  return(rangeA)
+}
+
+RangeDateTime <- function(path){
+  xmlData <- xmlParse(read_xml(path))
+  dtimeRange <- xmlToDataFrame(nodes=getNodeSet(xmlData, "//RangeDateTime"))
+  endDT <- as.POSIXct(paste(dtimeRange$RangeEndingDate, dtimeRange$RangeEndingTime))
+  startDT <- as.POSIXct(paste(dtimeRange$RangeBeginningDate, dtimeRange$RangeBeginningTime))
+  
+  out <- c(startDT, endDT)
+  out <- set_names(out, c("start", "end"))
+  return(out)
 }
 
 OnlyTreeCover <- function(treeCover){
@@ -101,16 +134,15 @@ ProcessData <- function(treeCoverRaw, projectArea){
 
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
 
+dtRange2015 <- GetRangeDateTime(2015)
+dtRange2010 <- GetRangeDateTime(2010)
+dtRange2005 <- GetRangeDateTime(2005)
+dtRange2000 <- GetRangeDateTime(2000)
 
+#TODO: figure out if want to store dtRange within the spatRaster or as 
+# a separate vector
 
 tc2015 <- MergedRaster(2015)
-#***********WORKING HERE ********************************************************
-#TODO make a function to extract the date range for a given year:
-xml2015 <- xmlParse(read_xml("./data/GFCC30TC_2015/GFCC30TC_p035r036_TC_2015.zip.xml"))
-dtimeRangeA <- xmlToDataFrame(nodes=getNodeSet(xml2015, "//RangeDateTime"))
-xml2015 <- xmlParse(read_xml("./data/GFCC30TC_2015/GFCC30TC_p035r035_TC_2015.zip.xml"))
-dtimeRangeB <- xmlToDataFrame(nodes=getNodeSet(xml2015, "//RangeDateTime"))
-
 tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
