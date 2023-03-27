@@ -198,9 +198,21 @@ zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(puerco_area))
 #sf can get the .gdb without issue, but maybe we want to convert everything to terra (spatVectors)
 # so that we can do the other operations more easily
 act_raw <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
+#TODO: rename these categories to other and still plot them
+NO_ALTER_TC = c("Silvicultural Stand Examination", 
+                "Stand Diagnosis Prepared", 
+                "TSI Need Created- Precommercial Thin",
+                "TSI Need (precommercial thinning) Eliminated",
+                "Yarding - Removal of Fuels by Carrying or Dragging",
+                "Underburn - Low Intensity (Majority of Unit)",
+                "Piling of Fuels, Hand or Machine ",
+                "Range Cover Manipulation",
+                "Rearrangement of Fuels",
+                "Stand Silviculture Prescription")
 all_cibola <- act_raw %>% 
   filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
   filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
+  filter(!ACTIVITY %in% NO_ALTER_TC) %>%
   sf::st_transform(crs=st_crs(puerco_area))
 
 intersection <- sf::st_intersects(zuni_forest, all_cibola)[[1]]
@@ -219,11 +231,13 @@ all_other <- filter(all_zuni, ACTIVITY!="Thinning for Hazardous Fuels Reduction"
 st_erase = function(x, y) st_difference(x, st_union(y))
 haz_fr_iso <- st_erase(haz_fr, all_other)
 
-#TODO: switch to ggplot as it seems to have reasonable suport fot this mapping stuff.
-# or convert to spatVector and plot from their? Too many options!!
-plot(zuni_forest["Name"], reset=FALSE, border=1, col=NA)
-plot(all_zuni["ACTIVITY"], add = TRUE, border=NA)
+ggplot() +
+  geom_sf(data=zuni_forest) +
+  geom_sf(data=all_zuni, aes(fill=ACTIVITY), alpha=0.5)
 
+ggplot() +
+  geom_sf(data=haz_fr) +
+  geom_sf(data=haz_fr_iso, aes(fill=DATE_COMPLETED))
 
 plot(haz_fr["DATE_COMPLETED"], add=TRUE, border=NA)
 plot(all_other, add=TRUE, border=NA, col="blue")
@@ -233,7 +247,7 @@ plot(haz_fr_iso, add=TRUE, border=NA, col="magenta")
 plot(haz_fr_iso["DATE_COMPLETED"], border=NA)
 
 #number of unique thinning events (not necessarily one polygon) that occured:
-length(unique(haz_fr$DATE_COMPLETED))
+length(unique(haz_fr_iso$DATE_COMPLETED))
 
 #arbitrarily choose a date_completed and show all polygons associated with it
 date_chosen <- unique(act_range$DATE_COMPLETED)[8]
