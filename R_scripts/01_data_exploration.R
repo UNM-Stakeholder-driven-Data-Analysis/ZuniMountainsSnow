@@ -129,16 +129,28 @@ ProcessData <- function(treeCoverRaw, projectArea){
   
 }
 
+DateNotIn <- function(date, ranges){
+  #return True if the date does not fall in any of the datetime ranges
+  #INPUT:
+  # date: posixct datetime
+  # ranges: tibble of dates
+  val = TRUE
+  for (dtRange in ranges){
+    val = val & !(date >= dtRange["start"] & date <= dtRange["end"])
+  }
+  return(unname(val))
+}
 
 #### load data ####
 
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
 
-dtRange2015 <- GetRangeDateTime(2015)
-dtRange2010 <- GetRangeDateTime(2010)
-dtRange2005 <- GetRangeDateTime(2005)
-dtRange2000 <- GetRangeDateTime(2000)
+yr2015 <- GetRangeDateTime(2015)
+yr2010 <- GetRangeDateTime(2010)
+yr2005 <- GetRangeDateTime(2005)
+yr2000 <- GetRangeDateTime(2000)
 
+dtRanges <- tibble(yr2000, yr2005, yr2010, yr2015)
 #TODO: figure out if want to store dtRange within the spatRaster or as 
 # a separate vector
 
@@ -147,6 +159,10 @@ tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
 
+START_DATE = dtRange2000["start"]
+END_DATE = dtRange2015["end"]
+
+
 #For some reason tc2010 has a different coord. ref designation that omits
 # the datum, although the UTM zone is the same.
 tc2010 <- terra::project(tc2010, tc2015)
@@ -154,13 +170,14 @@ tc2010 <- terra::project(tc2010, tc2015)
 
 
 #### Get Puerco Project Area ####
+# TODO: remove this code, it is deprecated
 puerco_area_spat <- terra::project(puerco_area_spat, tc2015)
 puerco_area_raster <- terra::rasterize(puerco_area_spat, tc2015)
 #manual extent is clunky but it allows trim operation to be wayyy faster
 manual_extent = ext(700000, 750000, 3900000, 3950000) 
 puerco_area_raster <- terra::crop(puerco_area_raster, manual_extent)
 #visual check that we are not cropping parts of the project area
-plot(puerco_area_raster) 
+#plot(puerco_area_raster) 
 #remove border of NaN values
 puerco_area_raster <- terra::trim(puerco_area_raster) 
 plot(puerco_area_raster)
@@ -169,8 +186,7 @@ plot(puerco_area_raster)
 ##### Thinning in Zuni Mountains ####
 CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
 #https://usfs.maps.arcgis.com/apps/mapviewer/index.html?layers=eb8f23442f374ea2adae683e6eb0f16a
-START_DATE = as.POSIXct("01/01/2000", format="%m/%d/%Y", tz="MST")
-END_DATE = as.POSIXct("12/30/2015", format="%m/%d/%Y", tz="MST")
+
 
 #TODO: this should not rely on puerco_area but instead the tc data
 puerco_area <- sf::st_as_sf(puerco_area_spat)
@@ -181,25 +197,43 @@ zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(puerco_area))
 
 #sf can get the .gdb without issue, but maybe we want to convert everything to terra (spatVectors)
 # so that we can do the other operations more easily
-activities <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
-activities <- filter(activities, AU_FOREST_CODE==CIBOLA_FOREST) #filter immediately to increase processing speed
-activities <- filter(activities, grepl("thin", ACTIVITY, ignore.case=TRUE))
-activities <- sf::st_transform(activities, crs=st_crs(puerco_area))
+act_raw <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
+all_cibola <- act_raw %>% 
+  filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
+  filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
+  sf::st_transform(crs=st_crs(puerco_area))
+
+intersection <- sf::st_intersects(zuni_forest, all_cibola)[[1]]
+all_zuni <- all_cibola[intersection, ]
+
+all_thin <- filter(all_zuni, grepl("thin", ACTIVITY, ignore.case=TRUE))
+
 #remove TSI Need Created- Precommercial Thin and SI Need (precommercial thinning) Eliminated
 # I don't think those are actuall thinning activities
-activities <- filter(activities, !grepl("Need", ACTIVITY)) 
-containment <- st_contains(zuni_forest, activities)[[1]]
-activities <- activities[containment, ]
+all_thin <- filter(all_thin, !grepl("Need", ACTIVITY)) 
 
-act_range <- filter(activities, DATE_COMPLETED > START_DATE & DATE_COMPLETED < END_DATE  )
+haz_fr <- filter(all_thin, ACTIVITY=="Thinning for Hazardous Fuels Reduction")
+haz_fr <- filter(haz_fr, DateNotIn(DATE_COMPLETED, dtRanges))
+
+all_other <- filter(all_zuni, ACTIVITY!="Thinning for Hazardous Fuels Reduction")
+st_erase = function(x, y) st_difference(x, st_union(y))
+haz_fr_iso <- st_erase(haz_fr, all_other)
+
 #TODO: switch to ggplot as it seems to have reasonable suport fot this mapping stuff.
 # or convert to spatVector and plot from their? Too many options!!
 plot(zuni_forest["Name"], reset=FALSE, border=1, col=NA)
-plot(activities["DATE_COMPLETED"], add = TRUE, border=NA, col="grey")
-plot(act_range["DATE_COMPLETED"], add=TRUE, border=NA)
+plot(all_zuni["ACTIVITY"], add = TRUE, border=NA)
+
+
+plot(haz_fr["DATE_COMPLETED"], add=TRUE, border=NA)
+plot(all_other, add=TRUE, border=NA, col="blue")
+plot(haz_fr, add=TRUE, border=NA, col="yellow")
+plot(haz_fr_iso, add=TRUE, border=NA, col="magenta")
+
+plot(haz_fr_iso["DATE_COMPLETED"], border=NA)
 
 #number of unique thinning events (not necessarily one polygon) that occured:
-length(unique(act_range$DATE_COMPLETED))
+length(unique(haz_fr$DATE_COMPLETED))
 
 #arbitrarily choose a date_completed and show all polygons associated with it
 date_chosen <- unique(act_range$DATE_COMPLETED)[8]
