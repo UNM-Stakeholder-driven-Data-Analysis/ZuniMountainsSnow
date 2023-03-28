@@ -169,35 +169,15 @@ END_DATE = dtRange2015["end"]
 tc2010 <- terra::project(tc2010, tc2015)
 
 
-
-#### Get Puerco Project Area ####
-# TODO: remove this code, it is deprecated
-puerco_area_spat <- terra::project(puerco_area_spat, tc2015)
-puerco_area_raster <- terra::rasterize(puerco_area_spat, tc2015)
-#manual extent is clunky but it allows trim operation to be wayyy faster
-manual_extent = ext(700000, 750000, 3900000, 3950000) 
-puerco_area_raster <- terra::crop(puerco_area_raster, manual_extent)
-#visual check that we are not cropping parts of the project area
-#plot(puerco_area_raster) 
-#remove border of NaN values
-puerco_area_raster <- terra::trim(puerco_area_raster) 
-plot(puerco_area_raster)
-
-
-##### Thinning in Zuni Mountains ####
+##### Isolate Thinning Polygons in Zuni Mountains ####
 CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
 #https://usfs.maps.arcgis.com/apps/mapviewer/index.html?layers=eb8f23442f374ea2adae683e6eb0f16a
 
 
-#TODO: this should not rely on puerco_area but instead the tc data
-puerco_area <- sf::st_as_sf(puerco_area_spat)
-
 forests <- sf::st_read("./data/ProclaimedForest.kml")
 zuni_forest <- forests[forests$Name=="Zuni Mountains", 1]
-zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(puerco_area))
+zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(tc2015))
 
-#sf can get the .gdb without issue, but maybe we want to convert everything to terra (spatVectors)
-# so that we can do the other operations more easily
 act_raw <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
 #TODO: rename these categories to other and still plot them
 NO_ALTER_TC = c("Silvicultural Stand Examination", 
@@ -220,17 +200,12 @@ all_cibola <- act_raw %>%
 intersection <- sf::st_intersects(zuni_forest, all_cibola)[[1]]
 all_zuni <- all_cibola[intersection, ]
 
-all_thin <- filter(all_zuni, grepl("thin", ACTIVITY, ignore.case=TRUE))
-
-#remove TSI Need Created- Precommercial Thin and SI Need (precommercial thinning) Eliminated
-# I don't think those are actuall thinning activities
-all_thin <- filter(all_thin, !grepl("Need", ACTIVITY)) 
-
-haz_fr <- filter(all_thin, ACTIVITY=="Thinning for Hazardous Fuels Reduction")
-haz_fr <- filter(haz_fr, DateNotIn(DATE_COMPLETED, dtRanges))
+haz_fr <- all_zuni %>% 
+  filter(ACTIVITY=="Thinning for Hazardous Fuels Reduction") %>%
+  filter(DateNotIn(DATE_COMPLETED, dtRanges))
 
 all_other <- filter(all_zuni, ACTIVITY!="Thinning for Hazardous Fuels Reduction")
-haz_fr_iso <- st_differences(haz_fr, st_union(all_other))
+haz_fr_iso <- st_difference(haz_fr, st_union(all_other))
 
 p <- ggplot() +
   #geom_sf(data=zuni_forest) +
@@ -248,9 +223,6 @@ ggplot() +
 #number of unique thinning events (not necessarily one polygon) that occured:
 length(unique(haz_fr_iso$DATE_COMPLETED))
 
-#TODO: WORKING HERE ************
-# merge/union all polygons with the same date in haz_fr_iso
-
 haz_fr_merged <- aggregate(haz_fr_iso, 
                by = list(haz_fr_iso$DATE_COMPLETED),
                FUN=function(x) x) #dummy function
@@ -258,6 +230,7 @@ haz_fr_merged <- aggregate(haz_fr_iso,
 ggplot() +
   geom_sf(data=haz_fr_merged, aes(fill=factor(Group.1)))
 
+#### crop tc raster by isolated polygon ####
 p2014 <- "2014-09-29 18:00:00"
 p2012 <- "2012-09-29 18:00:00" # doesn't have as obvious of reduction in TC
 p2003 <- "2003-05-04 18:00:00" # 
@@ -267,6 +240,7 @@ poly_ext <- ext(one_poly)
 one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
+
 #### process Data ####
 
 zm_c_2015 <- ProcessData(tc2015, one_poly)
@@ -279,8 +253,6 @@ zm_c_2000 <- ProcessData(tc2000, one_poly)
 all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
-
-
 
 #### Visualize ####
 
@@ -340,8 +312,6 @@ RelFreq <- function(rasterData){
   h <- as.data.frame(terra::freq(rasterData))
   numPix = sum(h$count)
   return(mutate(h, relFreq=count/numPix))
-  
-  
 }
 
 freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
