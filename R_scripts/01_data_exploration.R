@@ -130,6 +130,14 @@ ProcessData <- function(treeCoverRaw, projectArea){
   
 }
 
+ClassifiedImage <- function(cover){
+  #create an image where optimal pixels have value 100, no optimal have value 0
+  m <- c(0, 10, 0,
+         11, 100, 100)
+  rclmat <- matrix(m, ncol=3, byrow=TRUE)
+  terra::classify(cover, rclmat, right=NA)
+}
+
 DateNotIn <- function(date, ranges){
   #return True if the date does not fall in any of the datetime ranges
   #INPUT:
@@ -235,13 +243,13 @@ p2014 <- "2014-09-29 18:00:00"
 p2012 <- "2012-09-29 18:00:00" # doesn't have as obvious of reduction in TC
 p2003 <- "2003-05-04 18:00:00" # 
 
-one_poly <- terra::vect(filter(haz_fr_merged, Group.1==p2003))
+one_poly <- terra::vect(filter(haz_fr_merged, Group.1==p2014))
 poly_ext <- ext(one_poly)
 one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
 
-#### process Data ####
+all#### process Data ####
 
 zm_c_2015 <- ProcessData(tc2015, one_poly)
 zm_c_2010 <- ProcessData(tc2010, one_poly)
@@ -254,7 +262,36 @@ all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
+ci <- ClassifiedImage(all)
+wm <- matrix(1, nc=3, nr=3)
+Optimal <- function(y, na.rm, ...){
+  print("A")
+  print(y)
+  print("---")
+  CENTER = 5
+  if(!is.na(y[CENTER]) & y[CENTER] == 0){
+    #cell values are either 0 or 100
+    return(ifelse(sum(y[c(1:4, 6:9)], na.rm=na.rm) >= 800, 100, 0))
+  }
+  else {
+    return(0)
+  }
+}
+#something breaks when the whole stack is applied. 
+opt_img <- focal(ci["yr2005"], w=wm, fun=Optimal, na.policy="omit", na.rm=TRUE, silent=FALSE)
+#trying to get it to work on layers
+# https://stackoverflow.com/questions/68615434/using-sapp-to-apply-terrafocal-to-each-layer-of-a-spatraster
+opt_img <- sapp(ci, fun = function(z, ...) {focal(z, fun=Optimal, na.policy="omit", w=wm)})
+s <- sapp(ci, fun = function(x, ...) {focal(x, fun = "any", w = 3)})
+
+m <- matrix(1:16, nrow=4, ncol=4)
+x <- rast(m)
+
 #### Visualize ####
+
+#Classified Image
+plot(ci)
+plot(opt_img)
 
 
 # PERCENT COVER PLOTS
