@@ -11,6 +11,7 @@
 # - checking for correlation between variables <?
 
 #### Libraries ####
+library(plotly)
 library(assertthat)
 library(tidyverse)
 library(raster)
@@ -208,7 +209,8 @@ NO_ALTER_TC = c("Silvicultural Stand Examination",
                 "Piling of Fuels, Hand or Machine ",
                 "Range Cover Manipulation",
                 "Rearrangement of Fuels",
-                "Stand Silviculture Prescription")
+                "Stand Silviculture Prescription",
+                "Burning of Piled Material")
 all_cibola <- act_raw %>% 
   filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
   filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
@@ -228,40 +230,39 @@ haz_fr <- filter(all_thin, ACTIVITY=="Thinning for Hazardous Fuels Reduction")
 haz_fr <- filter(haz_fr, DateNotIn(DATE_COMPLETED, dtRanges))
 
 all_other <- filter(all_zuni, ACTIVITY!="Thinning for Hazardous Fuels Reduction")
-st_erase = function(x, y) st_difference(x, st_union(y))
-haz_fr_iso <- st_erase(haz_fr, all_other)
+haz_fr_iso <- st_differences(haz_fr, st_union(all_other))
+
+p <- ggplot() +
+  #geom_sf(data=zuni_forest) +
+  geom_sf(data=all_zuni, aes(fill=ACTIVITY), alpha=0.70) +
+  scale_fill_brewer(palette="Set3")
+
+ggplotly(p) #interactive plot
 
 ggplot() +
-  geom_sf(data=zuni_forest) +
-  geom_sf(data=all_zuni, aes(fill=ACTIVITY), alpha=0.5)
+  geom_sf(data=haz_fr, fill="green") +
+  geom_sf(data=haz_fr_iso, aes(fill=factor(DATE_COMPLETED))) +
+  scale_fill_brewer()
 
-ggplot() +
-  geom_sf(data=haz_fr) +
-  geom_sf(data=haz_fr_iso, aes(fill=DATE_COMPLETED))
-
-plot(haz_fr["DATE_COMPLETED"], add=TRUE, border=NA)
-plot(all_other, add=TRUE, border=NA, col="blue")
-plot(haz_fr, add=TRUE, border=NA, col="yellow")
-plot(haz_fr_iso, add=TRUE, border=NA, col="magenta")
-
-plot(haz_fr_iso["DATE_COMPLETED"], border=NA)
 
 #number of unique thinning events (not necessarily one polygon) that occured:
 length(unique(haz_fr_iso$DATE_COMPLETED))
 
-#arbitrarily choose a date_completed and show all polygons associated with it
-date_chosen <- unique(act_range$DATE_COMPLETED)[8]
-sub_df <- filter(act_range, DATE_COMPLETED==date_chosen)
-plot(sub_df, add=TRUE, border=NA, col="magenta")
+#TODO: WORKING HERE ************
+# merge/union all polygons with the same date in haz_fr_iso
 
-# This polygon was identified using arc map
-# it is a "thinning for haz fuel reduction" and occurs between 2010 and 2015
-# and doesn't overlap with other treatments
-poly_id <- "{AF6C2148-55FF-485C-93C1-7CA862749E18}"
-one_poly_sf <- activities[activities$REPLICATION_ID==poly_id,]
+haz_fr_merged <- aggregate(haz_fr_iso, 
+               by = list(haz_fr_iso$DATE_COMPLETED),
+               FUN=function(x) x) #dummy function
 
+ggplot() +
+  geom_sf(data=haz_fr_merged, aes(fill=factor(Group.1)))
 
-one_poly <- terra::vect(one_poly_sf)
+p2014 <- "2014-09-29 18:00:00"
+p2012 <- "2012-09-29 18:00:00" # doesn't have as obvious of reduction in TC
+p2003 <- "2003-05-04 18:00:00" # 
+
+one_poly <- terra::vect(filter(haz_fr_merged, Group.1==p2003))
 poly_ext <- ext(one_poly)
 one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
