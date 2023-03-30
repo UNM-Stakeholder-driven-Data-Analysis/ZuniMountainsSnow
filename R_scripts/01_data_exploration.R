@@ -11,6 +11,7 @@
 # - checking for correlation between variables <?
 
 #### Libraries ####
+library(tidyterra)
 library(plotly)
 library(assertthat)
 library(tidyverse)
@@ -49,6 +50,53 @@ imgFolder = "./GeneratedPlots"
 
 
 #### functions ####
+MonteCarloImg <- function(img){
+  #make an empty image with same extent, crs, and higher resolution
+  # by randomly generating a plausable 10x10 grid for each single cell in img
+  #ASSUMPTIONS:
+  # img has resolution of 30x30
+  # img values range from 0,100
+  
+  samp <- terra::rast(ext(img), resolution=c(3,3))
+  crs(samp) <- crs(img)
+  rRng = c(low=1, high=10)
+  cRng = c(low=1, high=10)
+  for (i in 1:iterI){
+    for (j in 1:iterJ){
+      value = img[i, j][[1]]
+      if (is.na(value)){
+        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = NA
+      }
+      else{
+        #print(value)
+        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = MonteCarloMat(value)
+      }
+      cRng <- cRng + 10
+    }
+    cRng <- c(low=1, high=10)
+    rRng <- rRng + 10
+  }
+  return(samp)
+}
+MonteCarloMat <- function(cover){
+  #generate a possible distribution of 100% cover sub-cells so that the % cover
+  #of the entire 10x10 matrix is equal to cover
+  #INPUT:
+  # cover has range 0-100 integer
+  #OUPUT:
+  # 10x10 matrix where each value is 0 or 100
+  
+  maxCover <- 100 #maximum value that "cover" can take
+  maxVal <-100 #value to represent 100% cover in the new matrix
+  if (cover==0){
+    return(as.data.frame(replicate(100, 0))) #spatRaster wants a data frame
+  }
+  else{
+    vec <- c(replicate(cover, maxVal), replicate(maxCover-cover, 0))
+    return(as.data.frame(sample(vec, size=100)))
+  }
+}
+
 Identifier <- function(year, path, row){
   return(paste("p", path, "r", row, "_TC_", toString(year), sep=""))
 }
@@ -160,6 +208,8 @@ yr2005 <- GetRangeDateTime(2005)
 yr2000 <- GetRangeDateTime(2000)
 
 dtRanges <- tibble(yr2000, yr2005, yr2010, yr2015)
+START_DATE = dtRanges$yr2000["start"]
+END_DATE = dtRanges$yr2015["end"]
 #TODO: figure out if want to store dtRange within the spatRaster or as 
 # a separate vector
 
@@ -168,8 +218,6 @@ tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
 
-START_DATE = dtRange2000["start"]
-END_DATE = dtRange2015["end"]
 
 
 #For some reason tc2010 has a different coord. ref designation that omits
@@ -203,7 +251,7 @@ all_cibola <- act_raw %>%
   filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
   filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
   filter(!ACTIVITY %in% NO_ALTER_TC) %>%
-  sf::st_transform(crs=st_crs(puerco_area))
+  sf::st_transform(crs=st_crs(tc2015))
 
 intersection <- sf::st_intersects(zuni_forest, all_cibola)[[1]]
 all_zuni <- all_cibola[intersection, ]
@@ -249,7 +297,7 @@ one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
 
-all#### process Data ####
+#### process Data ####
 
 zm_c_2015 <- ProcessData(tc2015, one_poly)
 zm_c_2010 <- ProcessData(tc2010, one_poly)
@@ -261,6 +309,18 @@ zm_c_2000 <- ProcessData(tc2000, one_poly)
 all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
+
+#### generate a monte carlo sample ####
+
+zm_c_2000_samp <- MonteCarloImg(zm_c_2000)
+
+plot(zm_c_2000_samp)
+ggplot() +
+  geom_spatraster(data = zm_c_2000)
+
+ggplot() +
+  geom_spatraster(data = zm_c_2000_samp)
+
 
 ci <- ClassifiedImage(all)
 wm <- matrix(1, nc=3, nr=3)
