@@ -11,6 +11,7 @@
 # - checking for correlation between variables <?
 
 #### Libraries ####
+library(tictoc)
 library(tidyterra)
 library(plotly)
 library(assertthat)
@@ -57,8 +58,13 @@ MonteCarloImg <- function(img){
   # img has resolution of 30x30
   # img values range from 0,100
   
+  #copy the input image but at a higher resolution
   samp <- terra::rast(ext(img), resolution=c(3,3))
   crs(samp) <- crs(img)
+  
+  iterI <- nrow(img)
+  iterJ <- ncol(img)
+  
   rRng = c(low=1, high=10)
   cRng = c(low=1, high=10)
   for (i in 1:iterI){
@@ -311,8 +317,9 @@ minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 #### generate a monte carlo sample ####
-
+tic("MonteCarloImg")
 zm_c_2000_samp <- MonteCarloImg(zm_c_2000)
+toc()
 
 plot(zm_c_2000_samp)
 ggplot() +
