@@ -425,24 +425,15 @@ dev.off()
 
 
 # HISTOGRAMS
-RelFreq <- function(rasterData){
-  h <- as.data.frame(terra::freq(rasterData))
-  numPix = sum(h$count)
-  return(mutate(h, relFreq=count/numPix))
-}
-
-#freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
-#freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
-#freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
-#freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
-#freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
 freqAll <- terra::freq(all, usenames=TRUE) %>% 
   group_by(layer) %>% 
   mutate(total=sum(count)) %>%
   ungroup %>%
   mutate(relFreq=count/total)
 
-# plot hisograms together one one axes
+#TODO: add sumError column (use cross tab to do this!)
+
+# plot hisograms together on one axes
 p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(layer))) + geom_col( position=position_dodge2(10))
 p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Percent Cover Values, 2000-2015")
 print(p1)
