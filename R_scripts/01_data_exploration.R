@@ -103,8 +103,8 @@ MonteCarloMat <- function(cover){
   }
 }
 
-Identifier <- function(year, path, row){
-  return(paste("p", path, "r", row, "_TC_", toString(year), sep=""))
+Identifier <- function(year, path, row, suffix=""){
+  return(paste("p", path, "r", row, "_TC_", toString(year), suffix, sep=""))
 }
 
 YearFileIntermediate <- function(year, path, row, suffix){
@@ -117,17 +117,18 @@ YearFileIntermediate <- function(year, path, row, suffix){
   return(file_path)
 }
 
-YearFile <- function(year, path, row, suffix=".tif"){
-  identifier <- Identifier(year, path, row)
+YearFile <- function(year, path, row, type="", suffix=".tif"){
+  # type can be "", "_err" or "_idx"
+  identifier <- Identifier(year, path, row, type)
   file_path <- file.path(YearFileIntermediate(year, path, row, suffix=""),
                          paste(identifier, suffix, sep=""))
   return(file_path)
 }
 
-MergedRaster <- function(year){
+MergedRaster <- function(year, type=""){
 
-  p035r035 <- rast(YearFile(year, "035", "035"))
-  p035r036 <- rast(YearFile(year, "035", "036"))
+  p035r035 <- rast(YearFile(year, "035", "035", type))
+  p035r036 <- rast(YearFile(year, "035", "036", type))
   
   final <- merge(p035r035, p035r036)
   time(final) <- year
@@ -168,21 +169,6 @@ OnlyTreeCover <- function(treeCover){
   
 }
 
-ProcessData <- function(treeCoverRaw, projectArea){
-  #TODO: use pipes?
-  
-  # crop to study area
-  zm_cover <- terra::crop(treeCoverRaw, projectArea)
-  
-  # remove non tree cover pixels
-  zm_cover <- OnlyTreeCover(zm_cover)
-  
-  # remove tree cover pixels outside the project area
-  zm_cover <- terra::mask(zm_cover, projectArea)
-  
-  return(zm_cover)
-  
-}
 
 ClassifiedImage <- function(cover){
   #create an image where optimal pixels have value 100, no optimal have value 0
@@ -206,6 +192,7 @@ DateNotIn <- function(date, ranges){
 
 #### load data ####
 
+#TODO: remove below line
 puerco_area_spat <- terra::vect("./data/Puerco Project Area/puerco_Project-polygon.shp")
 
 yr2015 <- GetRangeDateTime(2015)
@@ -216,19 +203,37 @@ yr2000 <- GetRangeDateTime(2000)
 dtRanges <- tibble(yr2000, yr2005, yr2010, yr2015)
 START_DATE = dtRanges$yr2000["start"]
 END_DATE = dtRanges$yr2015["end"]
-#TODO: figure out if want to store dtRange within the spatRaster or as 
-# a separate vector
 
 tc2015 <- MergedRaster(2015)
 tc2010 <- MergedRaster(2010)
 tc2005 <- MergedRaster(2005)
 tc2000 <- MergedRaster(2000)
-
-
-
+#2015 and 2010 happen to have larger extents than 2005 and 2000
+#making them the same allows us to combine as layers
+tc2015 <- terra::crop(tc2015, tc2005)
+tc2010 <- terra::crop(tc2010, tc2005)
 #For some reason tc2010 has a different coord. ref designation that omits
 # the datum, although the UTM zone is the same.
 tc2010 <- terra::project(tc2010, tc2015)
+
+tcAll <- c(tc2015, tc2010, tc2005, tc2000)
+  
+err2015 <- MergedRaster(2015, type="_err")
+err2010 <- MergedRaster(2010, type="_err")
+err2005 <- MergedRaster(2005, type="_err")
+err2000 <- MergedRaster(2000, type="_err")
+#2015 and 2010 happen to have larger extents than 2005 and 2000
+#making them the same allows us to combine as layers
+err2015 <- terra::crop(err2015, err2005)
+err2010 <- terra::crop(err2010, err2005)
+#For some reason err2010 has a different coord. ref designation that omits
+# the datum, although the UTM zone is the same.
+err2010 <- terra::project(err2010, err2015)
+
+errAll <- c(err2015, err2010, err2005, err2000)
+
+
+
 
 
 ##### Isolate Thinning Polygons in Zuni Mountains ####
@@ -305,21 +310,30 @@ plot(one_poly)
 
 #### process Data ####
 
-zm_c_2015 <- ProcessData(tc2015, one_poly)
-zm_c_2010 <- ProcessData(tc2010, one_poly)
-zm_c_2005 <- ProcessData(tc2005, one_poly)
-zm_c_2000 <- ProcessData(tc2000, one_poly)
-#TODO: verifiy only contains 0-100 value now
+errAll_p <- errAll %>% terra::crop(one_poly) %>% terra::mask(one_poly)
+ggplot() + geom_spatraster(data=errAll_p) + facet_wrap(~lyr)
 
+all <- tcAll %>% 
+  terra::crop(one_poly) %>% 
+  terra::mask(one_poly) %>%
+  OnlyTreeCover()
+
+# OnlyTreeCover NaNs any values not in 0-100
+stopifnot(all(terra::minmax(all)[2,] <= 100))
+
+ggplot() + geom_spatraster(data=all) + facet_wrap(~lyr)
+  
 # get max percent value for all
 all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 #### generate a monte carlo sample ####
+for (i in 1:10){
 tic("MonteCarloImg")
 zm_c_2000_samp <- MonteCarloImg(zm_c_2000)
 toc()
+}
 
 plot(zm_c_2000_samp)
 ggplot() +
