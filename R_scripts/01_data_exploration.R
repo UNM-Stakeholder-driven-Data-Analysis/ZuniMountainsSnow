@@ -324,20 +324,19 @@ stopifnot(all(terra::minmax(all)[2,] <= 100))
 ggplot() + geom_spatraster(data=all) + facet_wrap(~lyr)
   
 # get max percent value for all
-all <- c(zm_c_2015, zm_c_2010, zm_c_2005, zm_c_2000)
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 #### generate a monte carlo sample ####
 for (i in 1:10){
 tic("MonteCarloImg")
-zm_c_2000_samp <- MonteCarloImg(zm_c_2000)
+zm_c_2000_samp <- MonteCarloImg(all$yr2000)
 toc()
 }
 
 plot(zm_c_2000_samp)
 ggplot() +
-  geom_spatraster(data = zm_c_2000)
+  geom_spatraster(data = all$yr2000)
 
 ggplot() +
   geom_spatraster(data = zm_c_2000_samp)
@@ -406,7 +405,7 @@ dev.off()
 ### KERNEL DENSITY PLOTS ###
 #TODO: would be better to extract percent cover as 1d list and use ggplot's
 #geom_density() function to have greater control over aesthetics
-allYrsRaster <- raster::stack(raster(zm_c_2015), raster(zm_c_2010), raster(zm_c_2005), raster(zm_c_2000))
+allYrsRaster <- raster::stack(raster(all$yr2015), raster(all$yr2010), raster(all$yr2005), raster(all$yr2000))
 jpeg(file.path(imgFolder, "percentTreeCover_kernelDensity.jpeg"), height=im.width * aspect.r, width=im.width)
 rasterVis::densityplot(allYrsRaster,
                        xlab='Percent Cover', 
@@ -432,33 +431,30 @@ RelFreq <- function(rasterData){
   return(mutate(h, relFreq=count/numPix))
 }
 
-freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
-freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
-freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
-freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
-freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
+#freq_2000 <- RelFreq(zm_c_2000) %>% mutate(year=2000)
+#freq_2005 <- RelFreq(zm_c_2005) %>% mutate(year=2005)
+#freq_2010 <- RelFreq(zm_c_2010) %>% mutate(year=2010)
+#freq_2015 <- RelFreq(zm_c_2015) %>% mutate(year=2015)
+#freqAll <- bind_rows(freq_2000, freq_2005, freq_2010, freq_2015)
+freqAll <- terra::freq(all, usenames=TRUE) %>% 
+  group_by(layer) %>% 
+  mutate(total=sum(count)) %>%
+  ungroup %>%
+  mutate(relFreq=count/total)
 
-p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(year))) + geom_col( position=position_dodge2(10))
+# plot hisograms together one one axes
+p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(layer))) + geom_col( position=position_dodge2(10))
 p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey Histogram for Percent Cover Values, 2000-2015")
 print(p1)
 
-HistYear <- function(freqAll, yr){
-  p1 <- ggplot(data=filter(freqAll, year==yr), aes(factor(value), relFreq)) + geom_col( position=position_dodge2(10))
-  p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title =toString(yr))
-  return(p1)
-}
-
-
-p1 <- HistYear(freqAll, 2015)
-p2 <- HistYear(freqAll, 2010)
-p3 <- HistYear(freqAll, 2005)
-p4 <- HistYear(freqAll, 2000)
-
+# Plot each histogram in a separate facet
 jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspect.r, width=im.width) 
-grid.arrange(p1, p2, p3, p4, 
-             ncol=2,
-             top=textGrob("Percent Tree Cover for the Puerco Project Area", gp=gpar(fontsize=25)))
+ggplot(data=freqAll, aes(factor(value), relFreq)) +
+  geom_col() +
+  facet_wrap(~layer) + 
+  labs(x="Percent Cover", y="relative frequency",title ="MEOW")
 dev.off()
+
 
 ##### Autocorrelation test #####
 
