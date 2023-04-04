@@ -51,6 +51,20 @@ imgFolder = "./GeneratedPlots"
 
 
 #### functions ####
+CrossTabSummary <- function(img, lyrName){
+  #ASSUMPTIONS:
+  # img has two layers: cover and err. Cover comes first
+  print(names(img)[1])
+  crossed <- crosstab(img, long=TRUE)
+  result <- crossed %>% 
+    #not sure how to not hardcode "err" and "cover" below
+    mutate(intermediateTotal=err*Freq) %>% 
+    group_by(across(colnames(crossed)[1])) %>% #by the first layer (cover)
+    summarize(errTotal=sum(intermediateTotal), errAvg = sum(err*Freq) / sum(Freq)) %>%
+    mutate(layer=lyrName) %>% #gets sums and averages of err for cover values
+    rename(value=cover) # to match freqAll table
+  return(result)
+}
 MonteCarloImg <- function(img){
   #make an empty image with same extent, crs, and higher resolution
   # by randomly generating a plausable 10x10 grid for each single cell in img
@@ -328,11 +342,13 @@ minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 #### generate a monte carlo sample ####
-for (i in 1:10){
-tic("MonteCarloImg")
-zm_c_2000_samp <- MonteCarloImg(all$yr2000)
-toc()
-}
+
+#test how long it takes to run MonteCarloImg
+#for (i in 1:10){
+#tic("MonteCarloImg")
+#zm_c_2000_samp <- MonteCarloImg(all$yr2000)
+#toc()
+#}
 
 plot(zm_c_2000_samp)
 ggplot() +
@@ -358,11 +374,11 @@ Optimal <- function(y, na.rm, ...){
   }
 }
 #something breaks when the whole stack is applied. 
-opt_img <- focal(ci["yr2005"], w=wm, fun=Optimal, na.policy="omit", na.rm=TRUE, silent=FALSE)
+#opt_img <- focal(ci["yr2005"], w=wm, fun=Optimal, na.policy="omit", na.rm=TRUE, silent=FALSE)
 #trying to get it to work on layers
 # https://stackoverflow.com/questions/68615434/using-sapp-to-apply-terrafocal-to-each-layer-of-a-spatraster
-opt_img <- sapp(ci, fun = function(z, ...) {focal(z, fun=Optimal, na.policy="omit", w=wm)})
-s <- sapp(ci, fun = function(x, ...) {focal(x, fun = "any", w = 3)})
+#opt_img <- sapp(ci, fun = function(z, ...) {focal(z, fun=Optimal, na.policy="omit", w=wm)})
+#s <- sapp(ci, fun = function(x, ...) {focal(x, fun = "any", w = 3)})
 
 m <- matrix(1:16, nrow=4, ncol=4)
 x <- rast(m)
@@ -431,7 +447,26 @@ freqAll <- terra::freq(all, usenames=TRUE) %>%
   ungroup %>%
   mutate(relFreq=count/total)
 
+#there must be a better way of doing this.
+yr2015 <- c(all$yr2015, errAll_p$yr2015)
+yr2010 <- c(all$yr2010, errAll_p$yr2010)
+yr2005 <- c(all$yr2010, errAll_p$yr2005)
+yr2000 <- c(all$yr2000, errAll_p$yr2000)
+set.names(yr2015, c("cover", "err"))
+set.names(yr2010, c("cover", "err"))
+set.names(yr2005, c("cover", "err"))
+set.names(yr2000, c("cover", "err"))
+
+crossTabResults <- bind_rows(#CrossTabSummary(yr2015, lyrName="yr2015"), 
+               #CrossTabSummary(yr2010, lyrName="yr2010"),
+               #CrossTabSummary(yr2005, lyrName="yr2005"),
+               CrossTabSummary(yr2000, lyrName="yr2000"))
+
+freqAll <- left_join(freqAll, crossTabResults, by=join_by(layer, value))
+
+
 #TODO: add sumError column (use cross tab to do this!)
+#maybe want to use sds to combine err_p and all?
 
 # plot hisograms together on one axes
 p1 <- ggplot(data=freqAll, aes(factor(value), relFreq, fill=factor(layer))) + geom_col( position=position_dodge2(10))
@@ -440,10 +475,10 @@ print(p1)
 
 # Plot each histogram in a separate facet
 jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspect.r, width=im.width) 
-ggplot(data=freqAll, aes(factor(value), relFreq)) +
+ggplot(data=freqAll, aes(factor(value), relFreq, fill=errAvg)) +
   geom_col() +
   facet_wrap(~layer) + 
-  labs(x="Percent Cover", y="relative frequency",title ="MEOW")
+  labs(x="Percent Cover", y="relative frequency",title ="Cover Histogram for Polygon _")
 dev.off()
 
 
