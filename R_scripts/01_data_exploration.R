@@ -60,7 +60,7 @@ CrossTabSummary <- function(img, lyrName){
     #not sure how to not hardcode "err" and "cover" below
     mutate(intermediateTotal=err*Freq) %>% 
     group_by(across(colnames(crossed)[1])) %>% #by the first layer (cover)
-    summarize(errTotal=sum(intermediateTotal), errAvg = sum(err*Freq) / sum(Freq)) %>%
+    summarize(errTotal=sum(intermediateTotal), errAvg = sum(err*Freq) / sum(Freq), errMax=max(err)) %>%
     mutate(layer=lyrName) %>% #gets sums and averages of err for cover values
     rename(value=cover) # to match freqAll table
   return(result)
@@ -342,20 +342,42 @@ minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
 #### generate a monte carlo sample ####
-
+ 
 #test how long it takes to run MonteCarloImg
-#for (i in 1:10){
-#tic("MonteCarloImg")
-#zm_c_2000_samp <- MonteCarloImg(all$yr2000)
-#toc()
-#}
+numSamples <- 2
 
-plot(zm_c_2000_samp)
+tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
+#initialize the first image
+zm_c_2000_samp <- MonteCarloImg(all$yr2000)
+set.names(zm_c_2000_samp, toString(1))
+for (i in 2:numSamples){
+  #TODO: set the name of the image so we don't have to do it after.
+  img <- MonteCarloImg(all$yr2000)
+  set.names(img, toString(i))
+  #add the new image as a layer
+  add(zm_c_2000_samp) <- img
+
+}
+toc()
+
+
+writeRaster(zm_c_2000_samp, filename="zm_c_2000_samp.tif", overwrite=TRUE)
+
+zm_c_2000_samp_loaded <- rast("zm_c_2000_samp.tif")
+
+
+
+
+
+
+
+
 ggplot() +
   geom_spatraster(data = all$yr2000)
 
 ggplot() +
-  geom_spatraster(data = zm_c_2000_samp)
+  geom_spatraster(data = zm_c_2000_samp_loaded) +
+  facet_wrap(~lyr)
 
 
 ci <- ClassifiedImage(all)
