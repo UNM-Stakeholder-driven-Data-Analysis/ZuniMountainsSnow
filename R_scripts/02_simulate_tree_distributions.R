@@ -141,6 +141,5 @@ toc()
 
 writeRaster(zm_c_2000_samp, filename="./R_output/poly2014-09-29/zm2000_sim.tif", overwrite=TRUE)
 
-zm_c_2000_samp_loaded <- rast("zm2000_sim.tif")
 
 

@@ -1,4 +1,41 @@
 #### functions ####
+GetCircleMat <- function(img, radius=15){
+  #for use in focal function
+  m <- focalMat(img, radius, "circle")
+  center = ceiling(nrow(m)/2)
+  m[center,center] = 0
+  m[c>0] = 1
+  return(m)
+}
+
+PlotFocalMat <- function(mat){
+  ggplot() + 
+    geom_spatraster(data=rast(mat)) + 
+    coord_fixed() + 
+    scale_y_continuous(breaks=seq(1,10,by=1)) + 
+    scale_x_continuous(breaks=seq(1,10,by=1)) +
+    theme(
+      panel.background = element_rect(fill = NA),
+      panel.ontop = TRUE
+    )
+}
+
+IsOptimal <- function(y, na.rm, CENTER, circleMat){
+  #to be used with focal
+  # center is the middle of the wiehgts matrix supplied to focal
+  # circleMat has the same dimensions as the wieghts matrix and only 1s defining
+  # a filled in circle, with the center empty (0)
+  if(!is.na(y[CENTER]) & y[CENTER] == 0){
+    #cell values are either 0 or 100
+    # if any of the non central cells forming a rough (pixelated) circle are 100
+    # the sum will be greater than 0
+    return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) > 0, 1, 0))
+  }
+  else {
+    return(0)
+  }
+}
+
 CrossTabSummary <- function(img, lyrName){
   #ASSUMPTIONS:
   # img has two layers: cover and err. Cover comes first

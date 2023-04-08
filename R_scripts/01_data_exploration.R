@@ -227,19 +227,7 @@ ggplot() +
 
 ci <- ClassifiedImage(all)
 wm <- matrix(1, nc=3, nr=3)
-Optimal <- function(y, na.rm, ...){
-  print("A")
-  print(y)
-  print("---")
-  CENTER = 5
-  if(!is.na(y[CENTER]) & y[CENTER] == 0){
-    #cell values are either 0 or 100
-    return(ifelse(sum(y[c(1:4, 6:9)], na.rm=na.rm) >= 800, 100, 0))
-  }
-  else {
-    return(0)
-  }
-}
+
 #something breaks when the whole stack is applied. 
 #opt_img <- focal(ci["yr2005"], w=wm, fun=Optimal, na.policy="omit", na.rm=TRUE, silent=FALSE)
 #trying to get it to work on layers
