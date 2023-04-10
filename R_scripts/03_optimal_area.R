@@ -7,13 +7,29 @@
 #### packages ####
 library(terra)
 library(cowplot)
+library(ggplot2)
+library(tidyterra)
 source("./R_Scripts/00_Functions.R")
 
 #zuni mountain cover, simulation
 zm_c_2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
+zm_c_2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
+zm_c_2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
+
+#### Visual check that years differ ####
+lyer = "2"
+firstSim = c(zm_c_2000_sim[[lyer]], zm_c_2005_sim[[lyer]], zm_c_2010_sim[[lyer]])
+set.names(firstSim, c("yr2000", "yr2005", "yr2010"))
+ggplot() +
+  geom_spatraster(data=firstSim) +
+  facet_wrap(~lyr)
 
 #### Initialize Constants for Focal Function ####
-circleMat = GetCircleMat(zm_c_2000_sim)
+#NOTE: might be cleaner code to use buffer! (buffer, then remove tree cover from buffer)
+#zm_c_2000_sim[zm_c_2000_sim==0] = NA
+
+
+circleMat = GetCircleMat(zm_c_2000_sim[["1"]])
 nRow = nrow(circleMat)
 weightMat = matrix(data=1, nrow=nRow, ncol=nRow)
 #for a odd sized square matrix represented at a vector, going from top left to right, then down by column,

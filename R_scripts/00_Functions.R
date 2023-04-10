@@ -4,7 +4,7 @@ GetCircleMat <- function(img, radius=15){
   m <- focalMat(img, radius, "circle")
   center = ceiling(nrow(m)/2)
   m[center,center] = 0
-  m[c>0] = 1
+  m[m>0] = 1
   return(m)
 }
 
@@ -25,6 +25,7 @@ IsOptimal <- function(y, na.rm, CENTER, circleMat){
   # center is the middle of the wiehgts matrix supplied to focal
   # circleMat has the same dimensions as the wieghts matrix and only 1s defining
   # a filled in circle, with the center empty (0)
+  nRows = sqrt(length(y))
   if(!is.na(y[CENTER]) & y[CENTER] == 0){
     #cell values are either 0 or 100
     # if any of the non central cells forming a rough (pixelated) circle are 100

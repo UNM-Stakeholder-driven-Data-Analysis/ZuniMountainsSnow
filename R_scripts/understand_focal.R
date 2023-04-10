@@ -1,13 +1,10 @@
 library(terra)
 library(ggplot2)
 library(cowplot)
+library(tidyterra)
 source("./R_Scripts/00_Functions.R")
 
-c <- focalMat(img, 5, "circle")
-center = ceiling(nrow(c)/2)
-c[center,center] = 0
-c[c>0] = 1
-circleMat <- c
+
 
 #make arandom image of tree cover
 N = 40
@@ -15,6 +12,14 @@ img <- rast(matrix(rbinom(N*N, 1, 0.5), nrow=N, ncol=N))
 img <- img *100
 #set the cetnral cells to no tree cover
 img[11:30, 11:30] <- 0
+
+
+c <- focalMat(img, 5, "circle")
+center = ceiling(nrow(c)/2)
+c[center,center] = 0
+c[c>0] = 1
+circleMat <- c
+
 p1 <- ggplot() + 
   geom_spatraster(data=img) + 
   coord_fixed() +
@@ -44,3 +49,8 @@ p2 <- ggplot() +
   )
 
 plot_grid(p1, p2, labels = c('Tree Cover', 'Is Optimal'), label_size = 12)
+
+
+#### Buffer Version of Same ####
+#buf_result <- buffer(img, 4)
+

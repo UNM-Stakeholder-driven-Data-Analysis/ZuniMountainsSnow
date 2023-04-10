@@ -126,20 +126,21 @@ numSamples <- 100
 
 tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
 #initialize the first image
-zm_c_2000_samp <- MonteCarloImg(all$yr2000)
-set.names(zm_c_2000_samp, toString(1))
+SAMPLE_IMG <- all$yr2010
+zm_c_samp <- MonteCarloImg(SAMPLE_IMG)
+set.names(zm_c_samp, toString(1))
 for (i in 2:numSamples){
   #TODO: set the name of the image so we don't have to do it after.
-  img <- MonteCarloImg(all$yr2000)
+  img <- MonteCarloImg(SAMPLE_IMG)
   set.names(img, toString(i))
   #add the new image as a layer
-  add(zm_c_2000_samp) <- img
+  add(zm_c_samp) <- img
   
 }
 toc()
 
 
-writeRaster(zm_c_2000_samp, filename="./R_output/poly2014-09-29/zm2000_sim.tif", overwrite=TRUE)
+writeRaster(zm_c_samp, filename="./R_output/poly2014-09-29/zm2010_sim.tif", overwrite=FALSE)
 
 
 
