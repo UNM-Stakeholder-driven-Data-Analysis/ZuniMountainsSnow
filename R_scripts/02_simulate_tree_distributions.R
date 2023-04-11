@@ -121,12 +121,12 @@ all <- tcAll %>%
 
 #### generate a monte carlo sample ####
 
-#test how long it takes to run MonteCarloImg
 numSamples <- 100
+#Current workflow is to manually change the yr and the file name and then run (to avoid one long run)
 
 tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
 #initialize the first image
-SAMPLE_IMG <- all$yr2010
+SAMPLE_IMG <- all$yr2015
 zm_c_samp <- MonteCarloImg(SAMPLE_IMG)
 set.names(zm_c_samp, toString(1))
 for (i in 2:numSamples){
@@ -140,7 +140,7 @@ for (i in 2:numSamples){
 toc()
 
 
-writeRaster(zm_c_samp, filename="./R_output/poly2014-09-29/zm2010_sim.tif", overwrite=FALSE)
+writeRaster(zm_c_samp, filename="./R_output/poly2014-09-29/zm2015_sim.tif", overwrite=FALSE)
 
 
 

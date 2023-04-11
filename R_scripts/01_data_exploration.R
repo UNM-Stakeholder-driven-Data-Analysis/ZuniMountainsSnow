@@ -160,8 +160,15 @@ ggplot() +
 p2014 <- "2014-09-29 18:00:00"
 p2012 <- "2012-09-29 18:00:00" # doesn't have as obvious of reduction in TC
 p2003 <- "2003-05-04 18:00:00" # 
+p2007 <- "2007-08-30 18:00:00" # appears to be nothing
+#all the 2009s should probably be merged!
+p2009_06 <- "2009-06-11 18:00:00"
+p2009_09 <- "2009-09-30 18:00:00" # tiny area
+p2009_10 <- "2009-10-30 18:00:00"
 
-one_poly <- terra::vect(filter(haz_fr_merged, Group.1==p2014))
+dateCompleted <- p2014
+
+one_poly <- terra::vect(filter(haz_fr_merged, Group.1==dateCompleted))
 poly_ext <- ext(one_poly)
 one_poly <- terra::rasterize(one_poly, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
@@ -180,79 +187,28 @@ all <- tcAll %>%
 # OnlyTreeCover NaNs any values not in 0-100
 stopifnot(all(terra::minmax(all)[2,] <= 100))
 
-ggplot() + geom_spatraster(data=all) + facet_wrap(~lyr)
+
+
   
 # get max percent value for all
 minMaxAll <- minmax(all)
 maxPercent <- max(minMaxAll[2,])
 
-#### generate a monte carlo sample ####
- 
-#test how long it takes to run MonteCarloImg
-numSamples <- 2
-
-tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
-#initialize the first image
-zm_c_2000_samp <- MonteCarloImg(all$yr2000)
-set.names(zm_c_2000_samp, toString(1))
-for (i in 2:numSamples){
-  #TODO: set the name of the image so we don't have to do it after.
-  img <- MonteCarloImg(all$yr2000)
-  set.names(img, toString(i))
-  #add the new image as a layer
-  add(zm_c_2000_samp) <- img
-
-}
-toc()
-
-
-writeRaster(zm_c_2000_samp, filename="zm_c_2000_samp.tif", overwrite=TRUE)
-
-zm_c_2000_samp_loaded <- rast("zm_c_2000_samp.tif")
-
-
-
-
-
-
-
-
-ggplot() +
-  geom_spatraster(data = all$yr2000)
-
-ggplot() +
-  geom_spatraster(data = zm_c_2000_samp_loaded) +
-  facet_wrap(~lyr)
-
-
-ci <- ClassifiedImage(all)
-wm <- matrix(1, nc=3, nr=3)
-
-#something breaks when the whole stack is applied. 
-#opt_img <- focal(ci["yr2005"], w=wm, fun=Optimal, na.policy="omit", na.rm=TRUE, silent=FALSE)
-#trying to get it to work on layers
-# https://stackoverflow.com/questions/68615434/using-sapp-to-apply-terrafocal-to-each-layer-of-a-spatraster
-#opt_img <- sapp(ci, fun = function(z, ...) {focal(z, fun=Optimal, na.policy="omit", w=wm)})
-#s <- sapp(ci, fun = function(x, ...) {focal(x, fun = "any", w = 3)})
-
-m <- matrix(1:16, nrow=4, ncol=4)
-x <- rast(m)
 
 #### Visualize ####
-
-#Classified Image
-plot(ci)
-plot(opt_img)
 
 
 # PERCENT COVER PLOTS
 jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
-levelplot(all, 
-               at=seq(0, maxPercent),
-               main="Percent Tree cover for the Puerco Project Area",
-               xlab='UTM meters',
-               ylab='UTM meters',
-               margin=FALSE)
+
+projName <- haz_fr_merged$NEPA_DOC_NAME[haz_fr_merged$Group.1==dateCompleted][[1]]
+actType <- haz_fr_merged$ACTIVITY[haz_fr_merged$Group.1==dateCompleted][[1]]
+ggplot() + 
+  geom_spatraster(data=all) + 
+  facet_wrap(~lyr) +
+  labs(title=paste("Tree Cover for activity completed on", toString(dateCompleted), 
+                   "\nActivity: ", tolower(actType),
+                   "\n", tolower(projName)))
 dev.off()
 
 # DIFFERENCE PLOTS
@@ -260,15 +216,13 @@ diffs <- c(all$yr2015 - all$yr2010, all$yr2010-all$yr2005, all$yr2005-all$yr2000
 names(diffs) <- c("yr2015vs2010", "yr2010vs2005", "yr2005vs2000")
 
 jpeg(file.path(imgFolder, "diffPercentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
-p <- levelplot(diffs, 
-          #at=seq(0, maxPercent),
-          main="Difference in Percent Tree cover for the Puerco Project Area",
-          xlab='UTM meters',
-          ylab='UTM meters',
-          margin=FALSE,
-          par.settings=list(panel.background=list(col="lightgrey"), 
-                            strip.background=list(col="white")))
-diverge0(p, 'PiYG')
+ggplot() +
+  geom_spatraster(data=diffs) +
+  facet_wrap(~lyr) +
+  scale_fill_distiller(palette="RdBu") +
+  labs(title=paste("Differene in Tree Cover for activity completed on", toString(dateCompleted), 
+                   "\nActivity: ", tolower(actType),
+                   "\n", tolower(projName)))
 dev.off()
 
 
