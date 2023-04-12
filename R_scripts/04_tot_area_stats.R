@@ -42,14 +42,14 @@ totAreaWide <- as_tibble(as.data.frame(lapply(optImgs, TotArea)))
 names(totAreaWide) <- NAMES
 totArea <- totAreaWide %>% 
   pivot_longer(everything(), names_to="year", values_to="area") %>%
-  mutate(area=area/(1000*1000)) #convert to km^2
+  mutate(areaKm=area/(1000*1000)) #convert to km^2
 
-
+totArea1yr <- filter(totArea, year=="yr2000")
 #### visualize total optimal area distributions ###
-ggplot(totArea) +
+ggplot(totArea1yr) +
   #geom_violin(mapping=aes(factor(year), area)) +
   #geom_boxplot(mapping=aes(factor(year), area)) +
-  geom_jitter(mapping = aes(factor(year), area), alpha=0.5) +
+  geom_jitter(mapping = aes(factor(year), areaKm), alpha=0.5) +
   labs(title="Total Optimal Area for Polygon 2014-09-29",
        x="",
        y="total optimal area [km^2]")
