@@ -18,11 +18,11 @@ optImgs <- list(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
 #names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
 #### visual sanity check ####
-layr <- 2
-optLayerSamp <- c(optImgSDS$yr2000[[layr]], 
-                  optImgSDS$yr2005[[layr]], 
-                  optImgSDS$yr2010[[layr]],
-                  optImgSDS$yr2015[[layr]])
+layr <- 50
+optLayerSamp <- c(zm2000_opt[[layr]], 
+                  zm2005_opt[[layr]], 
+                  zm2010_opt[[layr]],
+                  zm2015_opt[[layr]])
 names(optLayerSamp) <- NAMES
 ggplot() +
   geom_spatraster(data=optLayerSamp) +

@@ -18,7 +18,7 @@ c <- focalMat(img, 5, "circle")
 center = ceiling(nrow(c)/2)
 c[center,center] = 0
 c[c>0] = 1
-circleMat <- c
+
 
 p1 <- ggplot() + 
   geom_spatraster(data=img) + 

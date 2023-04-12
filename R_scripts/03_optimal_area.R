@@ -95,6 +95,16 @@ OptImages <- function(imgStack){
 
 all <- list(zm_c_2000_sim, zm_c_2005_sim, zm_c_2010_sim, zm_c_2015_sim)
 
+#### get a visual on a smaller portion ####
+simImg <- zm_c_2015_sim[[1]]
+plot(simImg)
+yStart = 3898600
+cropExt <- ext(758000, 758000+250, yStart, yStart+250)
+out <- crop(simImg, cropExt)
+optCrop <- OptImage(out)
+plot(out)
+plot(optCrop)
+
 #this will generally take around 1 hr
 tic("Getting Optimal Images")
 resultAll <- lapply(all, FUN=OptImages)
@@ -115,12 +125,14 @@ writeRaster(optImgSDS$yr2015, filename="./R_output/poly2014-09-29/zm2015_opt.tif
 # multiply by 9sq meters to get total area
 
 #### visual check of optimal images, one layer ####
+plot(optImgSDS$yr2015[[1]])
 layr <- 1
 optLayerSamp <- c(optImgSDS$yr2000[[layr]], 
                    optImgSDS$yr2005[[layr]], 
                    optImgSDS$yr2010[[layr]],
                    optImgSDS$yr2015[[layr]])
 names(optLayerSamp) <- NAMES
+plot(optLayerSamp)
 ggplot() +
   geom_spatraster(data=optLayerSamp) +
   facet_wrap(~lyr) + 
