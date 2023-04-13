@@ -1,4 +1,18 @@
 #### functions ####
+
+SubOptDistinguish <- function(sim, opt){
+  #NOTE: in the future this function should go away, as it makes more sense
+  #to distinguish betweeen suboptimal types during application of the focal
+  # function IsOptimal
+  treeNeg <- subst(sim, 100, -1)
+  #opt has values 0=suboptimal, 1= optimal
+  #and should always have 0 where trees occcured
+  #so summing with trees as -1 will result in 
+  # 0=suboptimal ground, -1=suboptimal tree, 1=optimal
+  return(sum(treeNeg, opt))
+  
+}
+
 GetCircleMat <- function(img, radius=15){
   #for use in focal function
   m <- focalMat(img, radius, "circle")
@@ -21,6 +35,8 @@ PlotFocalMat <- function(mat){
 }
 
 IsOptimal <- function(y, na.rm, CENTER, circleMat){
+  #TODO: differentiate between sub optimal area due to tree-interception
+  #and sub-optimal due to bare ground
   #to be used with focal
   # center is the middle of the wiehgts matrix supplied to focal
   # circleMat has the same dimensions as the wieghts matrix and only 1s defining
