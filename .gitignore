@@ -4,6 +4,7 @@
 .Ruserdata
 
 .DS_Store
+report_files
 
 data/GFCC30TC_2000/GFCC30TC_p034r035_TC_2000/
 data/GFCC30TC_2000/GFCC30TC_p034r036_TC_2000/
@@ -30,3 +31,4 @@ data/GFCC30TC_2015/GFCC30TC_p035r036_TC_2015/
 01_data_exploration.html
 /01_data_exploration_files
 data/ActivityPolygon
+*.html

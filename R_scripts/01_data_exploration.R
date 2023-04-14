@@ -106,17 +106,17 @@ zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(tc2015))
 
 act_raw <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
 #TODO: rename these categories to other and still plot them
-NO_ALTER_TC = c("Silvicultural Stand Examination", 
-                "Stand Diagnosis Prepared", 
-                "TSI Need Created- Precommercial Thin",
-                "TSI Need (precommercial thinning) Eliminated",
-                "Yarding - Removal of Fuels by Carrying or Dragging",
-                "Underburn - Low Intensity (Majority of Unit)",
-                "Piling of Fuels, Hand or Machine ",
-                "Range Cover Manipulation",
-                "Rearrangement of Fuels",
-                "Stand Silviculture Prescription",
-                "Burning of Piled Material")
+#NO_ALTER_TC = c("Silvicultural Stand Examination", 
+#                "Stand Diagnosis Prepared", 
+#                "TSI Need Created- Precommercial Thin",
+#                "TSI Need (precommercial thinning) Eliminated",
+#                "Yarding - Removal of Fuels by Carrying or Dragging",
+#                "Underburn - Low Intensity (Majority of Unit)",
+#                "Piling of Fuels, Hand or Machine ",
+#                "Range Cover Manipulation",
+#                "Rearrangement of Fuels",
+#                "Stand Silviculture Prescription",
+#                "Burning of Piled Material")
 all_cibola <- act_raw %>% 
   filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
   filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
@@ -271,7 +271,7 @@ crossTabResults <- bind_rows(CrossTabSummary(yr2015, lyrName="yr2015"),
                CrossTabSummary(yr2005, lyrName="yr2005"),
                CrossTabSummary(yr2000, lyrName="yr2000")
                )
-
+#TODO get this working again!
 freqAll <- left_join(freqAll, crossTabResults, by=join_by(layer, value))
 
 
@@ -285,10 +285,19 @@ print(p1)
 
 # Plot each histogram in a separate facet
 jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspect.r, width=im.width) 
+b <- 0:100
+b[b%%5 > 0 ] = NA #turn anything not a multiple of 5 into an NA
+labels <- ifelse(!is.na(b), b, "") #convert NA's into empty strings
 ggplot(data=freqAll, aes(factor(value), relFreq, fill=errAvg)) +
   geom_col() +
   facet_wrap(~layer) + 
-  labs(x="Percent Cover", y="relative frequency",title ="Cover Histogram for Polygon _")
+  scale_fill_gradient(name = "average \nerror",
+                      limits = c(0, 19), 
+                       breaks = c(0, 5, 10, 15, 19),
+                        labels = c(0, 5, 10, 15, 19)) +
+  scale_x_discrete(breaks = seq(0, 100, by = 1),
+                   labels = labels) +
+  labs(x="Percent Cover", y="relative frequency",title =paste("Cover Histogram for Polygon ", dateCompleted))
 dev.off()
 
 

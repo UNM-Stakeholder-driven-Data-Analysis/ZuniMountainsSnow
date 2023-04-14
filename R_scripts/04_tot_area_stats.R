@@ -16,6 +16,9 @@ zm2005_opt <- rast("./R_output/poly2014-09-29/zm2005_opt.tif")
 zm2010_opt <- rast("./R_output/poly2014-09-29/zm2010_opt.tif")
 zm2015_opt <- rast("./R_output/poly2014-09-29/zm2015_opt.tif")
 
+totExpanseArea <- expanse(zm2000_opt[[1]], transform=FALSE)$area
+totExpanseArea
+
 optImgs <- list(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
 optImgSDS <- sds(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
 #names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
@@ -50,6 +53,19 @@ optimalInfo <- totNumWide %>%
   mutate(area_m=count * 9,
          area_km = area_m /(1000*1000)) #convert to km^2
 
+optimalSummary <- optimalInfo %>% 
+  group_by(year) %>%
+  summarise(average_area=mean(area_km),
+            percent_area=mean(area_km)/(totExpanseArea / 1000^2) * 100,
+            range_area=max(area_km) - min(area_km),
+            range_area_m= max(area_m) - min(area_m))
+optimalSummary
+
+library(knitr)
+kable(optimalSummary, format="markdown", 
+      col.names = c("year", "average area (km^2^)", "percent area optimal", "range area (km^2^)", "range area (m^2^)"),
+      digits=c(1, 2, 1, 4,0))
+
 
 #### get max and min layers ####
 optMax <- optimalInfo %>%
@@ -73,12 +89,27 @@ ggplot() +
 
 
 
-#totArea1yr <- filter(totNum, year=="yr2000")
+
 #### visualize total optimal area distributions ###
+jpeg("./GeneratedPlots/totOptArea.jpeg")
 ggplot(optimalInfo) +
-  #geom_violin(mapping=aes(factor(year), area)) +
-  #geom_boxplot(mapping=aes(factor(year), area)) +
-  geom_jitter(mapping = aes(factor(year), area_km), alpha=0.5) +
+  geom_jitter(mapping = aes(factor(year), area_km),width=0.1, height=0, alpha=0.1) +
+  scale_y_continuous(limits=c(0,3),breaks=seq(0,3,by=0.5)) +
   labs(title="Total Optimal Area for Polygon 2014-09-29",
        x="",
        y="total optimal area [km^2]")
+dev.off()
+
+
+jpeg("./GeneratedPlots/totOptArea_2015Zoom.jpeg")
+optInfo2015 <- filter(optimalInfo, year=="yr2015")
+ggplot(optimalInfo) +
+  geom_violin(mapping=aes(factor(year), area_km), width=0.25) +
+  geom_jitter(mapping = aes(factor(year), area_km),width=0.03, height=0, alpha=0.5) +
+  scale_y_continuous(labels=function(x) sprintf("%.4f", x)) +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  facet_wrap(~year, scales = "free") +
+  labs(title="Total Optimal Area for Polygon 2014-09-29",
+       x="",
+       y="total optimal area [km^2]")
+dev.off()

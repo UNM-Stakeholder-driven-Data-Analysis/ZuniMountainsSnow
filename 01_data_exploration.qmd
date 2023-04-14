@@ -31,7 +31,7 @@ Note: The following data exploration shows results from the Puerco Project Area,
 
 **Data Source**: Stakeholder communication and US Forest Service Southwestern Region GIS Data \> Activities: <https://www.fs.usda.gov/detailfull/r3/landmanagement/gis/cid=stelprdb5201889&width=full>
 
-**Variables of Interest**: Polygon vector data which represent the USFS activities, including thinning treatments. Vector coordinates are continuous numerical values. Attributes associated with each polygon include treatment activity and date completed. 
+**Variables of Interest**: Polygon vector data which represent the USFS activities, including thinning treatments. Vector coordinates are continuous numerical values. Attributes associated with each polygon include treatment activity and date completed.
 
 **Units**: Meters, NAD 1983 datum using the Lambert Conformal Conic projection.
 
@@ -348,7 +348,7 @@ knitr::kable(comp.i.glob)
 
 ## Data Approach
 
-*Are the USFS thinning treatments affecting the snowpack accumulation potential in the Zuñi mountains?* 
+*Are the USFS thinning treatments affecting the snowpack accumulation potential in the Zuñi mountains?*
 
 We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more large, \>30m gaps between tree cover.
 
@@ -393,7 +393,7 @@ The tree cover dataset is at 30m resolution. This makes addressing the question 
 
 This method requires defining a threshold for "low cover" and "high cover."
 
-The following logic results in an upper limit for "low cover" at 10%: A manual inspection of google earth imagery in three locations of the study area showed typical crown diameters to be between 3 and 6 meters. Choosing the lower limit at 3m, we can say that a 3x3m sub-cell that contains a tree is likely to be 100% covered by canopy. This allows us to assume any 3x3m sub-cell can only be 0% or 100% covered. Next, assuming shading is the most important factor for protecting snowpack, we can say that if the southern edge of a cell is completely covered by 3x3m sub-cells (10 cells), roughly half of the 30x30m cell will be optimal area within 15m of tree cover. Therefore, the first time there is a *chance* of getting 50% optimal cover within a cell (irrespective of neighbors) is at 10% cover. A similar argument may be made for focusing on the first time ~100% optimal cover may be achieved, which is at 20 cells or 20% cover, when two rows of trees line up. Therefore, a lower limit for high cover should be no smaller than 20%. For high cover, I need more time to see if a similar line of reasoning is possible to set an exact number. As a last resort the lower limit for high cover could by 90% of the full range in values for the area. In this case that would be 48% \* 0.90 = 43.2% cover. Referring to @fig-hist, the highest percent cover cells that occur in significant (\>1) numbers is 48%.
+The following logic results in an upper limit for "low cover" at 10%: A manual inspection of google earth imagery in three locations of the study area showed typical crown diameters to be between 3 and 6 meters. Choosing the lower limit at 3m, we can say that a 3x3m sub-cell that contains a tree is likely to be 100% covered by canopy. This allows us to assume any 3x3m sub-cell can only be 0% or 100% covered. Next, assuming shading is the most important factor for protecting snowpack, we can say that if the southern edge of a cell is completely covered by 3x3m sub-cells (10 cells), roughly half of the 30x30m cell will be optimal area within 15m of tree cover. Therefore, the first time there is a *chance* of getting 50% optimal cover within a cell (irrespective of neighbors) is at 10% cover. A similar argument may be made for focusing on the first time \~100% optimal cover may be achieved, which is at 20 cells or 20% cover, when two rows of trees line up. Therefore, a lower limit for high cover should be no smaller than 20%. For high cover, I need more time to see if a similar line of reasoning is possible to set an exact number. As a last resort the lower limit for high cover could by 90% of the full range in values for the area. In this case that would be 48% \* 0.90 = 43.2% cover. Referring to @fig-hist, the highest percent cover cells that occur in significant (\>1) numbers is 48%.
 
 ##### I. Completely Surrounded Empty Cells:
 
@@ -418,7 +418,6 @@ Cons:
 
 In this approach the condition for being optimal is relaxed, in the attempt to count more cells. The same method as in Approach 1 will be used for choosing an upper limit for low-tree cover. Neighboring cells, in contrast, are assigned a probability of having tree cover that is at the edge of the cell in question. Because the sampled cells have a max cover value of \~48% this probability will never be 1. To assign a probability that tree cover exists at one edge of the neighboring cell the following method will be used:
 
-
 1.  Find the probability that, within a cell, one particular edge is bordered by tree cover, for the observed cover value (see appendix)
 2.  Calculate the probability that the low-cover cell is surrounded by tree cover based on the four neighbors that share an edge. Let the probability that the northern neighbor adjacent edge is covered be denoted as P(n). Then the probability that all 4 edges are covered is P(n AND s AND e AND w), where n, s, e, w correspond to the four cardinal directions. If these probabilities are independent this is equal to a simple multiplication: P(n) \* P(s) \* P(e) \* P(w). @fig-bishop and @tbl-moranComp show that autocorrelation for cells connected by corners, as is the case for the north, south, east and west neighbors, is high. Therefore, the assumption that P(n), P(s), P(e) and P(w) are independent is not entirely valid. P(n) is a function of cell cover, so autocorrelation of cell cover will map to autocorrelation of edge cover probability. An effort will need to be made to account for this autocorrelation. Right now I do not know how this will work.
 
@@ -426,7 +425,7 @@ In this approach the condition for being optimal is relaxed, in the attempt to c
 
 This will be the simple multiplication proposed above: P(n AND s AND e AND w) = P(n) x P(s) x P(e) x P(w).
 
-##### II. Larger importance for south-facing neighbors (modified rook's case): 
+##### II. Larger importance for south-facing neighbors (modified rook's case):
 
 This will be the probability that: 1) the southern neighbor has tree cover at the shared edge, and 2) either a) the east and west neighbors have edge cover only or b) the north neighbor has edge cover only or c) east, west and north neighbors have edge cover. This probability can be calculated relatively easily, assuming independence of events, but is too long to place here.
 
@@ -441,10 +440,9 @@ Cons:
 -   Assumes that individual trees do not exhibit spatial autocorrelation within a cell.
 -   Assumes low autocorrelation between for Bishop's case neighbors.
 
-#### Approach 3. Assign a maximum likelihood amount of optimal area based on a cell’s cover.
+#### Approach 3. Assign a maximum likelihood amount of optimal area based on a cell's cover.
 
-The idea here is to generate a probability distribution of within-cell optimal area for each possible cell cover value.
-I have not had the time to explore this in depth, and I hope it will not be necessary. It seems too complicated.
+The idea here is to generate a probability distribution of within-cell optimal area for each possible cell cover value. I have not had the time to explore this in depth, and I hope it will not be necessary. It seems too complicated.
 
 ### 3. Evaluate Change Direction, Magnitudes, and Significance Levels
 
@@ -465,12 +463,11 @@ This approach makes the following assumptions:
 1.  A sub-cell size of 3x3m is the smallest cell that is significant, and can be assumed to only take on values of 0% cover or 100% cover (see Approach 1).
 2.  The location of sub-cells, essentially representing the smallest possible significant tree, is random within the cell.
 
-There exist 100 total sub-cells within a cell. The number of 100% cover sub-cells (N) is equal to the percent cover (c) for the cell (0-100, integer values). Let P(c) be the probability one edge of the cell is covered when it has percent cover equal to c. P(c) is equal to the number of configurations of N=c sub-cells that result in edge coverage divided by the total number of possible configurations. See the below image for an example.
+There exist 100 total sub-cells within a cell. The number of 100% cover sub-cells (N) is equal to the percent cover (c) for the cell (0-100, integer values). Let P(c) be the probability one edge of the cell is covered when it has percent cover equal to c. P(c) is equal to the number of configurations of N=c sub-cells that result in edge coverage divided by the total number of possible configurations. See the below image for an example. Figure @fig-cats
 
-![Two possible configurations for N=48 (48% cover). The left image would be counted as edge coverage, the right would not.](./diagrams/permutations.png){width="50%"} 
+![Two possible configurations for N=48 (48% cover). The left image would be counted as edge coverage, the right would not.](./diagrams/permutations.png){#fig-cats width="50%"}
 
-Depending on the how long this calculation takes, P(c) will only be calculated once, for maximal c for the study area (48%). If this is the case a simple monotonically increasing function will be chosen to interpoalte between P(9) and P(48). P(9) must be zero since 9 sub-cells cannot fully cover an edge. 
-This is effectively stating "As tree cover increases, it is more likely that one edge of the cell is completely bordered by tree cover." This relationship may not be linear, but it is certainly monotonically increasing. A linear relation is the simplest monotonically increasing function, and will be used unless an argument for a non-linear function proves stronger.
+Depending on the how long this calculation takes, P(c) will only be calculated once, for maximal c for the study area (48%). If this is the case a simple monotonically increasing function will be chosen to interpoalte between P(9) and P(48). P(9) must be zero since 9 sub-cells cannot fully cover an edge. This is effectively stating "As tree cover increases, it is more likely that one edge of the cell is completely bordered by tree cover." This relationship may not be linear, but it is certainly monotonically increasing. A linear relation is the simplest monotonically increasing function, and will be used unless an argument for a non-linear function proves stronger.
 
 Or, if it is reasonable, P(c) will be calculated for every c found in the study area.
 

@@ -1,3 +1,20 @@
+#### Constants ####
+im.width = 1024
+aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
+
+#activities that are assumed to not alter tree cover
+NO_ALTER_TC = c("Silvicultural Stand Examination", 
+                "Stand Diagnosis Prepared", 
+                "TSI Need Created- Precommercial Thin",
+                "TSI Need (precommercial thinning) Eliminated",
+                "Yarding - Removal of Fuels by Carrying or Dragging",
+                "Underburn - Low Intensity (Majority of Unit)",
+                "Piling of Fuels, Hand or Machine ",
+                "Range Cover Manipulation",
+                "Rearrangement of Fuels",
+                "Stand Silviculture Prescription",
+                "Burning of Piled Material")
+
 #### functions ####
 
 SubOptDistinguish <- function(sim, opt){
@@ -60,9 +77,9 @@ CrossTabSummary <- function(img, lyrName){
   crossed <- crosstab(img, long=TRUE)
   result <- crossed %>% 
     #not sure how to not hardcode "err" and "cover" below
-    mutate(intermediateTotal=err*Freq) %>% 
+    mutate(intermediateTotal=err*n) %>% 
     group_by(across(colnames(crossed)[1])) %>% #by the first layer (cover)
-    summarize(errTotal=sum(intermediateTotal), errAvg = sum(err*Freq) / sum(Freq), errMax=max(err)) %>%
+    summarize(errTotal=sum(intermediateTotal), errAvg = sum(err*n) / sum(n), errMax=max(err)) %>%
     mutate(layer=lyrName) %>% #gets sums and averages of err for cover values
     rename(value=cover) # to match freqAll table
   return(result)

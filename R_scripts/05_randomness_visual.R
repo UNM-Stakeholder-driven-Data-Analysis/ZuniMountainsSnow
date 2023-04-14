@@ -63,10 +63,13 @@ cropExt <- ZoomExt(widthMult=4, xCellStart=42, yCellStart=59, img=zm2000_sim)
 cropRect <- as.polygons(cropExt, crs=crs(zm2000_sim))
 
 #REFERENCE OF ZOOM LOCATION
+jpeg("./GeneratedPlots/OneStochasticSim_withZoom.jpeg", height = im.width * aspect.r, width = im.width)
 ggplot() +
   geom_spatraster(data=zm2000_sim_fac[[1]], maxcell=10e+05) +
   scale_fill_manual(name = "value", values = c(GROUND, TREE), na.translate=F)+  
-  geom_spatvector(data=cropRect, fill=NA, colour="black")
+  geom_spatvector(data=cropRect, fill=NA, colour="black", linewidth=0.5) +
+  labs(title="One Stochastic Simulation for the year 2000")
+dev.off()
 
 ggplot() +
   geom_spatraster(data=zm2000_opt_fac[[1]], maxcell=10e+05) +
@@ -91,7 +94,9 @@ p2 <- ggplot() +
   scale_x_continuous(breaks=1) + #hack to turn off labels + 
   scale_y_continuous(breaks=1) #hack to turn off labels
 
+jpeg("./GeneratedPlots/zoom_sim_opt_compare.jpeg", height = im.width * aspect.r, width = im.width)
 grid.arrange(p1, p2, ncol = 1, top="year 2000")
+dev.off()
 
 TotArea <- function(imgStack){
   #in meters squared
@@ -124,6 +129,8 @@ p2<- ggplot() +
   geom_spatraster(data=zm2000_sim_alphaSum_crop) +
   labs(title="Zoomed Area")
 
-grid.arrange(p1, p2, nrow = 1, top="Sum of Tree distributation simulations, where tree values = 1/100, nSimulations=100 ")
+jpeg("./GeneratedPlots/simsSummedAlpha.jpeg", height = im.width * aspect.r, width = im.width)
+grid.arrange(p1, p2, nrow = 1, top="Sum of Tree distributation simulations, where tree values = 1/100, nSimulations=100. Year 2000 ")
+dev.off()
 
 
