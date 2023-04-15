@@ -11,17 +11,31 @@ NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
 #### load data ####
 
-zm2000_opt <- rast("./R_output/poly2014-09-29/zm2000_opt.tif")
-zm2005_opt <- rast("./R_output/poly2014-09-29/zm2005_opt.tif")
-zm2010_opt <- rast("./R_output/poly2014-09-29/zm2010_opt.tif")
-zm2015_opt <- rast("./R_output/poly2014-09-29/zm2015_opt.tif")
+zm2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
+zm2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
+zm2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
+zm2015_sim <- rast("./R_output/poly2014-09-29/zm2015_sim.tif")
+
+zm2000_opt_raw <- rast("./R_output/poly2014-09-29/zm2000_opt.tif")
+zm2005_opt_raw <- rast("./R_output/poly2014-09-29/zm2005_opt.tif")
+zm2010_opt_raw <- rast("./R_output/poly2014-09-29/zm2010_opt.tif")
+zm2015_opt_raw <- rast("./R_output/poly2014-09-29/zm2015_opt.tif")
+
+#### distinguish between suboptimal types ####
+
+
+zm2000_opt <- SubOptDistinguish(zm2000_sim, zm2000_opt_raw)
+zm2005_opt <- SubOptDistinguish(zm2005_sim, zm2005_opt_raw)
+zm2010_opt <- SubOptDistinguish(zm2010_sim, zm2010_opt_raw)
+zm2015_opt <- SubOptDistinguish(zm2015_sim, zm2015_opt_raw)
 
 totExpanseArea <- expanse(zm2000_opt[[1]], transform=FALSE)$area
 totExpanseArea
 
 optImgs <- list(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
+names(optImgs) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 optImgSDS <- sds(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
-#names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
+names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
 #### visual sanity check ####
 layr <- 50
@@ -31,35 +45,46 @@ optLayerSamp <- c(zm2000_opt[[layr]],
                   zm2015_opt[[layr]])
 names(optLayerSamp) <- NAMES
 ggplot() +
-  geom_spatraster(data=optLayerSamp) +
+  geom_spatraster(data=optLayerSamp, maxcell=10e+05) +
   facet_wrap(~lyr) + 
   labs(title="optimal image for one layer accross all years")
 
 #### calculate total optimal area ####
-NumOptCells <- function(imgStack){
-  #in meters squared
-  #note using subst 0 -> NA and then expanse would also work. but this is probably faster
-  numCells <- global(imgStack, fun="sum", na.rm=TRUE)
-  #totArea <- numCells * 9 #cells are 3x3m
-  return(numCells)
+
+#get counts of each cell type, accross all years and layers
+freqAll <- lapply(optImgs, freq)
+for (i in 1:length(freqAll)){
+  freqAll[[i]] <- mutate(freqAll[[i]], year=names(freqAll)[i])
 }
+freqAll <- bind_rows(freqAll)
+freqAll <- as_tibble(freqAll)
 
-totNumWide <- as_tibble(as.data.frame(lapply(optImgs, NumOptCells))) 
-names(totNumWide) <- NAMES
-totNumWide <- mutate(totNumWide, layer=1:100)
 
-optimalInfo <- totNumWide %>% 
-  pivot_longer(all_of(NAMES), names_to="year", values_to="count") %>%
-  mutate(area_m=count * 9,
-         area_km = area_m /(1000*1000)) #convert to km^2
+optimalInfo <- freqAll %>% 
+  mutate(area_m =count * 9, area_km = area_m /(1000*1000))%>%
+  group_by(year, layer) %>%
+  mutate(tot_count=sum(count)) %>%
+  ungroup() %>%
+  mutate(prop=count/tot_count) %>%
+  mutate(value=factor(value, labels=c("tree", "ground", "optimal")))
+
+assert_that(length(unique(optimalInfo$tot_count)) == 1)
 
 optimalSummary <- optimalInfo %>% 
+  filter(value=="optimal") %>%
   group_by(year) %>%
   summarise(average_area=mean(area_km),
             percent_area=mean(area_km)/(totExpanseArea / 1000^2) * 100,
             range_area=max(area_km) - min(area_km),
             range_area_m= max(area_m) - min(area_m))
 optimalSummary
+
+#look at the contributions of tree vs ground on the total optimal area
+treeGroundContribSummary <- optimalInfo %>%
+  group_by(year, value) %>%
+  summarize(avg_prop = mean(prop) * 100, std_prop=sd(prop) * 100, rng_m=max(area_m)-min(area_m))
+treeGroundContribSummary
+write_delim(treeGroundContribSummary, "./GeneratedPlots/treeGroundContrib.csv", delim=",")
 
 library(knitr)
 kable(optimalSummary, format="markdown", 
