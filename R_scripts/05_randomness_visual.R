@@ -6,11 +6,27 @@ library(cowplot)
 library(gridExtra)
 source("./R_Scripts/00_Functions.R")
 
-GROUND <- "#E2CDA5"
-TREE <- "#168920"
-OPTIMAL <- "white"
-SUBTREE <- TREE
-SUBGROUND <- GROUND
+##### visual example of a stochastic simulation for one 30x30 ####
+coverVal = 30
+mat <- as.vector(MonteCarloMat(coverVal))
+img <- rast(matrix(mat$`sample(vec, size = 100)`, nrow=10, ncol=10))
+img_fac <- as.factor(img)
+levels(img_fac) <-  data.frame(ID=c(0, 100), cover=c("ground", "tree cover"))
+
+jpeg("./GeneratedPlots/one30x30randSim.jpeg")
+ggplot() + 
+  geom_spatraster(data=img_fac) + 
+  coord_fixed() +
+  labs(title=paste("A random configuration of", toString(coverVal), "3x3m subcells")) +
+  scale_fill_manual(name="", values = c(GROUND, TREE), na.translate=F) +
+  scale_y_continuous(breaks=seq(1,10,by=1), minor_breaks = 0) + 
+  scale_x_continuous(breaks=seq(1,10,by=1), minor_breaks = 0) +
+  theme(
+    panel.background = element_rect(fill = NA),
+    panel.ontop = TRUE
+  )
+dev.off()
+
 
 
 #### load data ####

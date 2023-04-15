@@ -15,7 +15,26 @@ NO_ALTER_TC = c("Silvicultural Stand Examination",
                 "Stand Silviculture Prescription",
                 "Burning of Piled Material")
 
+GROUND <- "#E2CDA5"
+TREE <- "#168920"
+OPTIMAL <- "white"
+SUBTREE <- TREE
+SUBGROUND <- GROUND
+
 #### functions ####
+
+OptToFactor <- function(optImg){
+  #convert a numeric optimal image raster to a factor raster
+  #where optimal images has values -1, 0, 1
+  #which correspond to "tree", "bare", "optimal", respectively
+  numLayers <- nlyr(optImg)
+  optLevels <- lapply(1:numLayers, function(x) data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal")))
+  
+  optImgFac <- as.factor(optImg)
+  levels(optImgFac) <- optLevels
+  names(optImgFac) <- 1:numLayers
+  return(optImgFac)
+}
 
 SubOptDistinguish <- function(sim, opt){
   #NOTE: in the future this function should go away, as it makes more sense

@@ -24,21 +24,6 @@ ggplot() +
   facet_wrap(~lyr) + 
   labs(title="Two Simulated Tree Distributions based on Tree Cover and 3x3m canopy \n for the year 2000")
 
-##### visual example of a stochastic simulation ####
-coverVal = 30
-mat <- as.vector(MonteCarloMat(coverVal))
-img <- rast(matrix(mat$`sample(vec, size = 100)`, nrow=10, ncol=10))
-ggplot() + 
-  geom_spatraster(data=img) + 
-  coord_fixed() +
-  labs(title=paste("A random configuration of ", toString(coverVal), " subcells")) +
-  scale_y_continuous(breaks=seq(1,10,by=1), minor_breaks = 0) + 
-  scale_x_continuous(breaks=seq(1,10,by=1), minor_breaks = 0) +
-  theme(
-    panel.background = element_rect(fill = NA),
-    panel.ontop = TRUE
-  )
-
   
 
 #### Visual check that years differ ####
