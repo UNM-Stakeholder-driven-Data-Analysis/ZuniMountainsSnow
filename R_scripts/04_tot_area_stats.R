@@ -7,6 +7,7 @@ library(tidyterra)
 library(terra)
 library(tidyr)
 library(dplyr)
+source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
 #### load data ####
@@ -28,6 +29,23 @@ zm2000_opt <- SubOptDistinguish(zm2000_sim, zm2000_opt_raw)
 zm2005_opt <- SubOptDistinguish(zm2005_sim, zm2005_opt_raw)
 zm2010_opt <- SubOptDistinguish(zm2010_sim, zm2010_opt_raw)
 zm2015_opt <- SubOptDistinguish(zm2015_sim, zm2015_opt_raw)
+
+
+# Plot optimal images for all years, one layer
+chsnLyr = 1
+zmAll_1sim <- c(OptToFactor(zm2000_opt[[chsnLyr]]), 
+                OptToFactor(zm2005_opt[[chsnLyr]]),
+                OptToFactor(zm2010_opt[[chsnLyr]]),
+                OptToFactor(zm2015_opt[[chsnLyr]])
+)
+names(zmAll_1sim) = NAMES
+jpeg("./GeneratedPlots/optImg_allyrs_1lyr.jpeg")
+ggplot() +
+  geom_spatraster(data=zmAll_1sim, maxcell=10e+05) +
+  scale_fill_manual(name = "value", values = c(TREE, "magenta", OPTIMAL), na.translate=F)+  
+  facet_wrap(~lyr)
+dev.off()
+  
 
 totExpanseArea <- expanse(zm2000_opt[[1]], transform=FALSE)$area
 totExpanseArea
