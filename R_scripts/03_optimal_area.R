@@ -13,37 +13,41 @@ library(tidyterra)
 source("./R_Scripts/00_Functions.R")
 NAMES <- c("yr2000", "yr2005", "yr2010", "yr2015")
 #zuni mountain cover, simulation
-zm_c_2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
-zm_c_2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
-zm_c_2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
-zm_c_2015_sim <- rast("./R_output/poly2014-09-29/zm2015_sim.tif")
+#zm_c_2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
+#zm_c_2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
+#zm_c_2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
+
+#FOR NOW RUNNING FOR ONE SIM
+zm_c_2015_sim <- rast("./R_output/poly2014-09-29/6x6/zm2015_sim_sinlge.tif")
 
 #visual example of two simulations for one year
-ggplot() + 
-  geom_spatraster(data=zm_c_2000_sim[[1:2]]) + 
-  facet_wrap(~lyr) + 
-  labs(title="Two Simulated Tree Distributions based on Tree Cover and 3x3m canopy \n for the year 2000")
+#ggplot() + 
+#  geom_spatraster(data=zm_c_2000_sim[[1:2]]) + 
+#  facet_wrap(~lyr) + 
+#  labs(title="Two Simulated Tree Distributions based on Tree Cover and 3x3m canopy \n for the year 2000")
 
   
 
 #### Visual check that years differ ####
-lyer = "2"
-firstSim = c(zm_c_2000_sim[[lyer]], 
-             zm_c_2005_sim[[lyer]], 
-             zm_c_2010_sim[[lyer]],
-             zm_c_2015_sim[[lyer]])
-set.names(firstSim, c("yr2000", "yr2005", "yr2010", "yr2015"))
-ggplot() +
-  geom_spatraster(data=firstSim) +
-  facet_wrap(~lyr) +
-  labs(title="One simulation per year")
+#lyer = "2"
+#firstSim = c(zm_c_2000_sim[[lyer]], 
+#             zm_c_2005_sim[[lyer]], 
+#             zm_c_2010_sim[[lyer]],
+#             zm_c_2015_sim[[lyer]])
+#set.names(firstSim, c("yr2000", "yr2005", "yr2010", "yr2015"))
+#ggplot() +
+#  geom_spatraster(data=firstSim) +
+#  facet_wrap(~lyr) +
+#  labs(title="One simulation per year")
 
 #### Initialize Constants for Focal Function ####
 #NOTE: might be cleaner code to use buffer! (buffer, then remove tree cover from buffer)
 #zm_c_2000_sim[zm_c_2000_sim==0] = NA
 
 
-circleMat = GetCircleMat(zm_c_2000_sim[["1"]])
+circleMat = GetCircleMat(zm_c_2015_sim)
+circleMat[,1:2] = 0 #ignroe southside, unkown why this corresponds to the side instead of the bottom
+circleMat
 nRow = nrow(circleMat)
 weightMat = matrix(data=1, nrow=nRow, ncol=nRow)
 #for a odd sized square matrix represented at a vector, going from top left to right, then down by column,
@@ -69,6 +73,12 @@ OptImage <- function(img, ...){
   return(res)
   
 }
+
+oi <- OptImage(zm_c_2015_sim)
+oi <- as.factor(oi)
+levels(oi) <- OptLevels()
+
+
 
 
 OptImages <- function(imgStack){

@@ -20,6 +20,15 @@ TREE <- "#168920"
 OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
+#### visualization functions ####
+OptLevels <- function(){data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal"))}
+
+PlotOptImage <- function(oi, title){
+  ggplot() +
+    geom_spatraster(data=oi) +
+    scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
+    labs(title=title)
+}
 
 #### functions ####
 
@@ -100,7 +109,7 @@ IsOptimal <- function(y, na.rm, CENTER, circleMat){
     return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) > 0, 1, 0))
   }
   else {
-    return(0)
+    return(-1) #this is the case that center is a tree.
   }
 }
 
@@ -119,7 +128,7 @@ CrossTabSummary <- function(img, lyrName){
   return(result)
 }
 # in the process of generalizing to any whole number division of 30x30m cell!
-MonteCarloImg <- function(img){
+MonteCarloImg <- function(img, subCellSize){
   #make an empty image with same extent, crs, and higher resolution
   # by randomly generating a plausable 10x10 grid for each single cell in img
   #ASSUMPTIONS:
@@ -127,14 +136,16 @@ MonteCarloImg <- function(img){
   # img values range from 0,100
   
   #copy the input image but at a higher resolution
-  samp <- terra::rast(ext(img), resolution=c(3,3))
+  assert_that(res(img)[1] %% subCellSize == 0) # subCellSize must fit evenly into the image resolution
+  numSubPerSide <- res(img)[1] / subCellSize #along one direction, number of sub cells per one large cell
+  samp <- terra::rast(ext(img), resolution=c(subCellSize, subCellSize))
   crs(samp) <- crs(img)
   
   iterI <- nrow(img)
   iterJ <- ncol(img)
   
-  rRng = c(low=1, high=10)
-  cRng = c(low=1, high=10)
+  rRng = c(low=1, high=numSubPerSide)
+  cRng = c(low=1, high=numSubPerSide)
   for (i in 1:iterI){
     for (j in 1:iterJ){
       value = img[i, j][[1]]
@@ -142,18 +153,17 @@ MonteCarloImg <- function(img){
         samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = NA
       }
       else{
-        #print(value)
-        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = MonteCarloMat(value)
+        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = MonteCarloMat(value, numSubPerSide)
       }
-      cRng <- cRng + 10
+      cRng <- cRng + numSubPerSide
     }
-    cRng <- c(low=1, high=10)
-    rRng <- rRng + 10
+    cRng <- c(low=1, high=numSubPerSide)
+    rRng <- rRng + numSubPerSide
   }
   return(samp)
 }
 
-MonteCarloMat6x6 <- function(cover){
+MonteCarloMat <- function(cover, numSub){
   #generate a possible distribution of 100% cover 6x6m sub-cells so that the % cover
   #of the entire 5x5 matrix is equal to cover
   #INPUT:
@@ -161,36 +171,18 @@ MonteCarloMat6x6 <- function(cover){
   #OUPUT:
   # 5x5 matrix where each value is 0 or 100
   
-  numCell <- 25 # 6x6 subcell results in 25 sub cells per one 30x30m cell
+  numCell <- numSub * numSub
   maxVal <-100 #value to represent 100% cover in the new matrix
-  if (cover==0){
-    return(as.data.frame(replicate(25, 0))) #spatRaster wants a data frame
+  numFilled <- round(cover * numCell / 100)
+  if (numFilled==0){
+    return(as.data.frame(replicate(numCell, 0))) #spatRaster wants a data frame
   }
   else{
-    numFilled <- round(cover * numCell / 100)
     vec <- c(replicate(numFilled, maxVal), replicate(numCell-numFilled, 0))
     return(as.data.frame(sample(vec, size=numCell)))
   }
 }
 
-MonteCarloMat <- function(cover){
-  #generate a possible distribution of 100% cover sub-cells so that the % cover
-  #of the entire 10x10 matrix is equal to cover
-  #INPUT:
-  # cover has range 0-100 integer
-  #OUPUT:
-  # 10x10 matrix where each value is 0 or 100
-  
-  maxCover <- 100 #maximum value that "cover" can take
-  maxVal <-100 #value to represent 100% cover in the new matrix
-  if (cover==0){
-    return(as.data.frame(replicate(100, 0))) #spatRaster wants a data frame
-  }
-  else{
-    vec <- c(replicate(cover, maxVal), replicate(maxCover-cover, 0))
-    return(as.data.frame(sample(vec, size=100)))
-  }
-}
 
 Identifier <- function(year, path, row, suffix=""){
   return(paste("p", path, "r", row, "_TC_", toString(year), suffix, sep=""))
