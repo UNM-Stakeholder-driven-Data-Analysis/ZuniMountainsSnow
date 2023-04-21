@@ -168,11 +168,14 @@ p2009_10 <- "2009-10-30 18:00:00"
 
 dateCompleted <- p2014
 
-one_poly <- terra::vect(filter(haz_fr_merged, Group.1==dateCompleted))
-poly_ext <- ext(one_poly)
-one_poly <- terra::rasterize(one_poly, tc2015)
+one_polyVec <- terra::vect(filter(haz_fr_merged, Group.1==dateCompleted))
+poly_ext <- ext(one_polyVec)
+one_poly <- terra::rasterize(one_polyVec, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
+
+writeVector(one_polyVec, "polyThin2014-09-29.kml")
+
 
 #### process Data ####
 

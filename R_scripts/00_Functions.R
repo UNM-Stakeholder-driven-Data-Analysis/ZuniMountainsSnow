@@ -23,6 +23,21 @@ SUBGROUND <- GROUND
 
 #### functions ####
 
+SimToFactor <- function(simImg){
+  #convert a numeric simulation image raster to a factor raster
+  #values are 0, 100. 0 means bare ground, 100 means tree cover
+  #ASSUMPTIONS
+  # 100 layers in simImg, each a unique stochastic simulation
+  # 0 -> ground
+  # 100 -> tree cover
+  simLevels <- lapply(1:100, function(x) data.frame(ID=c(0, 100), cover=c("ground", "tree-cover")))
+  
+  simImgFac <- as.factor(simImg)
+  levels(simImgFac) <- simLevels
+  names(simImgFac) <- 1:100
+  return(simImgFac)
+}
+
 OptToFactor <- function(optImg){
   #convert a numeric optimal image raster to a factor raster
   #where optimal images has values -1, 0, 1
@@ -103,6 +118,7 @@ CrossTabSummary <- function(img, lyrName){
     rename(value=cover) # to match freqAll table
   return(result)
 }
+# in the process of generalizing to any whole number division of 30x30m cell!
 MonteCarloImg <- function(img){
   #make an empty image with same extent, crs, and higher resolution
   # by randomly generating a plausable 10x10 grid for each single cell in img
@@ -136,6 +152,27 @@ MonteCarloImg <- function(img){
   }
   return(samp)
 }
+
+MonteCarloMat6x6 <- function(cover){
+  #generate a possible distribution of 100% cover 6x6m sub-cells so that the % cover
+  #of the entire 5x5 matrix is equal to cover
+  #INPUT:
+  # cover has range 0-100 integer
+  #OUPUT:
+  # 5x5 matrix where each value is 0 or 100
+  
+  numCell <- 25 # 6x6 subcell results in 25 sub cells per one 30x30m cell
+  maxVal <-100 #value to represent 100% cover in the new matrix
+  if (cover==0){
+    return(as.data.frame(replicate(25, 0))) #spatRaster wants a data frame
+  }
+  else{
+    numFilled <- round(cover * numCell / 100)
+    vec <- c(replicate(numFilled, maxVal), replicate(numCell-numFilled, 0))
+    return(as.data.frame(sample(vec, size=numCell)))
+  }
+}
+
 MonteCarloMat <- function(cover){
   #generate a possible distribution of 100% cover sub-cells so that the % cover
   #of the entire 10x10 matrix is equal to cover

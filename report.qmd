@@ -90,7 +90,7 @@ Average optimal area is reported in @tbl-results. The range in optimal area acro
 The total extent of the thinning polygon is 3.24 km^2^.
 
 | year   | average optimal area (km^2^) | percent optimal area | range optimal area (km^2^) | range optimal area (m^2^) |
-|:-------------|--------------:|-------------:|-------------:|-------------:|
+|:-------|-----------------------------:|---------------------:|---------------------------:|--------------------------:|
 | yr2000 |                         2.44 |                 75.2 |                     0.0023 |                      2304 |
 | yr2005 |                         2.52 |                 77.7 |                     0.0013 |                      1314 |
 | yr2010 |                         2.48 |                 76.6 |                     0.0015 |                      1548 |
@@ -131,6 +131,14 @@ My apologies, I plan to redo this analysis to check the 3x3 meter assumption is 
 The following table shows the resulting crown diameters:
 
 The following image shows selected areas:
+
+### Comparing to Real Imagery
+
+::: {#fig-yr2015 layout-ncol="2"}
+![img](./GeneratedPlots/2015-03-25_googleEarth.png){#fig-google}
+
+![cow](./GeneratedPlots/simImg2015.jpeg)
+:::
 
 ### Randomness Validation
 
