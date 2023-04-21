@@ -79,7 +79,7 @@ oi <- as.factor(oi)
 levels(oi) <- OptLevels()
 
 
-
+PlotOptImage(oi, "Opt Img, northside, 6x6m subcell, 2015")
 
 OptImages <- function(imgStack){
   # to be applied to a list of spatrasters each with layers

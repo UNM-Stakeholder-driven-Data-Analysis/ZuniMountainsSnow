@@ -43,7 +43,8 @@ jpeg("./GeneratedPlots/optImg_allyrs_1lyr.jpeg")
 ggplot() +
   geom_spatraster(data=zmAll_1sim, maxcell=10e+05) +
   scale_fill_manual(name = "value", values = c(TREE, "magenta", OPTIMAL), na.translate=F)+  
-  facet_wrap(~lyr)
+  facet_wrap(~lyr) +
+  labs(title="Optimal Image for one simulation per year.")
 dev.off()
   
 
