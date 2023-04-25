@@ -33,7 +33,7 @@ library(grid)
 library(ggplot2)
 library(comprehenr)
 library(dplyr)
-library(xml2)
+#library(xml2)
 library(XML)
 #load the diver0 function which sets colors to divergin from 0
 devtools::source_gist('306e4b7e69c87b1826db')

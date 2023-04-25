@@ -1,3 +1,21 @@
+#### Libraries ####
+library(rgdal)
+library(sf)
+library(spdep)
+library(raster)
+library(terra)
+library(rasterVis)
+library(sp)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(comprehenr)
+library(dplyr)
+library(xml2)
+library(XML)
+library(assertthat)
+library(plotly)
+
 #### Constants ####
 im.width = 1024
 aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
@@ -233,7 +251,7 @@ RangeDateTime <- function(path){
   startDT <- as.POSIXct(paste(dtimeRange$RangeBeginningDate, dtimeRange$RangeBeginningTime))
   
   out <- c(startDT, endDT)
-  out <- set_names(out, c("start", "end"))
+  out <- setNames(out, c("start", "end"))
   return(out)
 }
 
