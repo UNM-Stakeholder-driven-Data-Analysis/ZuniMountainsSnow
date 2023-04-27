@@ -10,25 +10,15 @@ library(dplyr)
 source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
+folders <- c("3x3_n5_north", "3x3_n1_all")
+
 #### load data ####
 
-zm2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
-zm2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
-zm2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
-zm2015_sim <- rast("./R_output/poly2014-09-29/zm2015_sim.tif")
+zm2000_opt <- rast("./R_output/poly2014-09-29/3x3_n1_all/zm2000_opt.tif")
+zm2005_opt <- rast("./R_output/poly2014-09-29/3x3_n1_all/zm2005_opt.tif")
+zm2010_opt <- rast("./R_output/poly2014-09-29/3x3_n1_all/zm2010_opt.tif")
+zm2015_opt <- rast("./R_output/poly2014-09-29/3x3_n1_all/zm2015_opt.tif")
 
-zm2000_opt_raw <- rast("./R_output/poly2014-09-29/zm2000_opt.tif")
-zm2005_opt_raw <- rast("./R_output/poly2014-09-29/zm2005_opt.tif")
-zm2010_opt_raw <- rast("./R_output/poly2014-09-29/zm2010_opt.tif")
-zm2015_opt_raw <- rast("./R_output/poly2014-09-29/zm2015_opt.tif")
-
-#### distinguish between suboptimal types ####
-
-
-zm2000_opt <- SubOptDistinguish(zm2000_sim, zm2000_opt_raw)
-zm2005_opt <- SubOptDistinguish(zm2005_sim, zm2005_opt_raw)
-zm2010_opt <- SubOptDistinguish(zm2010_sim, zm2010_opt_raw)
-zm2015_opt <- SubOptDistinguish(zm2015_sim, zm2015_opt_raw)
 
 
 # Plot optimal images for all years, one layer

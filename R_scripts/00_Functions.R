@@ -39,13 +39,26 @@ OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
 #### visualization functions ####
+
+ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
+  
+  width = cellSize * widthMult
+  xMin = xmin(img)
+  yMin = ymin(img)
+  xStart = xMin + cellSize * xCellStart 
+  yStart = yMin + cellSize * yCellStart
+  
+  cropExt <- ext(xStart, xStart+width, yStart, yStart+width)
+  
+}
+
 OptLevels <- function(){data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal"))}
 
 PlotOptImage <- function(oi, title){
-  ggplot() +
-    geom_spatraster(data=oi) +
+  return(ggplot() +
+    geom_spatraster(data=oi, maxcell=10e+05) +
     scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
-    labs(title=title)
+    labs(title=title))
 }
 
 #### functions ####
@@ -78,19 +91,11 @@ OptToFactor <- function(optImg){
   return(optImgFac)
 }
 
-SubOptDistinguish <- function(sim, opt){
-  #NOTE: in the future this function should go away, as it makes more sense
-  #to distinguish betweeen suboptimal types during application of the focal
-  # function IsOptimal
-  treeNeg <- subst(sim, 100, -1)
-  #opt has values 0=suboptimal, 1= optimal
-  #and should always have 0 where trees occcured
-  #so summing with trees as -1 will result in 
-  # 0=suboptimal ground, -1=suboptimal tree, 1=optimal
-  return(sum(treeNeg, opt))
-  
-}
 
+OnlyNorth <- function(circleMat){
+  circleMat[,1:(ncol(circleMat)-1)/2] = 0
+  return(circleMat)
+}
 GetCircleMat <- function(img, radius=15){
   #for use in focal function
   m <- focalMat(img, radius, "circle")
@@ -112,7 +117,7 @@ PlotFocalMat <- function(mat){
     )
 }
 
-IsOptimal <- function(y, na.rm, CENTER, circleMat){
+IsOptimal <- function(y, na.rm, CENTER, circleMat, numCells=1){
   #TODO: differentiate between sub optimal area due to tree-interception
   #and sub-optimal due to bare ground
   #to be used with focal
@@ -124,7 +129,7 @@ IsOptimal <- function(y, na.rm, CENTER, circleMat){
     #cell values are either 0 or 100
     # if any of the non central cells forming a rough (pixelated) circle are 100
     # the sum will be greater than 0
-    return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) > 0, 1, 0))
+    return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) >= numCells*100, 1, 0))
   }
   else {
     return(-1) #this is the case that center is a tree.
