@@ -39,6 +39,12 @@ OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
 #### loading functions ####
+
+fileNames <- c("zm2000_opt.tif",
+               "zm2005_opt.tif",
+               "zm2010_opt.tif",
+               "zm2015_opt.tif")
+
 LoadOptList <- function(folder){
   #list of spatRasters
   optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", polyName, folder, file)))

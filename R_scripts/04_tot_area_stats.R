@@ -11,11 +11,7 @@ source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 polyName = "poly2014-09-29"
 
-#folders <- c("n1_3x3_all", "n5_3x3_all",  "n5_3x3_north")
-fileNames <- c("zm2000_opt.tif",
-                "zm2005_opt.tif",
-                "zm2010_opt.tif",
-                "zm2015_opt.tif")
+
 
 #### functions ####
 
@@ -42,39 +38,9 @@ FreqStats <- function(optImgList){
 }
 
 #### load data ####
-
-n1.3x3.all <- LoadOptList("n1_3x3_all")
-
-n5.3x3.all <- LoadOptList("n5_3x3_all")
-
-n5.3x3.north <- LoadOptList("n5_3x3_north")
-
 folders <- c("n1_3x3_all", "n1_3x3_north", "n2_3x3_north", "n5_3x3_all", "n5_3x3_north")
 optVariants <- lapply(folders, LoadOptList)
 names(optVariants) <- folders
-
-
-# Plot optimal images for all years, one layer
-
-#jpeg("./GeneratedPlots/optImg_allyrs_1lyr.jpeg")
-#ggplot() +
-#  geom_spatraster(data=zmAll_1sim, maxcell=10e+05) +
-#  scale_fill_manual(name = "value", values = c(TREE, "magenta", OPTIMAL), na.translate=F)+  
-#  facet_wrap(~lyr) +
-#  labs(title="Optimal Image for one simulation per year.")
-#dev.off()
-
-#### visual sanity check ####
-#layr <- 50
-#optLayerSamp <- c(zm2000_opt[[layr]], 
-#                  zm2005_opt[[layr]], 
-#                  zm2010_opt[[layr]],
-#                  zm2015_opt[[layr]])
-#names(optLayerSamp) <- NAMES
-#ggplot() +
-#  geom_spatraster(data=optLayerSamp, maxcell=10e+05) +
-#  facet_wrap(~lyr) + 
-#  labs(title="optimal image for one layer accross all years")
 
 #### calculate total optimal area ####
 
