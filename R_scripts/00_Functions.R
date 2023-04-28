@@ -79,8 +79,11 @@ PlotOptImageLyr <- function(oi, title){
 }
 PlotOptImage <- function(oi, title){
   return(ggplot() +
-    geom_spatraster(data=oi, maxcell=10e+05) +
-    scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
+    geom_spatraster(data=oi, maxcell=10e+05, interpolate=FALSE) +
+    scale_fill_manual(name="value", 
+                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
+                      labels=c("tree cover", "ground", "optimal"),
+                      na.translate=F)+  
     labs(title=title))
 }
 
@@ -114,7 +117,35 @@ OptToFactor <- function(optImg){
   return(optImgFac)
 }
 
+NorthLines <- function(img, radius=15, n=1){
+  #n is the number of neighbors to include on either side of the
+  #northLine (or south line, depending on how you look at it)
+  circleMat <- GetCircleMat(img, radius)
+  circleMat[,] <- 0
+  centerRow <-ceiling(nrow(circleMat)/2)
+  sourthernCols <- (ceiling(ncol(circleMat)/2)+1):ncol(circleMat)
+  circleMat[(centerRow-n):(centerRow+n), sourthernCols] <- 1
+  return(circleMat)
+}
 
+NorthLine <- function(img, radius=15){
+  #convenient to get matrix of correct size no matter what
+  #resolution
+  #assumes cirlceMat has dimensions that are odd numbers
+  #which happens because focalMat
+  circleMat <- GetCircleMat(img, radius)
+  circleMat[,] <- 0
+  circleMat[ceiling(nrow(circleMat)/2), (ceiling(ncol(circleMat)/2)+1):ncol(circleMat) ] <- 1
+  return(circleMat)
+}
+CenterCell <- function(mat){
+  #assumes nrow == ncol
+  nRow <- nrow(mat)
+  #for an odd sized square matrix represented at a vector, going from top left to right, then down by column,
+  #the central cell is equivalent to:
+  CENTER = nRow * floor(nRow/2) + ceiling(nRow/2) #11 columns, go to the 6th row, go in by 6 columns to get
+  return(CENTER)
+}
 OnlyNorth <- function(circleMat){
   circleMat[,1:(ncol(circleMat)-1)/2] = 0
   return(circleMat)
@@ -126,6 +157,32 @@ GetCircleMat <- function(img, radius=15){
   m[center,center] = 0
   m[m>0] = 1
   return(m)
+}
+
+PlotRastAsMat <- function(img){
+  imgMat <- rast(as.matrix(img, wide=TRUE)) #strips coordinate info
+  imgMat <- as.factor(imgMat)
+  ggplot() +
+    geom_spatraster(data=imgMat) +
+    scale_fill_manual(name="value", 
+                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
+                      labels=c("tree cover", "ground", "optimal"),
+                      na.translate=F)+
+    coord_fixed() +
+    scale_y_continuous(breaks=seq(1,nrow(imgMat),by=1)) + 
+    scale_x_continuous(breaks=seq(1,ncol(imgMat),by=1)) +
+    theme(
+      panel.background = element_rect(fill = NA),
+      panel.grid.major = element_line(linewidth=0.3, colour = "grey"),
+      panel.ontop = TRUE,
+      panel.grid.minor = element_blank(),
+      axis.text.x=element_blank(),
+      axis.ticks.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank(),
+    )
+  
+    
 }
 
 PlotFocalMat <- function(mat){

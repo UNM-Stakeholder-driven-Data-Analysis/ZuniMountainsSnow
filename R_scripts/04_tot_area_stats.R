@@ -38,7 +38,13 @@ FreqStats <- function(optImgList){
 }
 
 #### load data ####
-folders <- c("n1_3x3_all", "n1_3x3_north", "n2_3x3_north", "n5_3x3_all", "n5_3x3_north")
+folders <- c(#"n1_3x3_all", 
+             "n1_3x3_north", 
+             "n2_3x3_north",
+             "n3_3x3_north",
+             "n4_3x3_north",
+             #"n5_3x3_all", 
+             "n5_3x3_north")
 optVariants <- lapply(folders, LoadOptList)
 names(optVariants) <- folders
 
@@ -111,15 +117,15 @@ ggplot(filter(allData, value=="optimal")) +
 #dev.off()
 
 
-jpeg("./GeneratedPlots/totOptArea_2015Zoom.jpeg")
-optInfo2015 <- filter(optimalInfo, year=="yr2015")
-ggplot(optimalInfo) +
-  geom_violin(mapping=aes(factor(year), area_km), width=0.25) +
-  geom_jitter(mapping = aes(factor(year), area_km),width=0.03, height=0, alpha=0.5) +
-  scale_y_continuous(labels=function(x) sprintf("%.4f", x)) +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
-  facet_wrap(~year, scales = "free") +
-  labs(title="Total Optimal Area for Polygon 2014-09-29",
-       x="",
-       y="total optimal area [km^2]")
-dev.off()
+#jpeg("./GeneratedPlots/totOptArea_2015Zoom.jpeg")
+#optInfo2015 <- filter(optimalInfo, year=="yr2015")
+#ggplot(optimalInfo) +
+#  geom_violin(mapping=aes(factor(year), area_km), width=0.25) +
+#  geom_jitter(mapping = aes(factor(year), area_km),width=0.03, height=0, alpha=0.5) +
+#  scale_y_continuous(labels=function(x) sprintf("%.4f", x)) +
+#  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+#  facet_wrap(~year, scales = "free") +
+#  labs(title="Total Optimal Area for Polygon 2014-09-29",
+#       x="",
+#       y="total optimal area [km^2]")
+#dev.off()

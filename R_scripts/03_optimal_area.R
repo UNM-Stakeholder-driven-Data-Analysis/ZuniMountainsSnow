@@ -10,10 +10,13 @@ library(cowplot)
 library(ggplot2)
 library(tidyterra)
 source("./R_Scripts/00_Functions.R")
-NAMES <- c("yr2000", "yr2005", "yr2010", "yr2015")
-NUMCELLS <- 3
-NORTH.ONLY <- TRUE
+
+NUMCELLS <- 2 #number of covered cells required to exist in area of consideration
+#for the cell to be considered optimal
+AREA <- "lineNeighbors1"
 POLY="poly2014-09-29"
+
+NAMES <- c("yr2000", "yr2005", "yr2010", "yr2015")
 
 
 #zuni mountain cover, simulation
@@ -22,12 +25,17 @@ zm_c_2005_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2005_sim.tif")
 zm_c_2010_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2010_sim.tif")
 zm_c_2015_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2015_sim.tif")
 
+# create folder to save output
+resol <- toString(res(zm_c_2000_sim)[1])
+runName = paste("n", NUMCELLS, "_", resol, "x", resol,  "_", AREA, sep="")
+#TODO: would be good to save metadata about the optimal criterion instead of encoding in folder name
+folder <- file.path("./R_output", POLY, runName)
+dir.create(folder)
+
 #### Initialize Constants for Focal Function ####
 
-circleMat = GetCircleMat(zm_c_2015_sim)
-if (NORTH.ONLY){
-  circleMat <- OnlyNorth(circleMat)
-}
+#circleMat = GetCircleMat(zm_c_2015_sim)
+circleMat <- NorthLines(zm_c_2015_sim, radius=15, n=1)
 circleMat
 nRow = nrow(circleMat)
 weightMat = matrix(data=1, nrow=nRow, ncol=nRow)
@@ -54,16 +62,20 @@ OptImage <- function(img, ...){
 oi <- OptImage(zm_c_2015_sim[[1]])
 #TODO: consider converting to factor within PlotOptImage
 oi <- as.factor(oi)
-levels(oi) <- OptLevels()
+#levels(oi) <- OptLevels()
 
 # PLOT ENTIRE IMG W/ zoom area
 cropExt <- ZoomExt(widthMult=4, xCellStart=32, yCellStart=30, img=zm_c_2015_sim)
 cropRect <- as.polygons(cropExt, crs=crs(oi))
-p1 <- PlotOptImage(oi, "Opt img, 3x3m subcell, n=5 trees threshold, 2015")
+p1 <- PlotOptImage(oi, paste("Opt img, 3x3m subcell, 2015,", "n=", toString(NUMCELLS), AREA))
 p1 <- p1 + geom_spatvector(data=cropRect, fill=NA, colour="black")
 plot(p1)
+#YESSSS! this saves it a native res
+ggsave(file.path(folder, paste("2015", "n", toString(NUMCELLS),",", AREA,".tiff",sep="")), dpi=600)
 
 # PLOT ZOOM AREA
+zoomedOi <- crop(oi, cropExt)
+PlotRastAsMat(zoomedOi)
 p2 <- PlotOptImage(crop(oi, cropExt), "zoom")
 plot(p2)
 
@@ -85,15 +97,9 @@ toc()
 
 #organize reults into a spatRasterDataset for convenient access
 optImgSDS <- sds(resultAll[[1]], resultAll[[2]], resultAll[[3]], resultAll[[4]])
-names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
+names(optImgSDS) <-  NAMES
 
 #### save optimal imgs ####
-
-resol <- toString(res(zm_c_2000_sim)[1])
-runName = paste("n", NUMCELLS, "_", resol, "x", resol,  "_", ifelse(NORTH.ONLY, "north", "all"), sep="")
-#TODO: would be good to save metadata about the optimal criterion instead of encoding in folder name
-folder <- file.path("./R_output", POLY, runName)
-dir.create(folder)
 
 #TODO: lapply or something?
 writeRaster(optImgSDS$yr2000, filename=file.path(folder, "zm2000_opt.tif"), overwrite=FALSE)
