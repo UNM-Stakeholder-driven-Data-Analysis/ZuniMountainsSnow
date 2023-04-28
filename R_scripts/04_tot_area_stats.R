@@ -11,19 +11,13 @@ source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 polyName = "poly2014-09-29"
 
-folders <- c("3x3_n1_all", "3x3_n5_north")
+#folders <- c("n1_3x3_all", "n5_3x3_all",  "n5_3x3_north")
 fileNames <- c("zm2000_opt.tif",
                 "zm2005_opt.tif",
                 "zm2010_opt.tif",
                 "zm2015_opt.tif")
 
 #### functions ####
-
-LoadOptList <- function(folder){
-  optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", polyName, folder, file)))
-  names(optImgList) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
-  return(optImgList)
-}
 
 FreqStats <- function(optImgList){
   freqAll <- lapply(optImgList, freq)
@@ -40,19 +34,25 @@ FreqStats <- function(optImgList){
     mutate(tot_count=sum(count)) %>%
     ungroup() %>%
     mutate(prop=count/tot_count) %>%
-    mutate(value=factor(value, labels=c("tree", "ground", "optimal")))
+    mutate(value=factor(value, labels=c("tree", "ground", "optimal"))) %>%
+    #mutate(criterion=name) #usefull so multiple criterion outputs can be combined
   
-  assert_that(length(unique(optimalInfo$tot_count)) == 1)
+  #assert_that(length(unique(optimalInfo$tot_count)) == 1)
   return(optimalInfo)
 }
 
 #### load data ####
 
-n5.3x3.north <- LoadOptList("3x3_n5_north")
-n5.3x3.north
+n1.3x3.all <- LoadOptList("n1_3x3_all")
 
-n1.3x3.all <- LoadOptList("3x3_n1_all")
-n1.3x3.all
+n5.3x3.all <- LoadOptList("n5_3x3_all")
+
+n5.3x3.north <- LoadOptList("n5_3x3_north")
+
+folders <- c("n1_3x3_all", "n1_3x3_north", "n2_3x3_north", "n5_3x3_all", "n5_3x3_north")
+optVariants <- lapply(folders, LoadOptList)
+names(optVariants) <- folders
+
 
 # Plot optimal images for all years, one layer
 
@@ -63,14 +63,6 @@ n1.3x3.all
 #  facet_wrap(~lyr) +
 #  labs(title="Optimal Image for one simulation per year.")
 #dev.off()
-  
-
-#optImgs <- list(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
-#names(optImgs) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
-
-
-#optImgSDS <- sds(zm2000_opt, zm2005_opt, zm2010_opt, zm2015_opt)
-#names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 
 #### visual sanity check ####
 #layr <- 50
@@ -87,13 +79,13 @@ n1.3x3.all
 #### calculate total optimal area ####
 
 #get counts of each cell type, accross all years and layers
-n5.3x3.north_freq <- FreqStats(n5.3x3.north)
-n1.3x3.all_freq <- FreqStats(n1.3x3.all)
+freqStats <- lapply(optVariants, function(variant) FreqStats(variant))
 
-n5.3x3.north_freq <- mutate(n5.3x3.north_freq,criterion="n5.3x3.north")
-n1.3x3.all_freq <- mutate(n1.3x3.all_freq, criterion="n1.3x3.all")
+#add a criterion variable which is set to the name of the optimal criterion run
+#so that all stats can be bound together
+freqStats <- lapply(seq_along(freqStats), function(i) mutate(freqStats[[i]], criterion=folders[i]))
 
-allData <- bind_rows(n5.3x3.north_freq, n1.3x3.all_freq)
+allData <- bind_rows(freqStats)
 
 #### optimal summary ####
 #not sure if optimal summary is necessary, for now commenting out
@@ -142,14 +134,15 @@ allData <- bind_rows(n5.3x3.north_freq, n1.3x3.all_freq)
 
 
 #### visualize total optimal area distributions ####
-jpeg("./GeneratedPlots/totOptArea.jpeg")
+#jpeg("./GeneratedPlots/totOptArea.jpeg")
 ggplot(filter(allData, value=="optimal")) +
-  geom_jitter(mapping = aes(factor(year), area_km, color=criterion),width=0.1, height=0, alpha=0.5) +
+  geom_jitter(mapping = aes(factor(year), area_km, color=criterion),width=.2, height=0, alpha=0.5, size=.5) +
+  #geom_boxplot(mapping=aes(factor(year), area_km, color=criterion))+
   scale_y_continuous(limits=c(0,3),breaks=seq(0,3,by=0.5)) +
   labs(title="Total Optimal Area for Polygon 2014-09-29",
        x="",
        y="total optimal area [km^2]")
-dev.off()
+#dev.off()
 
 
 jpeg("./GeneratedPlots/totOptArea_2015Zoom.jpeg")

@@ -38,6 +38,14 @@ TREE <- "#168920"
 OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
+#### loading functions ####
+LoadOptList <- function(folder){
+  #list of spatRasters
+  optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", polyName, folder, file)))
+  names(optImgList) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
+  return(optImgList)
+}
+
 #### visualization functions ####
 
 ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
@@ -54,6 +62,15 @@ ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
 
 OptLevels <- function(){data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal"))}
 
+PlotOptImageLyr <- function(oi, title){
+  oi <- as.factor(oi)
+  levels(oi) <- lapply(1:nlyr(oi), function(x) OptLevels())
+  return(ggplot() +
+           geom_spatraster(data=oi, maxcell=10e+05) +
+           scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
+           facet_wrap(~lyr) +
+           labs(title=title))
+}
 PlotOptImage <- function(oi, title){
   return(ggplot() +
     geom_spatraster(data=oi, maxcell=10e+05) +

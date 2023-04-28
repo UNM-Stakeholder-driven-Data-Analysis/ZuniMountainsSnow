@@ -11,16 +11,16 @@ library(ggplot2)
 library(tidyterra)
 source("./R_Scripts/00_Functions.R")
 NAMES <- c("yr2000", "yr2005", "yr2010", "yr2015")
-NUMCELLS <- 5
+NUMCELLS <- 3
 NORTH.ONLY <- TRUE
 POLY="poly2014-09-29"
 
 
 #zuni mountain cover, simulation
-zm_c_2000_sim <- rast("./R_output/poly2014-09-29/zm2000_sim.tif")
-zm_c_2005_sim <- rast("./R_output/poly2014-09-29/zm2005_sim.tif")
-zm_c_2010_sim <- rast("./R_output/poly2014-09-29/zm2010_sim.tif")
-zm_c_2015_sim <- rast("./R_output/poly2014-09-29/zm2015_sim.tif")
+zm_c_2000_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2000_sim.tif")
+zm_c_2005_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2005_sim.tif")
+zm_c_2010_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2010_sim.tif")
+zm_c_2015_sim <- rast("./R_output/poly2014-09-29/sim3x3/zm2015_sim.tif")
 
 #### Initialize Constants for Focal Function ####
 
@@ -90,7 +90,7 @@ names(optImgSDS) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 #### save optimal imgs ####
 
 resol <- toString(res(zm_c_2000_sim)[1])
-runName = paste(resol, "x", resol, "_n", NUMCELLS, "_", ifelse(NORTH.ONLY, "north", "all"), sep="")
+runName = paste("n", NUMCELLS, "_", resol, "x", resol,  "_", ifelse(NORTH.ONLY, "north", "all"), sep="")
 #TODO: would be good to save metadata about the optimal criterion instead of encoding in folder name
 folder <- file.path("./R_output", POLY, runName)
 dir.create(folder)
