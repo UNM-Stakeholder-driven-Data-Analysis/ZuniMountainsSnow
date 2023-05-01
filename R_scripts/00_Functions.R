@@ -77,6 +77,23 @@ PlotOptImageLyr <- function(oi, title){
            facet_wrap(~lyr) +
            labs(title=title))
 }
+
+PlotSimImage <- function(simImg, title, zoomRect){
+  simImgFac <- as.factor(simImg)
+  p <- ggplot() +
+    geom_spatraster(data=simImgFac, maxcell=10e+05, interpolate=FALSE) +
+    scale_fill_manual(name="", 
+                      values = c(GROUND, TREE),
+                      labels=c("ground", "tree cover"),
+                      na.translate=F)+  
+    labs(title=title)
+  if (!missing(zoomRect)){
+    p <- p + geom_spatvector(data=zoomRect, fill=NA, colour="black", linewidth=0.5)
+  }
+  return(p)
+    
+  
+}
 PlotOptImage <- function(oi, title){
   return(ggplot() +
     geom_spatraster(data=oi, maxcell=10e+05, interpolate=FALSE) +
