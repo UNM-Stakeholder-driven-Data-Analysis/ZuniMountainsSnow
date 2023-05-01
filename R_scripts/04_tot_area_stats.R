@@ -62,51 +62,6 @@ freqStats <- lapply(seq_along(freqStats), function(i) mutate(freqStats[[i]], cri
 
 allData <- bind_rows(freqStats)
 
-#### optimal summary ####
-#not sure if optimal summary is necessary, for now commenting out
-#optimalSummary <- optimalInfo %>% 
-#  filter(value=="optimal") %>%
-#  group_by(year) %>%
-#  summarise(average_area=mean(area_km),
-#            percent_area=mean(area_km)/(totExpanseArea / 1000^2) * 100,
-#            range_area=max(area_km) - min(area_km),
-#            range_area_m= max(area_m) - min(area_m))
-#optimalSummary
-
-#look at the contributions of tree vs ground on the total optimal area
-#treeGroundContribSummary <- optimalInfo %>%
-#  group_by(year, value) %>%
-#  summarize(avg_prop = mean(prop) * 100, std_prop=sd(prop) * 100, rng_m=max(area_m)-min(area_m))
-#treeGroundContribSummary
-#write_delim(treeGroundContribSummary, "./GeneratedPlots/treeGroundContrib.csv", delim=",")
-
-#library(knitr)
-#kable(optimalSummary, format="markdown", 
-#      col.names = c("year", "average area (km^2^)", "percent area optimal", "range area (km^2^)", "range area (m^2^)"),
-#      digits=c(1, 2, 1, 4,0))
-
-
-#### get max and min layers ####
-#optMax <- optimalInfo %>%
-#  group_by(year) %>%
-#  filter(count == max(count)) %>%
-#  mutate(status="max")
-#optMin <- optimalInfo %>%
-#  group_by(year) %>%
-#  filter(count==min(count)) %>%
-#  mutate(status="min")
-
-#optMinMax <- bind_rows(optMax, optMin)
-#maxLyr <- filter(optMinMax, year=="yr2000", status=="max")$layer
-#maxLyr
-#minLyr <- filter(optMinMax, year=="yr2000", status=="min")$layer
-# show the layers with maximium and minimum amount of optimal area
-#ggplot() +
-#  geom_spatraster(data=optImgSDS$zm2000_opt[[c(maxLyr, minLyr)]], maxcell=10e+05) +
-#  facet_wrap(~lyr) +
-#  labs(title="Year 2000 max (left) and min(right) opt images")
-
-
 
 #### visualize total optimal area distributions ####
 #jpeg("./GeneratedPlots/totOptArea.jpeg")
