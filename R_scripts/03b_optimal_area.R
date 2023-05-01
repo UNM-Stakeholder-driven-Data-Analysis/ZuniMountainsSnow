@@ -123,7 +123,7 @@ AddOrigTC <- function(optImg, simImg){
 
 finalAll <- list()
 for (i in seq_along(resultAll)){
-  finallAll[[i]] <- AddOrigTC(resultAll[[i]], origSims[[i]])
+  finalAll[[i]] <- AddOrigTC(resultAll[[i]], origSims[[i]])
 }
 
 #### save optimal imgs ####

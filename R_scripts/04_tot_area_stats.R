@@ -46,6 +46,7 @@ folders <- c(#"n1_3x3_all",
              #"n5_3x3_all", 
              "n5_3x3_north",
              "n1_3x3_northline",
+             "c2_3x3_northline",
              "n2_3x3_lineNeighbors1")
 optVariants <- lapply(folders, LoadOptList)
 names(optVariants) <- folders
@@ -109,7 +110,8 @@ allData <- bind_rows(freqStats)
 
 #### visualize total optimal area distributions ####
 #jpeg("./GeneratedPlots/totOptArea.jpeg")
-ggplot(filter(allData, value=="optimal", criterion %in% c("n1_3x3_northline", "n2_3x3_lineNeighbors1"))) +
+to_show <- c("n1_3x3_northline", "n2_3x3_lineNeighbors1", "c2_3x3_northline")
+ggplot(filter(allData, value=="optimal", criterion %in% to_show)) +
   geom_jitter(mapping = aes(factor(year), area_km, color=criterion),width=.2, height=0, alpha=0.5, size=.5) +
   #geom_boxplot(mapping=aes(factor(year), area_km, color=criterion))+
   scale_y_continuous(limits=c(0,3),breaks=seq(0,3,by=0.5)) +
