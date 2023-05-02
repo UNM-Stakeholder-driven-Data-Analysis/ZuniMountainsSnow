@@ -7,6 +7,8 @@ library(tidyterra)
 library(terra)
 library(tidyr)
 library(dplyr)
+library(viridis) 
+library(ggnewscale)
 source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 polyName = "poly2014-09-29"
@@ -61,31 +63,48 @@ freqStats <- lapply(optVariants, function(variant) FreqStats(variant))
 freqStats <- lapply(seq_along(freqStats), function(i) mutate(freqStats[[i]], criterion=folders[i]))
 
 allData <- bind_rows(freqStats)
+#hack to access the number parameter, which has a different meaning depending on criterion
+#for all criterion the number parameter is the second character in the string!
+allData <- mutate(allData, numParam=substring(criterion, 2, 2)) 
 
 
 #### visualize total optimal area distributions ####
-#jpeg("./GeneratedPlots/totOptArea.jpeg")
-to_show <- c("n1_3x3_northline", "n2_3x3_lineNeighbors1", "c2_3x3_northline")
-ggplot(filter(allData, value=="optimal", criterion %in% to_show)) +
-  geom_jitter(mapping = aes(factor(year), area_km, color=criterion),width=.2, height=0, alpha=0.5, size=.5) +
-  #geom_boxplot(mapping=aes(factor(year), area_km, color=criterion))+
+north_lines <- c("n1_3x3_northline"
+                 #,"n2_3x3_lineNeighbors1" #this one doesn't make sense
+                 ,"c2_3x3_northline"
+                 )
+north_halfc <- c("n1_3x3_north"
+             ,"n2_3x3_north"
+             ,"n3_3x3_north"
+             ,"n4_3x3_north"
+             ,"n5_3x3_north"
+             )
+ggplot() +
+  ## NORTH LINE PLOT
+  geom_jitter(data=filter(allData, value=="optimal", criterion %in% north_lines), 
+              aes(factor(year), area_km, color=numParam),
+              width=.2, height=0, alpha=0.5, size=.5) +
+  scale_color_brewer(palette = "Set2", name="North Line:\nminimum cluster size")+
+  guides(colour = guide_legend(override.aes = list(size=4, alpha=1)))+
+  
+  new_scale_color() +
+  
+  ## NORTH HALF CIRCLE PLOT
+  geom_jitter(data=filter(allData, value=="optimal", criterion %in% north_halfc), 
+              aes(factor(year), area_km, color=numParam),
+              width=.2, height=0, alpha=0.5, size=.5) +
+  scale_color_viridis(discrete = TRUE, direction=-1, 
+                      name="North Half Circle:\nnumber of covered cells",) +
+  guides(colour = guide_legend(override.aes = list(size=4, alpha=1),order=2))+
+
+
   scale_y_continuous(limits=c(0,3),breaks=seq(0,3,by=0.5)) +
   labs(title="Total Optimal Area for Polygon 2014-09-29",
        x="",
        y="total optimal area [km^2]")+
-  guides(colour = guide_legend(override.aes = list(size=4)))
-#dev.off()
+  theme_bw()
+ggsave("./GeneratedPlots/totOpt_n1-5northHemi.tiff")
 
 
-#jpeg("./GeneratedPlots/totOptArea_2015Zoom.jpeg")
-#optInfo2015 <- filter(optimalInfo, year=="yr2015")
-#ggplot(optimalInfo) +
-#  geom_violin(mapping=aes(factor(year), area_km), width=0.25) +
-#  geom_jitter(mapping = aes(factor(year), area_km),width=0.03, height=0, alpha=0.5) +
-#  scale_y_continuous(labels=function(x) sprintf("%.4f", x)) +
-#  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
-#  facet_wrap(~year, scales = "free") +
-#  labs(title="Total Optimal Area for Polygon 2014-09-29",
-#       x="",
-#       y="total optimal area [km^2]")
-#dev.off()
+
+
