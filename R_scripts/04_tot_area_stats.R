@@ -94,7 +94,7 @@ ggplot() +
               aes(factor(year), area_km, color=numParam),
               width=.2, height=0, alpha=0.5, size=.5) +
   scale_color_viridis(discrete = TRUE, direction=-1, 
-                      name="North Half Circle:\nnumber of covered cells",) +
+                      name="North Semicircle:\nnumber of covered cells",) +
   guides(colour = guide_legend(override.aes = list(size=4, alpha=1),order=2))+
 
 
@@ -103,7 +103,7 @@ ggplot() +
        x="",
        y="total optimal area [km^2]")+
   theme_bw()
-ggsave("./GeneratedPlots/totOpt_n1-5northHemi.tiff")
+ggsave("./GeneratedPlots/totOpt_all.jpeg")
 
 
 

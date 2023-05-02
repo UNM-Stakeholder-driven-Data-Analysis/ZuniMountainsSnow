@@ -1,6 +1,7 @@
 ---
 title: "The Effect of USFS Thinning on Snowpack Accumulation Potential in the Zuñi Mountains"
 format: pdf
+number-sections: true
 editor: visual
 author: Josh Lopez-Binder
 ---
@@ -15,21 +16,21 @@ source("./R_Scripts/00_Functions.R")
 
 Snowpack is an important source of water for springs and forests in the Zuñi Mountains. The U.S. Forest Service conducts forest thinning projects in the mountains to improve the resilience of forests to frequent-fire patterns and climate change (). It is currently not understood how those thinning projects affect the accumulation of snow in the forest.
 
-Spatial snowpack data is unavailable at high enough resolutions to be useful, but high resolution tree cover data is available. Therefore, it is necessary to assess the *potential* for the forest to accumulate snow based on tree-cover. Snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground far away from tree cover is melted or moved by the wind more rapidly than snow closer to tree cover. A previous study found that, on average, ground within 15 meters of tree cover retains the most snow (). This approximation is used in this study to asses the amount of bare ground that has the potential to retain the most snow. We will refer to this ground as "optimal".
+Spatial snowpack data is unavailable at high enough resolutions to be useful, but high resolution tree cover data is available. Therefore, it is necessary to assess the *potential* for the forest to accumulate snow based on tree cover. Snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground far away from tree cover is melted or moved by the wind more rapidly than snow closer to tree cover. A previous study found that, on average, ground within 15 meters of tree cover retains the most snow (). Manual inspection of google earth imagery in the Zuñi Mountains suggests that bare ground to the north of tree cover accumulates snow, presumably because it is shaded during midday, when the sun's energy is the most intense. Combining these observations suggests that bare ground within 15m of tree cover, and to the north, is optimal for snowpack accumulation. We call this "optimal ground."
 
-We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more bare ground greater than 15 meters from tree cover.
+We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more unshaded bare ground greater than 15 meters from tree cover.
 
-The highest resolution tree-cover data currently available represents tree cover as a percentage within each 30meter square (TODO: citation). In order to asses if an area is optimal it is necessary to analyze data that shows the precise locations of trees and bare ground. To do this we simulated tree locations based on the percent-cover data. The resulting calculations showed that after a thinning project in 2014 the amount of optimal ground *increased,* contrary to our expectation. This suggests that the forest was at sufficiently high densities that large clearings with ground greater than 15 meters from tree cover are rare. In other words, for this thinning project area, the main limitation to snowpack accumulation was trees themselves.
+The highest resolution tree-cover data currently available represents tree cover as a percentage within each 30meter square (TODO: citation). In order to asses if an area is optimal it is necessary to analyze data that shows the precise locations of tree cover and bare ground. To do this we simulated tree locations based on the percent-cover data. The resulting calculations showed that after a thinning project in 2014 the amount of optimal ground decreased.
 
 TODO: decrease word count
 
 ## Introduction
 
-Snowpack is an important source of water for springs and forests in the Zuñi Mountains. The U.S. Forest Service conducts forest thinning projects in the mountains to improve the resilience of forests to frequent-fire patterns and climate change (). It is currently not understood how those thinning projects affect the accumulation of snow in the forest. Spatial snowpack data is unavailable at high enough resolutions to be useful, but high resolution tree cover data is available. Therefore, it is necessary to assess the *potential* for the forest to accumulate snow based on tree-cover. Snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground far away from tree cover is melted or moved by the wind more rapidly than snow closer to tree cover. A previous study found that, on average, ground within 15 meters of tree cover retains the most snow (). This approximation is used in this study to asses the amount of bare ground that has the potential to retain the most snow. We will refer to this ground as "optimal".
+Snowpack is an important source of water for springs and forests in the Zuñi Mountains. The U.S. Forest Service conducts forest thinning projects in the mountains to improve the resilience of forests to frequent-fire patterns and climate change (). It is currently not understood how those thinning projects affect the accumulation of snow in the forest. Spatial snowpack data is unavailable at high enough resolutions to be useful, but high resolution tree cover data is available. Therefore, it is necessary to assess the *potential* for the forest to accumulate snow based on tree-cover. Snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground far away from tree cover is melted or moved by the wind more rapidly than snow closer to tree cover.
 
 ## Prediction
 
-We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more bare ground greater than 15 meters from tree cover.
+We hypothesize that thinning is reducing snowpack accumulation potential because it has the effect of creating more bare ground that is exposed to the sun.
 
 ## Methods
 
@@ -38,10 +39,6 @@ We hypothesize that thinning is reducing snowpack accumulation potential because
 The highest resolution tree-cover data currently available represents tree cover as a percentage at 30x30 meters resolution (TODO: citation). Values are the integers 0-100. Error for each cell is also provided, where the error is root mean squared error in units of percent cover (TODO: citation) (TODO: this is my best interpretation but I am not certain) This data includes tree-cover images for the years 2000, 2005, 2010, and 2015.
 
 The US Forest Service provides a data set of all activities and their spatial extents for the southwest region, as well as data representing forest boundaries (citation). The activity data include the date completed, the project they were a part of, and the type of activity.
-
-#### Definition Of Optimal Condition for Snowpack Accumulation
-
-Snowpack data is unavailable at high enough resolutions to be useful. Therefore, it is necessary to assess the potential for the forest to accumulate snow based on forest structure alone. A previous study in the Jemez Mountains found that the optimal condition for snowpack accumulation was, on average, clear ground within 15 meters of tree cover (Broxton et al., 2015). Snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground greater than 15 meters from tree cover is also melted, evaporated, or moved by the wind more rapidly than snow closer to tree cover. This approximation does not take into consideration the observed pattern that snow accumulated less on south-facing sides of trees in the Jemez Mountains (Broxton et al., 2015), suggesting that in that region solar irradiation has relatively large impact on snowpack. However, the 15m approximation serves as a starting point for assessing the snowpack accumulation potential of a forest, given only the position of trees. Hereafter the word "optimal" will refer to treeless ground that is within 15m of tree cover.
 
 #### Choosing a Thinning Project Area
 
@@ -57,30 +54,44 @@ Relative frequency histograms for each cover value, for the chosen polygon, are 
 
 #### Increasing Resolution via Stochastic Simulation
 
-In order to assess if a cell is optimal or not it is necessary to A) categorize cells as either bare ground or tree-cover and B) use cells that are smaller than the threshold distance of 15m. To avoid using arbitrarily small cells, google earth images of the Zuñi Mountains were used to characterize typical tree crown diameter sizes (see Appendix for more detail). Crown diameters were observed to typically range between 3 and 4 meters. Therefore, on the smaller end it can be assumed that a 3x3 meter cell is either bare ground, or completely covered by a tree. Based on this assumption a stochastic simulation was used to generate a 3x3 meter resolution image derived from the 30x30 meter percent-cover image.
+In order to assess if a cell is optimal or not it is necessary to A) categorize cells as either bare ground or tree-cover and B) use cells that are smaller than the threshold distance of 15m. To avoid using arbitrarily small cells, Google e\\Earth images of the Zuñi Mountains were used to characterize typical tree crown diameter sizes (see @sec-3x3Reasoning for images). Crown diameters were observed to typically range between 3 and 4 meters. Therefore, on the smaller end it can be assumed that a 3x3 meter cell is either bare ground, or completely covered by a tree. Based on this assumption a stochastic simulation was used to generate a 3x3 meter resolution image derived from the 30x30 meter percent-cover image.
 
-The simulation works as follows: Each 30x30 meter cell is subdivided into 100 3x3 meter cells. Because there are 100 sub-cells per 30x30 meter cell, percent cover values translate directly to the number of covered sub-cells. This number of covered sub-cells is distributed randomly within the 30x30 cell. Therefore, the percent cover for the 30x30 cell is preserved. This operation is repeated for each 30x30 meter cell to convert the entire percent-tree-cover image into a simulated tree-cover distribution. This conversion is repeated 100 times for each year to create a spread of possible tree-cover distribution images. See @fig-randExample for an example of one 30x30 meter cell being converted to 3x3 meter resolution via stochastic simulation. @fig-stochsim shows an entire stochastic simulation for the year 2000.
+The simulation works as follows: Each 30x30 meter cell is subdivided into 100 3x3 meter cells. Because there are 100 sub-cells per 30x30 meter cell, percent cover values translate directly to the number of covered sub-cells. This number of covered sub-cells is distributed randomly within the 30x30 cell. Therefore, the percent cover for the 30x30 cell is preserved. This operation is repeated for each 30x30 meter cell to convert the entire percent-tree-cover image into a simulated tree-cover distribution. This conversion is repeated 100 times for each year to create a spread of possible tree-cover distribution images. Note that clusters of 3x3m cells may be interpreted as multiple small trees or one large tree. See @fig-randExample for an example of one 30x30 meter cell being converted to 3x3 meter resolution via stochastic simulation. @fig-stochsim shows an entire stochastic simulation for the year 2000.
 
 ![An example of a random simulation of trees 30x30 meter cell with 30% tree cover. 0 Represents bare ground, 100 represents tree-cover. (TODO: convert to ground and tree levels, color accordingly)](./GeneratedPlots/one30x30randSim.jpeg){#fig-randExample fig-align="center" width="400"}
 
 ![An example of a stochastic simulation of tree cover distribution. The black square represents the zoomed area shown in @fig-zoom (TODO: rename to tree to tree-cover. a cluster of cells could represent one big tree)](./GeneratedPlots/OneStochasticSim_withZoom.jpeg){#fig-stochsim}
 
-#### Assigning Optimal Cells
+#### Definition Of Optimal Condition for Snowpack Accumulation
 
-A focal (neighborhood) function was applied to each 3x3 m cell in the simulated data. This function designated the central cell in question as "optimal" if A) the central cell was bare ground and B) any cell within a 15m radius was covered by tree canopy. The 15m radius was necessarily approximated by pixelation (see Appendix for detailed images).
+Snowpack data is unavailable at high enough resolutions to be useful. Therefore, it is necessary to assess the potential for the forest to accumulate snow based on forest structure alone. A previous study in the Jemez Mountains found that the optimal condition for snowpack accumulation was, on average, clear ground within 15 meters of tree cover (Broxton et al., 2015). According to the study, snow that lands directly on trees is melted and evaporated more rapidly than snow that lands on the ground. Similarly, snow that falls on ground greater than 15 meters from tree cover is also melted, evaporated, or moved by the wind more rapidly than snow closer to tree cover. This approximation does not take into consideration the observed pattern that snow accumulated less on south-facing sides of trees in the Jemez Mountains (Broxton et al., 2015), suggesting that in that region solar irradiation has relatively large impact on snowpack. Inspection of Google Earth satellite imagery for the year 2014, to the immediate west of the chosen thinning project, reveals a strong pattern of snow accumulating to the north of tree cover (see @sec-visAsses). These observations are used to create criteria which classify bare ground as either optimal for snowpack accumulation or not. Because these criterion are simplified models of where snow will accumulate the best, we define multiple possible criterion and assess the impact of different criterion on the final result. Each criteria operates on the 3m x 3m simulated tree cover data, and asses whether a given bare-ground cell is optimal or not.
 
-The total area of optimal land ("optimal area") was calculated for each simulated image and across all years. A zoomed in image of three stochastic simulations and the corresponding image of optimal cells is shown in @fig-zoom.
+The chosen criteria are as follows:
+
+##### Midday Shading Criterion: North Line
+
+A bare ground cell is optimal if there is a cluster of tree cover within 15 meters to the south (measured from the southern most edge of the cell). The clusters of tree cover must be at or above a minimum threshold size. Thresholds considered here are 1 and 2 cells, which may be connected by an edge or by a corner. This models snowpack as being primarily affected by midday sun exposure, and allows for small trees to be considered ineffective for sheltering snow. The visual effect of this is each cluster having a line of snow to the north, hence the name North Line.
+
+##### General Shading and Wind Shelter Criterion: North Semicircle
+
+A bare ground cell is optimal when a half-circle area to the south, centered on the cell in question, contains at least a threshold area of tree cover. The radius of the half-circle is roughly 15meters (pixelation prevents an exact circle). Threshold areas are set to 1, 2, 3, 4, and 5 cells, respectively. This corresponds to 9, 18, 27, 36 and 45 m^2^ required covered area.
+
+As the threshold area increases this criterion approaches a model which combines both a) shading accross a wider span of the day and b) protection from wind distribution. This is simply because as the threshold area increases it becomes more likely that cover exists to the south, east, and west, and anywhere in between. Using a half circle to the south is appropriate because it biases the model towards bare ground which is more likely to be shaded during midday. The visual effect of this is groups of tree having snow in a roughly half circle to the north, hence the name North Semicircle
+
+TODO: image explaining both of these
+
+All criteria were applied to each of the 100 simulated images and across all years. A zoomed in image of each criterion applied to one stochastic simulation for the year 2015 is shown in @fig-zoom. TODO: make that image. possibly include 30x30 lines
 
 ![Simulated tree distributions and their resulting optimal cells (white), shown for three different simulations, for the year 2000. The area shown corresponds to the black square in @fig-stochsim. Note that sub-optimal area is distinguished between trees (green) and bare-ground \> 15m from tree cover (tan). TODO: text too small](./GeneratedPlots/zoom_sim_opt_compare.jpeg){#fig-zoom}
 
-A flow chart illustrating the entire process is shown below
+A flow chart illustrating the process is shown below
 
 ```{mermaid}
 flowchart TD
   X[choose a polygon] --> A[crop percent-cover by polygon]
-  A --> B[generate simulations x100]
-  B --> C[calculate optimal images x100]
-  C --> D[calculate total optimal area x100]
+  A --> B[generate simulations for each: \nyear: 2000, 2005, 2010, 2015\nsimulation: 1-100]
+  B --> C[calculate optimal image for each:\ncriterion\nyear\nsimulation]
+  C --> D[calculate total optimal area for each:\ncriterion\nyear\nsimulation]
 ```
 
 ## Results
@@ -90,7 +101,7 @@ Average optimal area is reported in @tbl-results. The range in optimal area acro
 The total extent of the thinning polygon is 3.24 km^2^.
 
 | year   | average optimal area (km^2^) | percent optimal area | range optimal area (km^2^) | range optimal area (m^2^) |
-|:-------|-----------------------------:|---------------------:|---------------------------:|--------------------------:|
+|:--------------|--------------:|--------------:|--------------:|--------------:|
 | yr2000 |                         2.44 |                 75.2 |                     0.0023 |                      2304 |
 | yr2005 |                         2.52 |                 77.7 |                     0.0013 |                      1314 |
 | yr2010 |                         2.48 |                 76.6 |                     0.0015 |                      1548 |
@@ -98,7 +109,7 @@ The total extent of the thinning polygon is 3.24 km^2^.
 
 : Summary of Total Optimal Area {#tbl-results}
 
-![Total Optimal Area for all simulation. Each simulation's optimal area is represented by a dot with a different horizontal position. All the dots cluster very tightly relative to the variation between years, making the vertical difference between dots for one year nearly imperceptible](./GeneratedPlots/totOptArea.jpeg){#fig-totOptArea}
+![Total Optimal Area for all simulation. Each simulation's optimal area is represented by a dot with a different horizontal position. All the dots cluster very tightly relative to the variation between years, making the vertical difference between dots for one year nearly imperceptible](./GeneratedPlots/totOpt_all.jpeg){#fig-totOptArea}
 
 ![Total optimal area for all simulations, isolated by year to visualize the within-year variation](./GeneratedPlots/totOptArea_2015Zoom.jpeg){#fig-totOptAreaSep}
 
@@ -124,13 +135,15 @@ The following activities are assumed to have no effect on tree cover:
 print(NO_ALTER_TC, row.names=FALSE)
 ```
 
-### Arriving at the 3-meter minimum cell size
+### Arriving at the 3-meter minimum cell size {#sec-3x3Reasoning}
 
 My apologies, I plan to redo this analysis to check the 3x3 meter assumption is valid. Google Earth imagery from the years \_\_ \_\_\_ and \_\_\_ within the Zuni Mountains were visually inspected in n=\_\_\_ locations. At each location an area of \_\_ m^2^ was observed to create an impression of a the range in tree crown diameter. Then small and large tree crowns were respectively measured using google-earth's measurement tool.
 
 The following table shows the resulting crown diameters:
 
 The following image shows selected areas:
+
+### Visual Assessment of Snow Accumulation Patterns {#sec-visAsses}
 
 ### Comparing to Real Imagery
 
