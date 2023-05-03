@@ -17,6 +17,7 @@ library(plotly)
 library(assertthat)
 library(tidyverse)
 library(raster)
+devtools::install_github("yutannihilation/ggsflabel")
 source("./R_Scripts/00_Functions.R")
 #NOTE rgdal is going to be retired by end of 2023. work for now so leaving it
 # See https://r-spatial.org/r/2022/04/12/evolution.html and 
@@ -152,9 +153,19 @@ length(unique(haz_fr_iso$DATE_COMPLETED))
 haz_fr_merged <- aggregate(haz_fr_iso, 
                by = list(haz_fr_iso$DATE_COMPLETED),
                FUN=function(x) x) #dummy function
-
+#### PLOT CANDIDATE ACTIVITIES ####
+dataTemp <- haz_fr_merged %>%
+  mutate(TREATMENT_NAME=ifelse(TREATMENT_NAME!="D-2 BW Thinning" | is.na(TREATMENT_NAME), "Candidate Treatments", "Selected Treatment: D-2 BW Thinning"))
 ggplot() +
-  geom_sf(data=haz_fr_merged, aes(fill=factor(Group.1)))
+  geom_sf(data=zuni_forest) +
+  geom_sf(data=dataTemp, aes(fill=factor(TREATMENT_NAME)), color=NA) +
+  guides(fill = guide_legend(reverse = TRUE))  +
+  labs(fill = "",
+       title="Chosen Thinning Treatment in the Zuñi Mountains")+
+  theme(legend.position="bottom")
+ggsave("./GeneratedPlots/selectedThin_context.jpeg")
+
+  
 
 #### crop tc raster by isolated polygon ####
 p2014 <- "2014-09-29 18:00:00"
@@ -174,7 +185,7 @@ one_poly <- terra::rasterize(one_polyVec, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
 
-writeVector(one_polyVec, "polyThin2014-09-29.kml")
+writeVector(one_polyVec, "polyThin2014-09-29.kml", overwrite=TRUE)
 
 
 #### process Data ####
@@ -186,6 +197,10 @@ all <- tcAll %>%
   terra::crop(one_poly) %>% 
   terra::mask(one_poly) %>%
   OnlyTreeCover()
+#### number of non Na cover cells (30x30) ####
+nonNa <- ifel(is.na(all), NA, 1)
+totNumCell <- global(nonNa, "sum", na.rm=TRUE)
+totNumCell
 
 # OnlyTreeCover NaNs any values not in 0-100
 stopifnot(all(terra::minmax(all)[2,] <= 100))
@@ -202,8 +217,7 @@ maxPercent <- max(minMaxAll[2,])
 
 
 # PERCENT COVER PLOTS
-jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
-
+#jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
 projName <- haz_fr_merged$NEPA_DOC_NAME[haz_fr_merged$Group.1==dateCompleted][[1]]
 actType <- haz_fr_merged$ACTIVITY[haz_fr_merged$Group.1==dateCompleted][[1]]
 ggplot() + 
@@ -212,7 +226,8 @@ ggplot() +
   labs(title=paste("Tree Cover for activity completed on", toString(dateCompleted), 
                    "\nActivity: ", tolower(actType),
                    "\n", tolower(projName)))
-dev.off()
+ggsave("./GeneratedPlots/percentTreeCover.jpeg")
+#dev.off()
 
 # DIFFERENCE PLOTS
 diffs <- c(all$yr2015 - all$yr2010, all$yr2010-all$yr2005, all$yr2005-all$yr2000)
