@@ -1,0 +1,381 @@
+[
+    {
+        "id": "http://zotero.org/users/local/tEebNCZF/items/IENHCZTA",
+        "type": "article-journal",
+        "abstract": "Snowmelt from forested, mountainous environments in the western United States is a critical regional water resource for streamflow and ecological productivity. These landscapes are undergoing rapid changes from the combined effects of forest fires, insect infestation and climate change. Numerous observational studies demonstrate that trees control snowpack accumulation and ablation over scales of tens of metres. Representing forest heterogeneity in models is important for understanding how changes in climate and vegetation cover affect the snowpack; yet, many snow models simplify a forest into two categories: canopy covered and non-canopy covered. We combine existing parameterizations of mass and energy fluxes within a new three-dimensional framework informed by Airborne Laser Swath Mapping (ALSM)-derived canopy maps and evaluated with ALSM-derived snow depth maps to explicitly simulate snow cover in relation to heterogeneous canopy. Model results capture much of the observed snow variability depicted in the 1-m ALSM-derived snow depth maps. Observations and modelled results identify open areas <15 m from tree canopies as having more snow and more snow variability than areas >15 m from tree canopies, and modelled results predict that open areas <15 m from tree canopies have 30-40% more net snow water input than areas that are underneath tree canopies and 10-25% more net snow water input than areas that are >15 m from tree canopies. Furthermore, 1-m simulations give higher estimates for net snow water input than coarser resolution simulations, mainly in areas with fewer trees. These results suggest the importance of explicitly representing canopy edges in snow models. Copyright © 2014 John Wiley & Sons, Ltd.",
+        "container-title": "Ecohydrology",
+        "DOI": "10.1002/eco.1565",
+        "ISSN": "19360584",
+        "issue": "6",
+        "note": "publisher: Wiley-Blackwell",
+        "page": "1073-1094",
+        "source": "EBSCOhost",
+        "title": "Quantifying the effects of vegetation structure on snow accumulation and ablation in mixed-conifer forests",
+        "URL": "https://libproxy.unm.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=eih&AN=109463013&site=eds-live&scope=site",
+        "volume": "8",
+        "author": [
+            {
+                "family": "Broxton",
+                "given": "P. D."
+            },
+            {
+                "family": "Harpold",
+                "given": "A. A."
+            },
+            {
+                "family": "Biederman",
+                "given": "J. A."
+            },
+            {
+                "family": "Troch",
+                "given": "P. A."
+            },
+            {
+                "family": "Molotch",
+                "given": "N. P."
+            },
+            {
+                "family": "Brooks",
+                "given": "P. D."
+            }
+        ],
+        "accessed": {
+            "date-parts": [
+                [
+                    "2023",
+                    2,
+                    8
+                ]
+            ]
+        },
+        "issued": {
+            "date-parts": [
+                [
+                    "2015",
+                    9
+                ]
+            ]
+        }
+    },
+    {
+        "id": "http://zotero.org/users/local/tEebNCZF/items/PT7X5G8N",
+        "type": "document",
+        "title": "Restoring Composition and Structure in Southwestern Frequent-Fire Forests: A science-based framework for improving ecosystem resiliency",
+        "author": [
+            {
+                "family": "Reynolds",
+                "given": "Richard T."
+            },
+            {
+                "family": "Sánchez Meador",
+                "given": "Andrew"
+            },
+            {
+                "family": "Youtz",
+                "given": "James"
+            }
+        ],
+        "issued": {
+            "date-parts": [
+                [
+                    "2013",
+                    9
+                ]
+            ]
+        }
+    },
+    {
+        "author": [
+            {
+                "family": "Reynolds",
+                "given": "Richard T."
+            },
+            {
+                "family": "Sánchez Meador",
+                "given": "Andrew"
+            },
+            {
+                "family": "Youtz",
+                "given": "James"
+            }
+        ],
+        "id": "reynolds2013",
+        "issued": {
+            "date-parts": [
+                [
+                    2013,
+                    9
+                ]
+            ]
+        },
+        "key": "PT7X5G8N",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "title": "Restoring Composition and Structure in Southwestern Frequent-Fire Forests: A science-based framework for improving ecosystem resiliency",
+        "type": "article"
+    },
+    {
+        "DOI": "10.1002/eco.1565",
+        "ISSN": "19360584",
+        "URL": "https://libproxy.unm.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=eih&AN=109463013&site=eds-live&scope=site",
+        "accessed": {
+            "date-parts": []
+        },
+        "author": [
+            {
+                "family": "Broxton",
+                "given": "P. D."
+            },
+            {
+                "family": "Harpold",
+                "given": "A. A."
+            },
+            {
+                "family": "Biederman",
+                "given": "J. A."
+            },
+            {
+                "family": "Troch",
+                "given": "P. A."
+            },
+            {
+                "family": "Molotch",
+                "given": "N. P."
+            },
+            {
+                "family": "Brooks",
+                "given": "P. D."
+            }
+        ],
+        "container-title": "Ecohydrology",
+        "id": "broxton2015",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    2015,
+                    9
+                ]
+            ]
+        },
+        "key": "IENHCZTA",
+        "libraryid": "1",
+        "page": "1073-1094",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "publisher": "Wiley-Blackwell",
+        "source": "EBSCOhost",
+        "title": "Quantifying the effects of vegetation structure on snow accumulation and ablation in mixed-conifer forests",
+        "type": "article-journal",
+        "volume": "8"
+    },
+    {
+        "URL": "https://lpdaac.usgs.gov/documents/1371/GFCC_User_Guide_V1.pdf",
+        "author": [
+            {
+                "family": "Sexton",
+                "given": "JO"
+            },
+            {
+                "family": "Fend",
+                "given": "M"
+            },
+            {
+                "family": "Channan",
+                "given": "S"
+            },
+            {
+                "family": "Song",
+                "given": "X-P"
+            },
+            {
+                "family": "Kim",
+                "given": "D-H"
+            },
+            {
+                "family": "Noojipady",
+                "given": "P"
+            },
+            {
+                "family": "Song",
+                "given": "D"
+            },
+            {
+                "family": "Huang",
+                "given": "C"
+            },
+            {
+                "family": "Annand",
+                "given": "A"
+            },
+            {
+                "family": "Collins",
+                "given": "K"
+            },
+            {
+                "family": "Vermote",
+                "given": "EF"
+            },
+            {
+                "family": "Wolfe",
+                "given": "R"
+            },
+            {
+                "family": "Maske",
+                "given": "J"
+            },
+            {
+                "family": "Townshend",
+                "given": "JRG"
+            }
+        ],
+        "id": "sexton2016",
+        "issued": {
+            "date-parts": [
+                [
+                    2016,
+                    9,
+                    7
+                ]
+            ]
+        },
+        "key": "3Y9KZIIC",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "publisher": "Global Land Cover Facility",
+        "title": "Earth Science Data Records of Global Forest Cover and Change: User Guide",
+        "type": "article"
+    },
+    {
+        "DOI": "10.5067/MEASURES/GFCC/GFCC30TC.003",
+        "URL": "https://lpdaac.usgs.gov/products/gfcc30tcv003/",
+        "accessdate": "2023-05-03 04:49:55",
+        "author": [
+            {
+                "family": "Townshend,  John"
+            }
+        ],
+        "date": "2016-00-00 2016",
+        "extra": "DOI: 10.5067/MEASURES/GFCC/GFCC30TC.003",
+        "id": "townshendjohn",
+        "key": "34EPB4KJ",
+        "librarycatalog": "DOI.org (Datacite)",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "repository": "NASA EOSDIS Land Processes DAAC",
+        "title": "Global Forest Cover Change (GFCC) Tree Cover Multi-Year Global 30 m V003",
+        "type": "dataset"
+    },
+    {
+        "URL": "https://www.fs.usda.gov/detail/r3/landmanagement/gis/?cid=stelprdb5201889#main_content",
+        "abstractnote": "The Forest Service’s Natural Resource Manager (NRM) Forest Activity Tracking System (FACTS) is the agency standard for managing information about activities related to fire/fuels, silviculture, and invasive species. This feature class contains the FACTS attributes most commonly needed to describe FACTS activities.",
+        "author": [
+            {
+                "family": "USDA Forest Service, Southwestern Region, Regional GIS Coordinator"
+            }
+        ],
+        "date": "2023-03-29 2023-03-29",
+        "id": "usdaforestservicesouthwesternregionregionalgiscoordinator",
+        "key": "UU8E4H4L",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "title": "Activities (FACT_ACT160_VW Attributes)",
+        "type": "dataset"
+    },
+    {
+        "URL": "https://www.fs.usda.gov/detail/r3/landmanagement/gis/?cid=stelprdb5201889#main_content",
+        "abstractnote": "The Forest Service’s Natural Resource Manager (NRM) Forest Activity Tracking System (FACTS) is the agency standard for managing information about activities related to fire/fuels, silviculture, and invasive species. This feature class contains the FACTS attributes most commonly needed to describe FACTS activities.",
+        "date": "2023-03-29 2023-03-29",
+        "id": "activiti",
+        "key": "UU8E4H4L",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "title": "Activities (FACT_ACT160_VW Attributes)",
+        "type": "dataset"
+    },
+    {
+        "DOI": "10.5067/MEASURES/GFCC/GFCC30TC.003",
+        "URL": "https://lpdaac.usgs.gov/products/gfcc30tcv003/",
+        "accessdate": "2023-05-03 04:49:55",
+        "author": [
+            {
+                "family": "Townshend,  John"
+            }
+        ],
+        "date": "2016-00-00 2016",
+        "extra": "DOI: 10.5067/MEASURES/GFCC/GFCC30TC.003",
+        "id": "townshendjohna",
+        "key": "34EPB4KJ",
+        "librarycatalog": "DOI.org (Datacite)",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "repository": "NASA EOSDIS Land Processes DAAC",
+        "title": "Global Forest Cover Change (GFCC) Tree Cover Multi-Year Global 30 m V003",
+        "type": "dataset"
+    },
+    {
+        "URL": "https://www.fs.usda.gov/detail/r3/landmanagement/gis/?cid=stelprdb5201889#main_content",
+        "abstractnote": "The Forest Service’s Natural Resource Manager (NRM) Forest Activity Tracking System (FACTS) is the agency standard for managing information about activities related to fire/fuels, silviculture, and invasive species. This feature class contains the FACTS attributes most commonly needed to describe FACTS activities.",
+        "date": "2023-03-29 2023-03-29",
+        "id": "activitia",
+        "key": "UU8E4H4L",
+        "libraryid": "1",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "repository": "Southwestern Region GIS Data",
+        "title": "Activities (FACT_ACT160_VW Attributes)",
+        "type": "dataset"
+    },
+    {
+        "DOI": "10.1002/eco.1565",
+        "ISSN": "19360584",
+        "URL": "https://libproxy.unm.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=eih&AN=109463013&site=eds-live&scope=site",
+        "accessed": {
+            "date-parts": []
+        },
+        "author": [
+            {
+                "family": "Broxton",
+                "given": "P. D."
+            },
+            {
+                "family": "Harpold",
+                "given": "A. A."
+            },
+            {
+                "family": "Biederman",
+                "given": "J. A."
+            },
+            {
+                "family": "Troch",
+                "given": "P. A."
+            },
+            {
+                "family": "Molotch",
+                "given": "N. P."
+            },
+            {
+                "family": "Brooks",
+                "given": "P. D."
+            }
+        ],
+        "container-title": "Ecohydrology",
+        "id": "broxton2015a",
+        "issue": "6",
+        "issued": {
+            "date-parts": [
+                [
+                    2015,
+                    9
+                ]
+            ]
+        },
+        "key": "IENHCZTA",
+        "libraryid": "1",
+        "page": "1073-1094",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "publisher": "Wiley-Blackwell",
+        "source": "EBSCOhost",
+        "title": "Quantifying the effects of vegetation structure on snow accumulation and ablation in mixed-conifer forests",
+        "type": "article-journal",
+        "volume": "8"
+    }
+]
