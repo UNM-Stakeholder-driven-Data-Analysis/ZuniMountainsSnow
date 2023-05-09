@@ -63,17 +63,7 @@ names(zm2000_opt_fac) <- 1:100
 
 #### zoomed in plot sim, opt ####
 
-ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
-  
-  width = cellSize * widthMult
-  xMin = xmin(img)
-  yMin = ymin(img)
-  xStart = xMin + cellSize * xCellStart 
-  yStart = yMin + cellSize * yCellStart
-  
-  cropExt <- ext(xStart, xStart+width, yStart, yStart+width)
-  
-}
+
 
 cropExt <- ZoomExt(widthMult=4, xCellStart=42, yCellStart=59, img=zm2000_sim)
 cropRect <- as.polygons(cropExt, crs=crs(zm2000_sim))

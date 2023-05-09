@@ -5,7 +5,7 @@
 # in the 30x30m cell image
 #### Packages ####
 source("./R_Scripts/00_Functions.R")
-#TODO: fill out other needed packages
+
 
 
 #### load data ####
@@ -36,7 +36,7 @@ tc2010 <- terra::project(tc2010, tc2015)
 
 tcAll <- c(tc2015, tc2010, tc2005, tc2000)
 
-
+#TODO: move isolation into its own script!
 ##### Isolate Thinning Polygons in Zuni Mountains ####
 CIBOLA_FOREST = "03" #this is inferred by inspecting the map at the link:
 #https://usfs.maps.arcgis.com/apps/mapviewer/index.html?layers=eb8f23442f374ea2adae683e6eb0f16a
@@ -106,11 +106,14 @@ p2003 <- "2003-05-04 18:00:00" #
 
 USE <- p2014
 
-one_poly <- terra::vect(filter(haz_fr_merged, Group.1==USE))
-poly_ext <- ext(one_poly)
-one_poly <- terra::rasterize(one_poly, tc2015)
+one_polyVec <- terra::vect(filter(haz_fr_merged, Group.1==USE))
+poly_ext <- ext(one_polyVec)
+one_poly <- terra::rasterize(one_polyVec, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
+#TODO: working here to generate a rand sample in the poly <<<<<<<<<<<<<<<<<<<<<<<<<<
+#and save it so we can do the manual analysis in google earth
+writeVector(one_polyVec, paste(p2014))
 
 
 #### isolate tree cover to the one polygon group ####
@@ -127,7 +130,7 @@ numSamples <- 100
 tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
 #initialize the first image
 SAMPLE_IMG <- all$yr2015
-zm_c_samp <- MonteCarloImg(SAMPLE_IMG)
+zm_c_samp <- MonteCarloImg(SAMPLE_IMG, subCellSize=3)
 set.names(zm_c_samp, toString(1))
 for (i in 2:numSamples){
   #TODO: set the name of the image so we don't have to do it after.

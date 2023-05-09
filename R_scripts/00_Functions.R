@@ -1,3 +1,21 @@
+#### Libraries ####
+library(rgdal)
+library(sf)
+library(spdep)
+library(raster)
+library(terra)
+library(rasterVis)
+library(sp)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(comprehenr)
+library(dplyr)
+library(xml2)
+library(XML)
+library(assertthat)
+library(plotly)
+
 #### Constants ####
 im.width = 1024
 aspect.r = 0.707 #0.707 is a conve nient aspect.ratio
@@ -21,6 +39,100 @@ OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
 
+PLOTWIDTH= 8.2 #in inches
+PLOTHEIGHT= 5.4
+
+WIDTHSMALL = 3 #inches
+HEIGHTSMALL = 4
+
+#### loading functions ####
+
+fileNames <- c("zm2000_opt.tif",
+               "zm2005_opt.tif",
+               "zm2010_opt.tif",
+               "zm2015_opt.tif")
+
+LoadOptList <- function(folder){
+  #list of spatRasters
+  optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", polyName, folder, file)))
+  names(optImgList) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
+  return(optImgList)
+}
+
+#### visualization functions ####
+
+ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
+  
+  width = cellSize * widthMult
+  xMin = xmin(img)
+  yMin = ymin(img)
+  xStart = xMin + cellSize * xCellStart 
+  yStart = yMin + cellSize * yCellStart
+  
+  cropExt <- ext(xStart, xStart+width, yStart, yStart+width)
+  
+}
+
+OptLevels <- function(){data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal"))}
+
+PlotOptImageLyr <- function(oi, title){
+  oi <- as.factor(oi)
+  levels(oi) <- lapply(1:nlyr(oi), function(x) OptLevels())
+  return(ggplot() +
+           geom_spatraster(data=oi, maxcell=10e+05) +
+           scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
+           facet_wrap(~lyr) +
+           labs(title=title))
+}
+
+PlotSimImage <- function(simImg, title, zoomRect){
+  simImgFac <- as.factor(simImg)
+  p <- ggplot() +
+    geom_spatraster(data=simImgFac, maxcell=10e+05, interpolate=FALSE) +
+    scale_fill_manual(name="", 
+                      values = c(GROUND, TREE),
+                      labels=c("ground", "tree cover"),
+                      na.translate=F)+  
+    labs(title=title)
+  if (!missing(zoomRect)){
+    p <- p + geom_spatvector(data=zoomRect, fill=NA, colour="black", linewidth=0.5)
+  }
+  return(p)
+    
+  
+}
+PlotOptImage <- function(oi, title){
+  return(ggplot() +
+    geom_spatraster(data=oi, maxcell=10e+05, interpolate=FALSE) +
+    scale_fill_manual(name="value", 
+                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
+                      labels=c("tree cover", "ground", "optimal"),
+                      na.translate=F)+  
+    labs(title=title))
+}
+PlotRastAsMat <- function(img){
+  imgMat <- rast(as.matrix(img, wide=TRUE)) #strips coordinate info
+  imgMat <- as.factor(imgMat)
+  ggplot() +
+    geom_spatraster(data=imgMat) +
+    scale_fill_manual(name="value", 
+                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
+                      labels=c("tree cover", "ground", "optimal"),
+                      na.translate=F)+
+    coord_fixed() +
+    scale_y_continuous(breaks=seq(1,nrow(imgMat),by=1)) + 
+    scale_x_continuous(breaks=seq(1,ncol(imgMat),by=1)) +
+    theme(
+      panel.background = element_rect(fill = NA),
+      panel.grid.major = element_line(linewidth=0.3, colour = "grey"),
+      panel.ontop = TRUE,
+      panel.grid.minor = element_blank(),
+      axis.text.x=element_blank(),
+      axis.ticks.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank(),
+    )
+}
 #### functions ####
 
 SimToFactor <- function(simImg){
@@ -38,6 +150,10 @@ SimToFactor <- function(simImg){
   return(simImgFac)
 }
 
+# Deprecated: all analysis should be on a non-factored image (some terra functions
+# only work on non-factored images)
+# converting to factor should happen only for visualization, and setting levels
+# is unnecessary in that case
 OptToFactor <- function(optImg){
   #convert a numeric optimal image raster to a factor raster
   #where optimal images has values -1, 0, 1
@@ -51,19 +167,40 @@ OptToFactor <- function(optImg){
   return(optImgFac)
 }
 
-SubOptDistinguish <- function(sim, opt){
-  #NOTE: in the future this function should go away, as it makes more sense
-  #to distinguish betweeen suboptimal types during application of the focal
-  # function IsOptimal
-  treeNeg <- subst(sim, 100, -1)
-  #opt has values 0=suboptimal, 1= optimal
-  #and should always have 0 where trees occcured
-  #so summing with trees as -1 will result in 
-  # 0=suboptimal ground, -1=suboptimal tree, 1=optimal
-  return(sum(treeNeg, opt))
-  
+NorthLines <- function(img, radius=15, n=1){
+  #n is the number of neighbors to include on either side of the
+  #northLine (or south line, depending on how you look at it)
+  circleMat <- GetCircleMat(img, radius)
+  circleMat[,] <- 0
+  centerRow <-ceiling(nrow(circleMat)/2)
+  sourthernCols <- (ceiling(ncol(circleMat)/2)+1):ncol(circleMat)
+  circleMat[(centerRow-n):(centerRow+n), sourthernCols] <- 1
+  return(circleMat)
 }
 
+NorthLine <- function(img, radius=15){
+  #convenient to get matrix of correct size no matter what
+  #resolution
+  #assumes cirlceMat has dimensions that are odd numbers
+  #which happens because focalMat
+  circleMat <- GetCircleMat(img, radius)
+  circleMat[,] <- 0
+  circleMat[ceiling(nrow(circleMat)/2), (ceiling(ncol(circleMat)/2)+1):ncol(circleMat) ] <- 1
+  return(circleMat)
+}
+CenterCell <- function(mat){
+  #returns the index of the central cell of the matrix if it is represented as a vector
+  #assumes nrow == ncol
+  nRow <- nrow(mat)
+  #for an odd sized square matrix represented at a vector, going from top left to right, then down by column,
+  #the central cell is equivalent to:
+  CENTER = nRow * floor(nRow/2) + ceiling(nRow/2) #11 columns, go to the 6th row, go in by 6 columns to get
+  return(CENTER)
+}
+OnlyNorth <- function(circleMat){
+  circleMat[,1:(ncol(circleMat)-1)/2] = 0
+  return(circleMat)
+}
 GetCircleMat <- function(img, radius=15){
   #for use in focal function
   m <- focalMat(img, radius, "circle")
@@ -72,6 +209,8 @@ GetCircleMat <- function(img, radius=15){
   m[m>0] = 1
   return(m)
 }
+
+
 
 PlotFocalMat <- function(mat){
   ggplot() + 
@@ -85,7 +224,7 @@ PlotFocalMat <- function(mat){
     )
 }
 
-IsOptimal <- function(y, na.rm, CENTER, circleMat){
+IsOptimal <- function(y, na.rm, CENTER, circleMat, numCells=1){
   #TODO: differentiate between sub optimal area due to tree-interception
   #and sub-optimal due to bare ground
   #to be used with focal
@@ -97,10 +236,10 @@ IsOptimal <- function(y, na.rm, CENTER, circleMat){
     #cell values are either 0 or 100
     # if any of the non central cells forming a rough (pixelated) circle are 100
     # the sum will be greater than 0
-    return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) > 0, 1, 0))
+    return(ifelse(sum(matrix(y, nrow=nRows, ncol=nRows)*circleMat, na.rm=na.rm) >= numCells*100, 1, 0))
   }
   else {
-    return(0)
+    return(-1) #this is the case that center is a tree.
   }
 }
 
@@ -119,7 +258,7 @@ CrossTabSummary <- function(img, lyrName){
   return(result)
 }
 # in the process of generalizing to any whole number division of 30x30m cell!
-MonteCarloImg <- function(img){
+MonteCarloImg <- function(img, subCellSize){
   #make an empty image with same extent, crs, and higher resolution
   # by randomly generating a plausable 10x10 grid for each single cell in img
   #ASSUMPTIONS:
@@ -127,14 +266,16 @@ MonteCarloImg <- function(img){
   # img values range from 0,100
   
   #copy the input image but at a higher resolution
-  samp <- terra::rast(ext(img), resolution=c(3,3))
+  assert_that(res(img)[1] %% subCellSize == 0) # subCellSize must fit evenly into the image resolution
+  numSubPerSide <- res(img)[1] / subCellSize #along one direction, number of sub cells per one large cell
+  samp <- terra::rast(ext(img), resolution=c(subCellSize, subCellSize))
   crs(samp) <- crs(img)
   
   iterI <- nrow(img)
   iterJ <- ncol(img)
   
-  rRng = c(low=1, high=10)
-  cRng = c(low=1, high=10)
+  rRng = c(low=1, high=numSubPerSide)
+  cRng = c(low=1, high=numSubPerSide)
   for (i in 1:iterI){
     for (j in 1:iterJ){
       value = img[i, j][[1]]
@@ -142,18 +283,17 @@ MonteCarloImg <- function(img){
         samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = NA
       }
       else{
-        #print(value)
-        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = MonteCarloMat(value)
+        samp[rRng["low"]:rRng["high"], cRng["low"]:cRng["high"]] = MonteCarloMat(value, numSubPerSide)
       }
-      cRng <- cRng + 10
+      cRng <- cRng + numSubPerSide
     }
-    cRng <- c(low=1, high=10)
-    rRng <- rRng + 10
+    cRng <- c(low=1, high=numSubPerSide)
+    rRng <- rRng + numSubPerSide
   }
   return(samp)
 }
 
-MonteCarloMat6x6 <- function(cover){
+MonteCarloMat <- function(cover, numSub){
   #generate a possible distribution of 100% cover 6x6m sub-cells so that the % cover
   #of the entire 5x5 matrix is equal to cover
   #INPUT:
@@ -161,36 +301,18 @@ MonteCarloMat6x6 <- function(cover){
   #OUPUT:
   # 5x5 matrix where each value is 0 or 100
   
-  numCell <- 25 # 6x6 subcell results in 25 sub cells per one 30x30m cell
+  numCell <- numSub * numSub
   maxVal <-100 #value to represent 100% cover in the new matrix
-  if (cover==0){
-    return(as.data.frame(replicate(25, 0))) #spatRaster wants a data frame
+  numFilled <- round(cover * numCell / 100)
+  if (numFilled==0){
+    return(as.data.frame(replicate(numCell, 0))) #spatRaster wants a data frame
   }
   else{
-    numFilled <- round(cover * numCell / 100)
     vec <- c(replicate(numFilled, maxVal), replicate(numCell-numFilled, 0))
     return(as.data.frame(sample(vec, size=numCell)))
   }
 }
 
-MonteCarloMat <- function(cover){
-  #generate a possible distribution of 100% cover sub-cells so that the % cover
-  #of the entire 10x10 matrix is equal to cover
-  #INPUT:
-  # cover has range 0-100 integer
-  #OUPUT:
-  # 10x10 matrix where each value is 0 or 100
-  
-  maxCover <- 100 #maximum value that "cover" can take
-  maxVal <-100 #value to represent 100% cover in the new matrix
-  if (cover==0){
-    return(as.data.frame(replicate(100, 0))) #spatRaster wants a data frame
-  }
-  else{
-    vec <- c(replicate(cover, maxVal), replicate(maxCover-cover, 0))
-    return(as.data.frame(sample(vec, size=100)))
-  }
-}
 
 Identifier <- function(year, path, row, suffix=""){
   return(paste("p", path, "r", row, "_TC_", toString(year), suffix, sep=""))
@@ -241,7 +363,7 @@ RangeDateTime <- function(path){
   startDT <- as.POSIXct(paste(dtimeRange$RangeBeginningDate, dtimeRange$RangeBeginningTime))
   
   out <- c(startDT, endDT)
-  out <- set_names(out, c("start", "end"))
+  out <- setNames(out, c("start", "end"))
   return(out)
 }
 
