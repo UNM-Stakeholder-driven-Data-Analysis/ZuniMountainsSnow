@@ -16,7 +16,9 @@ library(tidyterra)
 library(plotly)
 library(assertthat)
 library(tidyverse)
+library(lubridate)
 library(raster)
+library(viridis)
 devtools::install_github("yutannihilation/ggsflabel")
 source("./R_Scripts/00_Functions.R")
 #NOTE rgdal is going to be retired by end of 2023. work for now so leaving it
@@ -163,7 +165,7 @@ ggplot() +
   labs(fill = "",
        title="Chosen Thinning Treatment in the Zuñi Mountains")+
   theme(legend.position="bottom")
-ggsave("./GeneratedPlots/selectedThin_context.jpeg")
+ggsave("./GeneratedPlots/selectedThin_context.jpeg", width=PLOTWIDTH, height=PLOTHEIGHT, units="in")
 
   
 
@@ -185,7 +187,10 @@ one_poly <- terra::rasterize(one_polyVec, tc2015)
 one_poly <- terra::crop(one_poly, poly_ext)
 plot(one_poly)
 
+# For Google Earth comparison and analysis
 writeVector(one_polyVec, "polyThin2014-09-29.kml", overwrite=TRUE)
+randSamp <- spatSample(one_polyVec, size=20)
+writeVector(randSamp, "polySample.kml", overwrite=TRUE)
 
 
 #### process Data ####
@@ -217,17 +222,24 @@ maxPercent <- max(minMaxAll[2,])
 
 
 # PERCENT COVER PLOTS
-#jpeg(file.path(imgFolder, "percentTreeCover.jpeg"), height = 1024 * aspect.r, width = 1024)
 projName <- haz_fr_merged$NEPA_DOC_NAME[haz_fr_merged$Group.1==dateCompleted][[1]]
 actType <- haz_fr_merged$ACTIVITY[haz_fr_merged$Group.1==dateCompleted][[1]]
+dateComp <- as_datetime(dateCompleted)
+dateStr <- paste(month(dateComp,label=T), " ", day(dateComp), "th, ", year(dateComp),sep="")
+maxVal <- max(as_tibble(minmax(all))[2,]) #second row is max vals. cols are each year
 ggplot() + 
   geom_spatraster(data=all) + 
   facet_wrap(~lyr) +
-  labs(title=paste("Tree Cover for activity completed on", toString(dateCompleted), 
-                   "\nActivity: ", tolower(actType),
+  scale_fill_viridis(discrete = FALSE
+                     ,name="percent cover"
+                     ,limits = c(0, maxVal) #forces scale to show upper number
+                     ,breaks = c(0:floor(maxVal/10)*10, maxVal)
+                     ,labels = c(0:floor(maxVal/10)*10,  maxVal)
+                     ) +
+  labs(title=paste("Tree Cover for D2-BW Thinning Treatment Area", 
+                   "\nCompletion Date: ", dateStr, 
                    "\n", tolower(projName)))
 ggsave("./GeneratedPlots/percentTreeCover.jpeg")
-#dev.off()
 
 # DIFFERENCE PLOTS
 diffs <- c(all$yr2015 - all$yr2010, all$yr2010-all$yr2005, all$yr2005-all$yr2000)
@@ -302,7 +314,6 @@ p1 <- p1 + labs(x="Percent Cover", y="relative frequency",title ="Frequencey His
 print(p1)
 
 # Plot each histogram in a separate facet
-jpeg(file.path(imgFolder, "percentTreeCover_hist.jpeg"), height=im.width * aspect.r, width=im.width) 
 b <- 0:100
 b[b%%5 > 0 ] = NA #turn anything not a multiple of 5 into an NA
 labels <- ifelse(!is.na(b), b, "") #convert NA's into empty strings
@@ -310,13 +321,13 @@ ggplot(data=freqAll, aes(factor(value), relFreq, fill=errAvg)) +
   geom_col() +
   facet_wrap(~layer) + 
   scale_fill_gradient(name = "average \nerror",
-                      limits = c(0, 19), 
+                      limits = c(0, 19), #forces scale to show upper number
                        breaks = c(0, 5, 10, 15, 19),
                         labels = c(0, 5, 10, 15, 19)) +
   scale_x_discrete(breaks = seq(0, 100, by = 1),
                    labels = labels) +
   labs(x="Percent Cover", y="relative frequency",title =paste("Cover Histogram for Polygon ", dateCompleted))
-dev.off()
+ggsave("./GeneratedPlots/percentTreeCover_hist.jpeg", width=PLOTWIDTH, height = PLOTHEIGHT)
 
 
 ##### Autocorrelation test #####

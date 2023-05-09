@@ -38,6 +38,13 @@ TREE <- "#168920"
 OPTIMAL <- "white"
 SUBTREE <- TREE
 SUBGROUND <- GROUND
+
+PLOTWIDTH= 8.2 #in inches
+PLOTHEIGHT= 5.4
+
+WIDTHSMALL = 3 #inches
+HEIGHTSMALL = 4
+
 #### loading functions ####
 
 fileNames <- c("zm2000_opt.tif",
@@ -103,7 +110,29 @@ PlotOptImage <- function(oi, title){
                       na.translate=F)+  
     labs(title=title))
 }
-
+PlotRastAsMat <- function(img){
+  imgMat <- rast(as.matrix(img, wide=TRUE)) #strips coordinate info
+  imgMat <- as.factor(imgMat)
+  ggplot() +
+    geom_spatraster(data=imgMat) +
+    scale_fill_manual(name="value", 
+                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
+                      labels=c("tree cover", "ground", "optimal"),
+                      na.translate=F)+
+    coord_fixed() +
+    scale_y_continuous(breaks=seq(1,nrow(imgMat),by=1)) + 
+    scale_x_continuous(breaks=seq(1,ncol(imgMat),by=1)) +
+    theme(
+      panel.background = element_rect(fill = NA),
+      panel.grid.major = element_line(linewidth=0.3, colour = "grey"),
+      panel.ontop = TRUE,
+      panel.grid.minor = element_blank(),
+      axis.text.x=element_blank(),
+      axis.ticks.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks.y=element_blank(),
+    )
+}
 #### functions ####
 
 SimToFactor <- function(simImg){
@@ -121,6 +150,10 @@ SimToFactor <- function(simImg){
   return(simImgFac)
 }
 
+# Deprecated: all analysis should be on a non-factored image (some terra functions
+# only work on non-factored images)
+# converting to factor should happen only for visualization, and setting levels
+# is unnecessary in that case
 OptToFactor <- function(optImg){
   #convert a numeric optimal image raster to a factor raster
   #where optimal images has values -1, 0, 1
@@ -156,6 +189,7 @@ NorthLine <- function(img, radius=15){
   return(circleMat)
 }
 CenterCell <- function(mat){
+  #returns the index of the central cell of the matrix if it is represented as a vector
   #assumes nrow == ncol
   nRow <- nrow(mat)
   #for an odd sized square matrix represented at a vector, going from top left to right, then down by column,
@@ -176,31 +210,7 @@ GetCircleMat <- function(img, radius=15){
   return(m)
 }
 
-PlotRastAsMat <- function(img){
-  imgMat <- rast(as.matrix(img, wide=TRUE)) #strips coordinate info
-  imgMat <- as.factor(imgMat)
-  ggplot() +
-    geom_spatraster(data=imgMat) +
-    scale_fill_manual(name="value", 
-                      values = c(SUBTREE, SUBGROUND, OPTIMAL),
-                      labels=c("tree cover", "ground", "optimal"),
-                      na.translate=F)+
-    coord_fixed() +
-    scale_y_continuous(breaks=seq(1,nrow(imgMat),by=1)) + 
-    scale_x_continuous(breaks=seq(1,ncol(imgMat),by=1)) +
-    theme(
-      panel.background = element_rect(fill = NA),
-      panel.grid.major = element_line(linewidth=0.3, colour = "grey"),
-      panel.ontop = TRUE,
-      panel.grid.minor = element_blank(),
-      axis.text.x=element_blank(),
-      axis.ticks.x=element_blank(),
-      axis.text.y=element_blank(),
-      axis.ticks.y=element_blank(),
-    )
-  
-    
-}
+
 
 PlotFocalMat <- function(mat){
   ggplot() + 

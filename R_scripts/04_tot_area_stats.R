@@ -12,8 +12,7 @@ library(ggnewscale)
 source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
 polyName = "poly2014-09-29"
-WIDTH= 8.2
-HEIGHT= 5.4
+
 
 
 
@@ -88,7 +87,6 @@ north_halfc <- c("n1_3x3_north"
 category <-"optimal"
 #category <- "tree"
 
-
 ggplot() +
   ## NORTH LINE PLOT
   geom_jitter(data=filter(allData, value==category, criterion %in% north_lines), 
@@ -119,7 +117,7 @@ ggplot() +
        x="",
        y=expression("total optimal area, km"^2))+
   theme_bw()
-ggsave("./GeneratedPlots/totOpt_all.jpeg", width=WIDTH, height=HEIGHT, units="in")
+ggsave("./GeneratedPlots/totOpt_all.jpeg", width=PLOTWIDTH, height=PLOTHEIGHT, units="in")
 
 
 
@@ -142,7 +140,7 @@ ggplot(filter(allData, value==category, criterion==criteria)) +
   labs(title="Within Year Variation for NorthLine Criteria, \nminimum cluster size=1"
        ,y=expression("total optimal area, km"^2)
        ,x="")
-ggsave("./GeneratedPlots/c1_inYarVar.jpeg", width=WIDTH, height=HEIGHT, units="in")
+ggsave("./GeneratedPlots/c1_inYarVar.jpeg", width=PLOTWIDTH, height=PLOTHEIGHT, units="in")
   
   
 
