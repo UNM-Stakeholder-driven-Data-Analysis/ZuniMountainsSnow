@@ -6,7 +6,7 @@ number-sections: true
 editor: visual
 author: Josh Lopez-Binder, University of New Mexico
 abstract-title: ""
-abstract: In collaboration with Dr. Alex Webster (UNM) and Livia Crowley (USFS Hyrologist)
+abstract: In collaboration with Dr. Alex Webster (UNM Dept. of Biology) and Livia Crowley (USFS Hyrologist)
 date: 2023-05-12
 bibliography: SnowPackReport.json
 ---
@@ -115,7 +115,7 @@ The variation within each year, for all criterion, is small relative to the vari
 
 The total extent of the thinning polygon is 3.24 km^2^.
 
-![Total Optimal Area for all simulation. Each simulation's optimal area is represented by a dot with a different horizontal position. All the dots cluster very tightly relative to the variation between years, making the vertical difference between dots for one year nearly imperceptible. Lines are shown to help visualize the relative magnitude of change between criteria.](./GeneratedPlots/totOpt_all.jpeg){#fig-totOptArea}
+![Total Optimal Area for all simulations. Each simulation's optimal area is represented by a dot with a different horizontal position. All the dots cluster very tightly relative to the variation between years, making the vertical difference between dots for one year nearly imperceptible. Lines are shown to help visualize the relative magnitude of change between criteria.](./GeneratedPlots/totOpt_all.jpeg){#fig-totOptArea}
 
 ![Total optimal area using the North Line criteria with minimum cluster size of 1, isolated by year to visualize the within-year variation due to the 100 stochastic simulations. Note the different y-axis ranges. Each data point is slightly translucent and randomly aligned horizontally to allow a direct visualization of the distribution. Black lines are kernel density plots as an alternate view of the distribution.](./GeneratedPlots/c1_inYarVar.jpeg){#fig-totOptAreaSep}
 
