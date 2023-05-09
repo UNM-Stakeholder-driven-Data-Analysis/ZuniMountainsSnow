@@ -130,7 +130,7 @@ numSamples <- 100
 tic(paste( "MonteCarloImg:", toString(numSamples), "samples"))
 #initialize the first image
 SAMPLE_IMG <- all$yr2015
-zm_c_samp <- MonteCarloImg(SAMPLE_IMG, subCellSize=6)
+zm_c_samp <- MonteCarloImg(SAMPLE_IMG, subCellSize=3)
 set.names(zm_c_samp, toString(1))
 for (i in 2:numSamples){
   #TODO: set the name of the image so we don't have to do it after.
