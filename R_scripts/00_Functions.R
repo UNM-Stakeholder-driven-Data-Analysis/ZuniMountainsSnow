@@ -45,6 +45,10 @@ PLOTHEIGHT= 5.4
 WIDTHSMALL = 3 #inches
 HEIGHTSMALL = 4
 
+POLYNAME = "poly2014-09-29"
+
+OPTLABELS= c("tree cover", "ground", "optimal")
+
 #### loading functions ####
 
 fileNames <- c("zm2000_opt.tif",
@@ -52,14 +56,37 @@ fileNames <- c("zm2000_opt.tif",
                "zm2010_opt.tif",
                "zm2015_opt.tif")
 
-LoadOptList <- function(folder){
+LoadOptList <- function(folder, parentFolder){
   #list of spatRasters
-  optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", polyName, folder, file)))
+  optImgList <- lapply(fileNames, function(file) rast(file.path("./R_output", parentFolder, folder, file)))
   names(optImgList) <-  c("yr2000", "yr2005", "yr2010", "yr2015")
   return(optImgList)
 }
 
 #### visualization functions ####
+
+ZoomParts <- function(widthMult, xCellStart, yCellStart, img, cellSize=30){
+  #make a series of extents of size=30 that tile the extent defines by the parameters
+  parts <- list()
+  count <- 1
+  startX = xCellStart
+  startY = yCellStart
+  for (i in 1:widthMult){
+    for (j in 1:widthMult){
+      parts[[count]] <- as.polygons(ZoomExt(widthMult=1
+                                            ,xCellStart=startX
+                                            ,yCellStart=startY
+                                            ,img=img
+                                            ,cellSize=cellSize),
+                                    crs=crs(img))
+        count <- count + 1
+        startY <- startY + 1
+    }
+    startX <- startX + 1
+    startY <- yCellStart
+  }
+  return(vect(parts))
+}
 
 ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
   
@@ -75,15 +102,7 @@ ZoomExt <- function(widthMult, xCellStart, yCellStart, img, cellSize=30 ){
 
 OptLevels <- function(){data.frame(ID=c(-1, 0, 1), cover=c("tree", "bare", "optimal"))}
 
-PlotOptImageLyr <- function(oi, title){
-  oi <- as.factor(oi)
-  levels(oi) <- lapply(1:nlyr(oi), function(x) OptLevels())
-  return(ggplot() +
-           geom_spatraster(data=oi, maxcell=10e+05) +
-           scale_fill_manual(name="value", values = c(SUBTREE, SUBGROUND, OPTIMAL),na.translate=F)+  
-           facet_wrap(~lyr) +
-           labs(title=title))
-}
+
 
 PlotSimImage <- function(simImg, title, zoomRect){
   simImgFac <- as.factor(simImg)
@@ -98,18 +117,46 @@ PlotSimImage <- function(simImg, title, zoomRect){
     p <- p + geom_spatvector(data=zoomRect, fill=NA, colour="black", linewidth=0.5)
   }
   return(p)
-    
-  
 }
+
+PlotOptImageLyr <- function(oi, title){
+  oi <- as.factor(oi)
+  return(ggplot() +
+           geom_spatraster(data=oi, maxcell=10e+05) +
+           scale_fill_manual(name="value"
+                             ,values = c(SUBTREE, SUBGROUND, OPTIMAL)
+                             ,labels=OPTLABELS
+                             ,na.translate=F)+
+           
+           facet_wrap(~lyr) +
+           labs(title=title))
+}
+
 PlotOptImage <- function(oi, title){
   return(ggplot() +
     geom_spatraster(data=oi, maxcell=10e+05, interpolate=FALSE) +
     scale_fill_manual(name="value", 
                       values = c(SUBTREE, SUBGROUND, OPTIMAL),
-                      labels=c("tree cover", "ground", "optimal"),
+                      labels=OPTLABELS,
                       na.translate=F)+  
     labs(title=title))
 }
+
+PlotFocalMat <- function(mat){
+  matImg <- rast(t(mat)) #transposed raster, for visualization
+  matImg <- as.factor(matImg)
+  ggplot() + 
+    geom_spatraster(data=matImg) + 
+    coord_fixed() + 
+
+    scale_y_continuous(breaks=seq(1,10,by=1)) + 
+    scale_x_continuous(breaks=seq(1,10,by=1)) +
+    theme(
+      panel.background = element_rect(fill = NA),
+      panel.ontop = TRUE
+    )
+}
+
 PlotRastAsMat <- function(img){
   imgMat <- rast(as.matrix(img, wide=TRUE)) #strips coordinate info
   imgMat <- as.factor(imgMat)
@@ -212,17 +259,7 @@ GetCircleMat <- function(img, radius=15){
 
 
 
-PlotFocalMat <- function(mat){
-  ggplot() + 
-    geom_spatraster(data=rast(mat)) + 
-    coord_fixed() + 
-    scale_y_continuous(breaks=seq(1,10,by=1)) + 
-    scale_x_continuous(breaks=seq(1,10,by=1)) +
-    theme(
-      panel.background = element_rect(fill = NA),
-      panel.ontop = TRUE
-    )
-}
+
 
 IsOptimal <- function(y, na.rm, CENTER, circleMat, numCells=1){
   #TODO: differentiate between sub optimal area due to tree-interception

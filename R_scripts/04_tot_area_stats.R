@@ -11,7 +11,7 @@ library(viridis)
 library(ggnewscale)
 source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
-polyName = "poly2014-09-29"
+
 
 
 
@@ -48,7 +48,7 @@ folders <- c(#"n1_3x3_all",
              "n4_3x3_north",
              #"n5_3x3_all", 
              "n5_3x3_north",
-             "n1_3x3_northline",
+             "c1_3x3_northline",
              "c2_3x3_northline",
              "n2_3x3_lineNeighbors1")
 optVariants <- lapply(folders, LoadOptList)
@@ -73,8 +73,8 @@ allDataSummary <- allData %>%
 
 
 #### visualize total optimal area distributions ####
-north_lines <- c("n1_3x3_northline"
-                 #,"n2_3x3_lineNeighbors1" #this one doesn't make sense
+north_lines <- c("c1_3x3_northline"
+                 #,"n2_3x3_lineNeighbors1" #thisone doesn't make sense
                  ,"c2_3x3_northline"
                  )
 north_halfc <- c("n1_3x3_north"

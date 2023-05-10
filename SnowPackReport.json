@@ -377,5 +377,44 @@
         "title": "Quantifying the effects of vegetation structure on snow accumulation and ablation in mixed-conifer forests",
         "type": "article-journal",
         "volume": "8"
+    },
+    {
+        "URL": "https://www.R-project.org/",
+        "author": [
+            {
+                "given": "R Core Team"
+            }
+        ],
+        "id": "base",
+        "issued": {
+            "date-parts": [
+                [
+                    2022
+                ]
+            ]
+        },
+        "providerkey": "Packages",
+        "title": "R: A Language and Environment for Statistical Computing",
+        "type": "article"
+    },
+    {
+        "URL": "https://CRAN.R-project.org/package=terra",
+        "author": [
+            {
+                "family": "Hijmans",
+                "given": "Robert J."
+            }
+        ],
+        "id": "terra",
+        "issued": {
+            "date-parts": [
+                [
+                    2023
+                ]
+            ]
+        },
+        "providerkey": "Packages",
+        "title": "terra: Spatial Data Analysis",
+        "type": "article"
     }
 ]

@@ -1,6 +1,7 @@
 #### read me ####
 #the purpose of this script is to analyse the distributino of canopy diameters
-#these were found by 
+#these were found by outputing a kml file of points to be measured in google earth
+#then manually measuring those points and saving that info as a csv
 
 #### libraries ####
 library(sf)

@@ -34,14 +34,15 @@ dir.create(folder)
 
 #### Initialize Constants for Focal Function ####
 
-#circleMat = GetCircleMat(zm_c_2015_sim)
-circleMat <- NorthLines(zm_c_2015_sim, radius=15, n=1)
+circleMat <- GetCircleMat(zm_c_2015_sim)
+circleMat <- OnlyNorth(circleMat)
 circleMat
-nRow = nrow(circleMat)
-weightMat = matrix(data=1, nrow=nRow, ncol=nRow)
+
+nRow <- nrow(circleMat)
+weightMat <- matrix(data=1, nrow=nRow, ncol=nRow)
 #for an odd sized square matrix represented at a vector, going from top left to right, then down by column,
 #the central cell is equivalent to:
-CENTER = nRow * floor(nRow/2) + ceiling(nRow/2) #11 columns, go to the 6th row, go in by 6 columns to get
+CENTER <- nRow * floor(nRow/2) + ceiling(nRow/2) #11 columns, go to the 6th row, go in by 6 columns to get
 
 #### create focal function ####
 
