@@ -9,11 +9,9 @@ library(tidyr)
 library(dplyr)
 library(viridis) 
 library(ggnewscale)
+library(forcats)
 source("./R_Scripts/00_Functions.R")
 NAMES <-  c("yr2000", "yr2005", "yr2010", "yr2015")
-
-
-
 
 
 #### functions ####
@@ -51,7 +49,7 @@ folders <- c(#"n1_3x3_all",
              "c1_3x3_northline",
              "c2_3x3_northline",
              "n2_3x3_lineNeighbors1")
-optVariants <- lapply(folders, LoadOptList)
+optVariants <- lapply(folders, function(folder) LoadOptList(folder, parentFolder=POLYNAME))
 names(optVariants) <- folders
 
 #### calculate total optimal area ####
@@ -108,7 +106,7 @@ ggplot() +
             ,aes(factor(year), mean_area_km, color=numParam, group=criterion)
             ,show.legend = FALSE) +
   scale_color_viridis(discrete = TRUE, direction=-1, 
-                      name="North Semicircle:\nnumber of covered cells",) +
+                      name="North Semicircle:\nminimum number of covered cells",) +
   guides(colour = guide_legend(override.aes = list(size=4, alpha=1),order=2))+
 
   # plot wide settings
@@ -122,7 +120,7 @@ ggsave("./GeneratedPlots/totOpt_all.jpeg", width=PLOTWIDTH, height=PLOTHEIGHT, u
 
 
 #### visualize variation for one criteria ####
-criteria <- "n1_3x3_northline"
+criteria <- "c1_3x3_northline"
 category <- "optimal"
 ggplot(filter(allData, value==category, criterion==criteria)) +
   theme_bw() +

@@ -1,0 +1,2040 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="polySample" id="polySample">
+	<SimpleField name="Group.1" type="string"></SimpleField>
+	<SimpleField name="REV_DATE" type="string"></SimpleField>
+	<SimpleField name="DATA_SOURCE" type="string"></SimpleField>
+	<SimpleField name="ACCURACY" type="string"></SimpleField>
+	<SimpleField name="CN" type="string"></SimpleField>
+	<SimpleField name="SUID" type="string"></SimpleField>
+	<SimpleField name="STAGE" type="string"></SimpleField>
+	<SimpleField name="SOURCE_OWNER" type="string"></SimpleField>
+	<SimpleField name="REPLICATION_ID" type="string"></SimpleField>
+	<SimpleField name="SDE_OWNER" type="string"></SimpleField>
+	<SimpleField name="PUB_DATE" type="string"></SimpleField>
+	<SimpleField name="ORG" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY_CODE" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY" type="string"></SimpleField>
+	<SimpleField name="LOCAL_QUALIFIER" type="string"></SimpleField>
+	<SimpleField name="ASU_NBR_UNITS" type="string"></SimpleField>
+	<SimpleField name="ASU_UOM" type="string"></SimpleField>
+	<SimpleField name="ADMIN_REGION_CODE" type="string"></SimpleField>
+	<SimpleField name="ADMIN_FOREST_CODE" type="string"></SimpleField>
+	<SimpleField name="ADMIN_DISTRICT_CODE" type="string"></SimpleField>
+	<SimpleField name="STATE_ABBR" type="string"></SimpleField>
+	<SimpleField name="OWNERSHIP_CODE" type="string"></SimpleField>
+	<SimpleField name="WATERSHED_CODE" type="string"></SimpleField>
+	<SimpleField name="PROC_REGION_CODE" type="string"></SimpleField>
+	<SimpleField name="PROC_FOREST_CODE" type="string"></SimpleField>
+	<SimpleField name="LAND_SUITABILITY_CLASS_CODE" type="string"></SimpleField>
+	<SimpleField name="PRODUCTIVITY_CLASS_CODE" type="string"></SimpleField>
+	<SimpleField name="SLOPE" type="string"></SimpleField>
+	<SimpleField name="ELEVATION" type="string"></SimpleField>
+	<SimpleField name="ASPECT" type="string"></SimpleField>
+	<SimpleField name="REFORESTATION_STATUS_CODE" type="string"></SimpleField>
+	<SimpleField name="MGT_AREA_CODE" type="string"></SimpleField>
+	<SimpleField name="MGT_PRESCRIPTION_CODE" type="string"></SimpleField>
+	<SimpleField name="NBR_UNITS_PLANNED" type="string"></SimpleField>
+	<SimpleField name="NBR_UNITS_ACCOMPLISHED" type="string"></SimpleField>
+	<SimpleField name="UOM" type="string"></SimpleField>
+	<SimpleField name="TREATMENT_NAME" type="string"></SimpleField>
+	<SimpleField name="DATE_PLANNED" type="string"></SimpleField>
+	<SimpleField name="DATE_ACCOMPLISHED" type="string"></SimpleField>
+	<SimpleField name="DATE_COMPLETED" type="string"></SimpleField>
+	<SimpleField name="FISCAL_YEAR_PLANNED" type="string"></SimpleField>
+	<SimpleField name="FISCAL_YEAR_ACCOMPLISHED" type="string"></SimpleField>
+	<SimpleField name="FISCAL_YEAR_COMPLETED" type="string"></SimpleField>
+	<SimpleField name="FY_PLANNED_OR_ACCOMPLISHED" type="string"></SimpleField>
+	<SimpleField name="EXCLUDE_ACCOMPLISHMENT" type="string"></SimpleField>
+	<SimpleField name="KEYPOINT" type="string"></SimpleField>
+	<SimpleField name="FUND_CODE" type="string"></SimpleField>
+	<SimpleField name="METHOD_CODE" type="string"></SimpleField>
+	<SimpleField name="EQUIPMENT_CODE" type="string"></SimpleField>
+	<SimpleField name="NEPA_PROJECT_ID" type="string"></SimpleField>
+	<SimpleField name="NEPA_DOC_NAME" type="string"></SimpleField>
+	<SimpleField name="IMPLEMENTATION_PROJECT" type="string"></SimpleField>
+	<SimpleField name="IMPLEMENTATION_PROJECT_NBR" type="string"></SimpleField>
+	<SimpleField name="IMPLEMENTATION_PROJECT_TYPE" type="string"></SimpleField>
+	<SimpleField name="SALE_NBR" type="string"></SimpleField>
+	<SimpleField name="SALE_NAME" type="string"></SimpleField>
+	<SimpleField name="SALE_CATEGORY" type="string"></SimpleField>
+	<SimpleField name="UNIT_ID" type="string"></SimpleField>
+	<SimpleField name="ACCOMPLISHED_UNDER_HFRA" type="string"></SimpleField>
+	<SimpleField name="ACCOMPLISHED_UNDER_HFI" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY_CN" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY_UNIT_CN" type="string"></SimpleField>
+	<SimpleField name="AU_REGION_CODE" type="string"></SimpleField>
+	<SimpleField name="AU_FOREST_CODE" type="string"></SimpleField>
+	<SimpleField name="AU_DISTRICT_CODE" type="string"></SimpleField>
+	<SimpleField name="FACTS_ID" type="string"></SimpleField>
+	<SimpleField name="SUBUNIT" type="string"></SimpleField>
+	<SimpleField name="KV_NBR_UNITS_FUNDED" type="string"></SimpleField>
+	<SimpleField name="FEATURE_TYPE" type="string"></SimpleField>
+	<SimpleField name="TREATMENT_TYPE" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY_UNIT_NAME" type="string"></SimpleField>
+	<SimpleField name="ACTIVITY_SUB_UNIT_NAME" type="string"></SimpleField>
+	<SimpleField name="WORKFORCE_CODE" type="string"></SimpleField>
+	<SimpleField name="NEPA_PROJECT_CN" type="string"></SimpleField>
+	<SimpleField name="SUID_CN" type="string"></SimpleField>
+	<SimpleField name="ISWUI" type="string"></SimpleField>
+	<SimpleField name="CWPP" type="string"></SimpleField>
+	<SimpleField name="AWARD_DATE" type="string"></SimpleField>
+	<SimpleField name="SALE_CLOSURE_DATE" type="string"></SimpleField>
+	<SimpleField name="STUMPAGE_AVAILABLE_FOR_KV" type="string"></SimpleField>
+	<SimpleField name="CAUSAL_AGENT" type="string"></SimpleField>
+	<SimpleField name="CREATED_BY" type="string"></SimpleField>
+	<SimpleField name="CREATED_DATE" type="string"></SimpleField>
+	<SimpleField name="CREATED_IN_INSTANCE" type="string"></SimpleField>
+	<SimpleField name="MODIFIED_BY" type="string"></SimpleField>
+	<SimpleField name="MODIFIED_DATE" type="string"></SimpleField>
+	<SimpleField name="MODIFIED_IN_INSTANCE" type="string"></SimpleField>
+	<SimpleField name="PURPOSE_CODE" type="string"></SimpleField>
+	<SimpleField name="APPLICTAION" type="string"></SimpleField>
+	<SimpleField name="CRC" type="string"></SimpleField>
+	<SimpleField name="SHAPE_Length" type="string"></SimpleField>
+	<SimpleField name="SHAPE_Area" type="string"></SimpleField>
+</Schema>
+<Folder><name>polySample</name>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.15136123215,35.2001903490556</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.165453176415,35.1913255128491</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.168121791727,35.208901725257</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.153896581034,35.2013870127605</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.163567717766,35.2081644801206</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.161457109657,35.2042952590728</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.153603993802,35.1987654200288</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.154603427577,35.2009278574854</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.165462817258,35.1946754803599</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.153707091196,35.2120395225479</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.165608836558,35.1991445291465</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.165735244391,35.2018205717537</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.160084017503,35.1970668777078</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.163556634635,35.1919027750363</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.169124456163,35.2103734498284</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.151277503445,35.2103246736904</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.165296515799,35.2042730791215</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.159118709065,35.2116611572546</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.151409704747,35.2116209420803</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>1412035200</name>
+	<description>1336953600</description>
+	<ExtendedData><SchemaData schemaUrl="#polySample">
+		<SimpleData name="Group.1">03</SimpleData>
+		<SimpleData name="REV_DATE">NA</SimpleData>
+		<SimpleData name="DATA_SOURCE">814293010602</SimpleData>
+		<SimpleData name="ACCURACY">030302NWTFSTEWRD000</SimpleData>
+		<SimpleData name="CN">3</SimpleData>
+		<SimpleData name="SUID">NA</SimpleData>
+		<SimpleData name="STAGE">{AF6C2148-55FF-485C-93C1-7CA862749E18}</SimpleData>
+		<SimpleData name="SOURCE_OWNER">S_R03_CIB</SimpleData>
+		<SimpleData name="REPLICATION_ID">20190321090203</SimpleData>
+		<SimpleData name="SDE_OWNER">030302</SimpleData>
+		<SimpleData name="PUB_DATE">1160</SimpleData>
+		<SimpleData name="ORG">Thinning for Hazardous Fuels Reduction</SimpleData>
+		<SimpleData name="ACTIVITY_CODE">N/A</SimpleData>
+		<SimpleData name="ACTIVITY">802</SimpleData>
+		<SimpleData name="LOCAL_QUALIFIER">ACRES</SimpleData>
+		<SimpleData name="ASU_NBR_UNITS">03</SimpleData>
+		<SimpleData name="ASU_UOM">03</SimpleData>
+		<SimpleData name="ADMIN_REGION_CODE">02</SimpleData>
+		<SimpleData name="ADMIN_FOREST_CODE">NM</SimpleData>
+		<SimpleData name="ADMIN_DISTRICT_CODE">FS</SimpleData>
+		<SimpleData name="STATE_ABBR">NA</SimpleData>
+		<SimpleData name="OWNERSHIP_CODE">03</SimpleData>
+		<SimpleData name="WATERSHED_CODE">03</SimpleData>
+		<SimpleData name="PROC_REGION_CODE">500</SimpleData>
+		<SimpleData name="PROC_FOREST_CODE">5</SimpleData>
+		<SimpleData name="LAND_SUITABILITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="PRODUCTIVITY_CLASS_CODE">NA</SimpleData>
+		<SimpleData name="SLOPE">NA</SimpleData>
+		<SimpleData name="ELEVATION">NA</SimpleData>
+		<SimpleData name="ASPECT">NA</SimpleData>
+		<SimpleData name="REFORESTATION_STATUS_CODE">NA</SimpleData>
+		<SimpleData name="MGT_AREA_CODE">610</SimpleData>
+		<SimpleData name="MGT_PRESCRIPTION_CODE">610</SimpleData>
+		<SimpleData name="NBR_UNITS_PLANNED">ACRES</SimpleData>
+		<SimpleData name="NBR_UNITS_ACCOMPLISHED">D-2 BW Thinning</SimpleData>
+		<SimpleData name="UOM">1314835200</SimpleData>
+		<SimpleData name="TREATMENT_NAME">1315008000</SimpleData>
+		<SimpleData name="DATE_PLANNED">1412035200</SimpleData>
+		<SimpleData name="DATE_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="DATE_COMPLETED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_PLANNED">2014</SimpleData>
+		<SimpleData name="FISCAL_YEAR_ACCOMPLISHED">2011</SimpleData>
+		<SimpleData name="FISCAL_YEAR_COMPLETED">N</SimpleData>
+		<SimpleData name="FY_PLANNED_OR_ACCOMPLISHED">3</SimpleData>
+		<SimpleData name="EXCLUDE_ACCOMPLISHMENT">WFHF</SimpleData>
+		<SimpleData name="KEYPOINT">200</SimpleData>
+		<SimpleData name="FUND_CODE">111</SimpleData>
+		<SimpleData name="METHOD_CODE">853</SimpleData>
+		<SimpleData name="EQUIPMENT_CODE">(PALS)BLUEWATER ECOSYSTEM MANAGEMENT PROJECT</SimpleData>
+		<SimpleData name="NEPA_PROJECT_ID">D-2 BLUEWATER</SimpleData>
+		<SimpleData name="NEPA_DOC_NAME"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT"></SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_NBR">NA</SimpleData>
+		<SimpleData name="IMPLEMENTATION_PROJECT_TYPE">NA</SimpleData>
+		<SimpleData name="SALE_NBR">NA</SimpleData>
+		<SimpleData name="SALE_NAME">NA</SimpleData>
+		<SimpleData name="SALE_CATEGORY">NA</SimpleData>
+		<SimpleData name="UNIT_ID">NA</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFRA">3315450010602</SimpleData>
+		<SimpleData name="ACCOMPLISHED_UNDER_HFI">3308174010602</SimpleData>
+		<SimpleData name="ACTIVITY_CN">03</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_CN">03</SimpleData>
+		<SimpleData name="AU_REGION_CODE">02</SimpleData>
+		<SimpleData name="AU_FOREST_CODE">NWTFSTEWRD</SimpleData>
+		<SimpleData name="AU_DISTRICT_CODE">000</SimpleData>
+		<SimpleData name="FACTS_ID">NA</SimpleData>
+		<SimpleData name="SUBUNIT">A</SimpleData>
+		<SimpleData name="KV_NBR_UNITS_FUNDED">NA</SimpleData>
+		<SimpleData name="FEATURE_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="TREATMENT_TYPE">NWTF STEWARDSHIP AGREEMENT</SimpleData>
+		<SimpleData name="ACTIVITY_UNIT_NAME">SC</SimpleData>
+		<SimpleData name="ACTIVITY_SUB_UNIT_NAME">228</SimpleData>
+		<SimpleData name="WORKFORCE_CODE">814293010602</SimpleData>
+		<SimpleData name="NEPA_PROJECT_CN">Y</SimpleData>
+		<SimpleData name="SUID_CN">CWPP</SimpleData>
+		<SimpleData name="ISWUI">NA</SimpleData>
+		<SimpleData name="CWPP">NA</SimpleData>
+		<SimpleData name="AWARD_DATE">NA</SimpleData>
+		<SimpleData name="SALE_CLOSURE_DATE">NA</SimpleData>
+		<SimpleData name="STUMPAGE_AVAILABLE_FOR_KV">PTIDWELL</SimpleData>
+		<SimpleData name="CAUSAL_AGENT">1317168000</SimpleData>
+		<SimpleData name="CREATED_BY">10602</SimpleData>
+		<SimpleData name="CREATED_DATE">FSDBA</SimpleData>
+		<SimpleData name="CREATED_IN_INSTANCE">1662595200</SimpleData>
+		<SimpleData name="MODIFIED_BY">10602</SimpleData>
+		<SimpleData name="MODIFIED_DATE">NA</SimpleData>
+		<SimpleData name="MODIFIED_IN_INSTANCE">FACTS</SimpleData>
+		<SimpleData name="PURPOSE_CODE">7E399FEB83BBBD65</SimpleData>
+		<SimpleData name="APPLICTAION">13292.6420016888</SimpleData>
+		<SimpleData name="CRC">3236656.12592184</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-108.154820661808,35.1998072186685</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>

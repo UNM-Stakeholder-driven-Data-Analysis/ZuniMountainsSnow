@@ -416,5 +416,64 @@
         "providerkey": "Packages",
         "title": "terra: Spatial Data Analysis",
         "type": "article"
+    },
+    {
+        "DOI": "10.1002/eco.48",
+        "ISSN": "1936-0592",
+        "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1002/eco.48",
+        "_eprint": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/eco.48",
+        "accessed": {
+            "date-parts": []
+        },
+        "author": [
+            {
+                "family": "Molotch",
+                "given": "Noah P."
+            },
+            {
+                "family": "Brooks",
+                "given": "Paul D."
+            },
+            {
+                "family": "Burns",
+                "given": "Sean P."
+            },
+            {
+                "family": "Litvak",
+                "given": "Marcy"
+            },
+            {
+                "family": "Monson",
+                "given": "Russell K."
+            },
+            {
+                "family": "McConnell",
+                "given": "Joseph R."
+            },
+            {
+                "family": "Musselman",
+                "given": "Keith"
+            }
+        ],
+        "container-title": "Ecohydrology",
+        "id": "molotch2009",
+        "issue": "2",
+        "issued": {
+            "date-parts": [
+                [
+                    2009
+                ]
+            ]
+        },
+        "key": "TEBMKEXM",
+        "language": "en",
+        "libraryid": "1",
+        "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/eco.48",
+        "page": "129-142",
+        "providerkey": "2509FBBE-5BB0-44C4-B119-6083A81ED673",
+        "source": "Wiley Online Library",
+        "title": "Ecohydrological controls on snowmelt partitioning in mixed-conifer sub-alpine forests",
+        "type": "article-journal",
+        "volume": "2"
     }
 ]
