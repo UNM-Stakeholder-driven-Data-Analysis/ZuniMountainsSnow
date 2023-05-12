@@ -154,8 +154,22 @@ ggplot() +
   geom_sf(data=zuni_forest) +
   geom_sf(data=dataTemp, aes(fill=factor(TREATMENT_NAME)), color=NA) +
   guides(fill = guide_legend(reverse = TRUE))  +
-  labs(fill = "",
-       title="Chosen Thinning Treatment in the Zuñi Mountains")+
+  scalebar(data=zuni_forest
+           ,dist = 20
+           ,dist_unit = "km" 
+           ,transform = FALSE 
+           ,model = "WGS84"
+           ,border.size=0.5
+           ,st.size=3
+           ,box.fill="white"
+           ,box.color="grey"
+           ,st.color="grey"
+           ,location="bottomleft"
+  ) +
+  labs(fill = ""
+       ,title="Chosen Thinning Treatment in the Zuñi Mountains"
+       ,x=""
+       ,y="")+
   theme(legend.position="bottom")
 ggsave("./GeneratedPlots/selectedThin_context.jpeg", width=PLOTWIDTH, height=PLOTHEIGHT, units="in")
 
