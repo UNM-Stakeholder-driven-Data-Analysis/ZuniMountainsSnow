@@ -52,13 +52,15 @@ cM$value <- as.factor(cM$value)
 p1 <- FocalPlot(cM) +
   geom_tile(data=cM[c(16),], fill=NA, color=TREE, linewidth=1 ) +
   geom_tile(data=cM[c(25),], fill=NA, color=TREE, linewidth=1 ) +
-  labs(title="A) North Semicircle")
+  labs(title="A) North Semicircle") +
+  theme_void()
 
 
 p2 <- FocalPlot(lM) +
   geom_tile(data=cM[c(17),], fill=NA, color=TREE, linewidth=1 ) +
   geom_tile(data=cM[c(5),], fill=NA, color=TREE, linewidth=1 ) +
-  labs(title="B) North Line")
+  labs(title="B) North Line") +
+  theme_void()
 
 ggarrange(p1, p2, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 ggsave("./GeneratedPlots/focalFuncs.png")
