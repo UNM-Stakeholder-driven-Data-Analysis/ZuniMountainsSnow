@@ -71,7 +71,7 @@ cropRect <- as.polygons(cropExt, crs=crs(oi))
 p1 <- PlotOptImage(oi, paste("Opt img, 3x3m subcell, 2015,", "n=", toString(NUMCELLS), AREA))
 p1 <- p1 + geom_spatvector(data=cropRect, fill=NA, colour="black")
 plot(p1)
-#YESSSS! this saves it a native res
+#YESSSS! this saves it a native resolution
 ggsave(file.path(folder, paste("2015", "n", toString(NUMCELLS),",", AREA,".tiff",sep="")), dpi=600)
 
 # PLOT ZOOM AREA

@@ -15,6 +15,7 @@ library(xml2)
 library(XML)
 library(assertthat)
 library(plotly)
+library(ggsn)
 
 #### Constants ####
 im.width = 1024

@@ -19,6 +19,7 @@ library(tidyverse)
 library(lubridate)
 library(raster)
 library(viridis)
+library(ggsn)
 devtools::install_github("yutannihilation/ggsflabel")
 source("./R_Scripts/00_Functions.R")
 #NOTE rgdal is going to be retired by end of 2023. work for now so leaving it
@@ -108,18 +109,7 @@ zuni_forest <- forests[forests$Name=="Zuni Mountains", 1]
 zuni_forest <- sf::st_transform(zuni_forest, crs=st_crs(tc2015))
 
 act_raw <- sf::st_read("./data/ActivityPolygon/Activities.gdb")
-#TODO: rename these categories to other and still plot them
-#NO_ALTER_TC = c("Silvicultural Stand Examination", 
-#                "Stand Diagnosis Prepared", 
-#                "TSI Need Created- Precommercial Thin",
-#                "TSI Need (precommercial thinning) Eliminated",
-#                "Yarding - Removal of Fuels by Carrying or Dragging",
-#                "Underburn - Low Intensity (Majority of Unit)",
-#                "Piling of Fuels, Hand or Machine ",
-#                "Range Cover Manipulation",
-#                "Rearrangement of Fuels",
-#                "Stand Silviculture Prescription",
-#                "Burning of Piled Material")
+
 all_cibola <- act_raw %>% 
   filter(AU_FOREST_CODE==CIBOLA_FOREST) %>% #filter immediately to increase processing speed
   filter(between(DATE_COMPLETED, START_DATE, END_DATE)) %>%
@@ -134,6 +124,8 @@ haz_fr <- all_zuni %>%
   filter(DateNotIn(DATE_COMPLETED, dtRanges))
 
 all_other <- filter(all_zuni, ACTIVITY!="Thinning for Hazardous Fuels Reduction")
+affectTC <- unique(all_other$ACTIVITY)
+write.csv(affectTC, "./R_output/affect_tc.csv")#used for reporting
 haz_fr_iso <- st_difference(haz_fr, st_union(all_other))
 
 p <- ggplot() +
@@ -230,16 +222,34 @@ maxVal <- max(as_tibble(minmax(all))[2,]) #second row is max vals. cols are each
 ggplot() + 
   geom_spatraster(data=all) + 
   facet_wrap(~lyr) +
-  scale_fill_viridis(discrete = FALSE
-                     ,name="percent cover"
-                     ,limits = c(0, maxVal) #forces scale to show upper number
-                     ,breaks = c(0:floor(maxVal/10)*10, maxVal)
-                     ,labels = c(0:floor(maxVal/10)*10,  maxVal)
-                     ) +
+  scale_fill_viridis_c(na.value=NA
+                      ,name="percent cover"
+                      ,limits = c(0, maxVal) #forces scale to show upper number
+                      ,breaks = c(0:floor(maxVal/10)*10, maxVal)
+                      ,labels = c(0:floor(maxVal/10)*10,  maxVal)
+                      ) +
+  scalebar(x.min=xmin(all)
+           ,x.max=xmax(all)
+           ,y.min=ymin(all)
+           ,y.max=ymax(all)
+           ,dist = 0.5
+           ,dist_unit = "km" 
+           ,transform = FALSE 
+           ,model = "WGS84"
+           ,border.size=0.5
+           ,st.size=2
+           ,box.fill="white"
+           ,box.color="grey"
+           ,st.color="grey"
+  ) +
+  scale_x_continuous(breaks=c(-108.165, -108.155)) + 
   labs(title=paste("Tree Cover for D2-BW Thinning Treatment Area", 
                    "\nCompletion Date: ", dateStr, 
-                   "\n", tolower(projName)))
-ggsave("./GeneratedPlots/percentTreeCover.jpeg")
+                   "\n", tolower(projName))
+       ,x=""
+       ,y="")
+  
+ggsave("./GeneratedPlots/percentTreeCover.jpeg", width=WIDTH, height=HEIGHT)
 
 # DIFFERENCE PLOTS
 diffs <- c(all$yr2015 - all$yr2010, all$yr2010-all$yr2005, all$yr2005-all$yr2000)
@@ -319,7 +329,7 @@ b[b%%5 > 0 ] = NA #turn anything not a multiple of 5 into an NA
 labels <- ifelse(!is.na(b), b, "") #convert NA's into empty strings
 ggplot(data=freqAll, aes(factor(value), relFreq, fill=errAvg)) +
   geom_col() +
-  facet_wrap(~layer) + 
+  facet_wrap(~fct_rev(layer)) + 
   scale_fill_gradient(name = "average \nerror",
                       limits = c(0, 19), #forces scale to show upper number
                        breaks = c(0, 5, 10, 15, 19),

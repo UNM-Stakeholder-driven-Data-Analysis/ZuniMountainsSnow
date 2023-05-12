@@ -87,11 +87,11 @@ A bare ground cell is optimal when a half-circle area to the south, centered on 
 
 This criteria was developed based on the simple approximation from [@broxton2015a] which states that bare ground \<15m from canopy cover has more snow *and* more snow variability. The higher snow variability close to tree canopy is attributed to wind and sun effects, and an overall pattern of less snow on the southside of canopy cover was observed [@broxton2015a]. Therefore this criterion only considers areas in a semicircle to the north. As the threshold area increases this criterion approaches a model which combines both a) shading across a wider span of the day and b) protection from wind distribution. This is simply because as the threshold area increases it becomes more likely that cover exists to the south, east, and west, and anywhere in between. The visual effect of this is groups of trees having snow in a roughly half circle to the north, hence the name North Semicircle
 
-All criteria were applied to each of the 100 simulated images and across all years. A zoomed in image of each criterion applied to one stochastic simulation for the year 2015 is shown in @fig-zoom. A comprehensive set of optimal images for each criteria is shown in @sec-optResults .
+All criteria were applied to each of the 100 simulated images and across all years. A zoomed in image of each criterion applied to one stochastic simulation for the year 2000 is shown in @fig-zoom. A comprehensive set of optimal images for each criteria is shown in @sec-optResults .
 
 ![Graphical displays of the North Semicircle and North Line criteria. Each cell is 3mx3m. Green squares represent example locations of covered cells that would result in the optimal classification for the cell in question. A) North Semicircle with minimum number set to two and B) North Line with minimum cluster size set to two.](./GeneratedPlots/focalFuncs.png){#fig-focal}
 
-![Zoomed in results of each criteria applied to one simulation, for the year 2015. Grey lines indicate 30mx30m cells. North Semicircle criteria: the number indicates the minimum number of cells to qualify the area as optimal. North Line criteria: the number indicates the minimum cluster size required to qualify an area as optimal. TODO: remove axis labels, change figure title](./GeneratedPlots/optAreaZoom_2015.jpeg){#fig-zoom}
+![Zoomed in results of each criteria applied to one simulation, for the year 2000. Grey lines indicate 30mx30m cells. North Semicircle criteria: the number indicates the minimum number of cells to qualify the area as optimal. North Line criteria: the number indicates the minimum cluster size required to qualify an area as optimal.](./GeneratedPlots/optAreaZoom_2015.jpeg){#fig-zoom}
 
 Finally, the total optimal area is calculated for each criterion applied to each simulation, across all years
 
@@ -161,7 +161,11 @@ print(NO_ALTER_TC, row.names=FALSE)
 
 The following activities were assumed to effect tree cover. It was ensured that candidate polygons did not overlap these activities, for any date. Some of these activities, such as "Commercial Thin" and "Precommercial Thin" may actually have been performed to improve the resilience of forests to frequent-fire patterns and climate change. Future studies would benefit from expanding the scope to include more thinning projects that have different activity designations.
 
-TODO: add activities assumed to effect tree cover.
+```{r echo=FALSE, include=TRUE}
+library(readr)
+affectTC <- read.csv("./R_output/affect_tc.csv")
+print(affectTC$x, row.names=F)
+```
 
 ### Arriving at the 3-meter minimum cell size {#sec-3x3Reasoning}
 
@@ -205,13 +209,13 @@ In order to verify that the stochastic simulations are indeed random and are rep
 
 ### Optimal Image Results {#sec-optResults}
 
-Figures @fig-opt2015, @fig-opt2010, @fig-opt2005, @fig-opt2000 show optimal images resulting from each criteria applied to one simulation of tree cover.
+![Optimal Images for 2015](./GeneratedPlots/optArea_yr2015.jpeg){#fig-opt2015}
 
-![](./GeneratedPlots/optArea_yr2015.jpeg){#fig-opt2015}
+![Optimal Images for 2010](./GeneratedPlots/optArea_yr2010.jpeg){#fig-opt2010}
 
-![](./GeneratedPlots/optArea_yr2010.jpeg){#fig-opt2010} ![](./GeneratedPlots/optArea_yr2005.jpeg){#fig-opt2005}
+![Optimal Images for 2005](./GeneratedPlots/optArea_yr2005.jpeg){#fig-opt2005}
 
-![](./GeneratedPlots/optArea_yr2000.jpeg){#fig-opt2000}
+![Optimal Images for 2000. The black square corresponds to the zoomed-in extents in @fig-zoom](./GeneratedPlots/optArea_yr2000.jpeg){#fig-opt2000}
 
 ## References
 
